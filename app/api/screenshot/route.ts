@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Decode the URL first (it comes encoded from the client)
+    // Decode the URL first
     const decodedUrl = decodeURIComponent(url)
     const validatedUrl = new URL(decodedUrl)
     
@@ -17,34 +17,42 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Only HTTP/HTTPS URLs are allowed" }, { status: 400 })
     }
 
-    const apiKey = process.env.SCREENSHOT_API_KEY || "Bkw6VGltjTHAig"
+    const apiKey = process.env.SCREENSHOT_API_KEY || "Bkw6VGmtjTHAig"
     
     // Parameter yang lebih sederhana
     const screenshotParams = new URLSearchParams({
       access_key: apiKey,
-      url: decodedUrl, // Use decoded URL, no encoding
+      url: decodedUrl,
       format: "jpg",
-      viewport_width: "1280",
+      viewport_width: "1280", 
       viewport_height: "720",
       full_page: "false",
-      block_ads: "true",
-      block_cookie_banners: "true",
-      block_trackers: "true",
-      delay: "2",
-      timeout: "20"
+      delay: "3"
     })
 
     const screenshotUrl = `https://api.screenshotone.com/take?${screenshotParams.toString()}`
 
-    console.log('Final Screenshot URL:', screenshotUrl)
+    console.log('Testing screenshot URL:', screenshotUrl)
 
-    // Test the screenshot
-    const testResponse = await fetch(screenshotUrl, {
-      method: 'HEAD' // Use HEAD to check if it works without downloading the image
-    })
+    // Test dengan fetch yang lebih detail
+    const testResponse = await fetch(screenshotUrl)
     
     if (!testResponse.ok) {
-      throw new Error(`Screenshot service returned ${testResponse.status}`)
+      // Coba dapatkan error message dari response
+      let errorMessage = `Screenshot service returned ${testResponse.status}`
+      try {
+        const errorData = await testResponse.json()
+        errorMessage = errorData.error_message || errorData.error_code || errorMessage
+      } catch (e) {
+        // Ignore JSON parse error
+      }
+      throw new Error(errorMessage)
+    }
+
+    // Check content type to verify it's an image
+    const contentType = testResponse.headers.get('content-type')
+    if (!contentType || !contentType.startsWith('image/')) {
+      throw new Error('Screenshot service did not return an image')
     }
 
     return NextResponse.json({
