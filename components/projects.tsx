@@ -23,60 +23,37 @@ export default function Projects() {
   >([
     {
       id: "1",
-      title: "Rest Api Website",
-      description: "Rest Api website with responsive design and interactive features.",
-      tags: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      title: "Aletta Rest API",
+      description: "Modern REST API service with comprehensive endpoints and robust authentication system.",
+      tags: [], // KOSONG - akan terisi otomatis nanti
       link: "https://alettarestapi.vestia.icu",
+      github: "https://github.com",
+    },
+    {
+      id: "2",
+      title: "Lanny to URL", 
+      description: "URL shortening service with analytics and custom alias features.",
+      tags: [], // KOSONG - akan terisi otomatis nanti
+      link: "https://lannytourl.vestia.icu/",
+      github: "https://github.com",
+    },
+    {
+      id: "3",
+      title: "Advance Bug",
+      description: "Bug tracking and project management tool with real-time collaboration.",
+      tags: [], // KOSONG - akan terisi otomatis nanti
+      link: "https://advancebug.vestia.icu/",
       github: "https://github.com",
     },
   ])
 
-  const detectLanguages = async (projectId: string, url: string, title: string, currentTags: string[]) => {
+  // Function untuk auto detect technologies (akan diimplementasikan nanti)
+  const detectTechnologies = async (projectId: string, url: string, title: string) => {
     setLoadingId(projectId)
-    
-    try {
-      const response = await fetch('/api/detect-languages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          url: url,
-          title: title,
-          tags: currentTags
-        })
-      })
-
-      const data = await response.json()
-      
-      if (data.success) {
-        setProjects(prev => prev.map(project => 
-          project.id === projectId 
-            ? { 
-                ...project, 
-                languages: data.languages
-                // Tags tetap menggunakan yang sudah ada, tidak diupdate
-              }
-            : project
-        ))
-      }
-    } catch (error) {
-      console.error('Failed to detect languages:', error)
-    } finally {
+    // Implementasi auto detect akan ditambahkan di sini
+    setTimeout(() => {
       setLoadingId(null)
-    }
-  }
-
-  const addNewProject = () => {
-    const newProject = {
-      id: Date.now().toString(),
-      title: "New Project",
-      description: "Project description",
-      tags: ["React", "Next.js"], // Tags tetap seperti ini
-      link: "https://your-project.com",
-      github: "https://github.com/your-repo",
-    }
-    setProjects(prev => [...prev, newProject])
+    }, 1000)
   }
 
   const calculateLanguageStats = () => {
@@ -106,55 +83,16 @@ export default function Projects() {
             Featured Projects
           </h1>
           <p className="text-base sm:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed">
-            Showcase of recent work with automatic programming language detection based on project tags.
+            Showcase of recent work with automatic screenshot generation.
           </p>
         </ScrollAnimator>
 
-        <div className="mb-12 md:mb-16 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-primary/15 to-accent/15 border border-primary/40">
-          <div className="flex items-start gap-3">
-            <Sparkles size={20} className="text-primary mt-1 flex-shrink-0" />
-            <div className="flex-1">
-              <p className="font-semibold text-foreground mb-3">Auto Language Detection</p>
-              <p className="text-sm text-foreground/70 mb-4">
-                Click the detect button on any project to automatically detect programming languages based on the project tags and technologies used.
-              </p>
-              <div className="bg-background/80 border border-border/50 rounded-lg p-4 overflow-x-auto text-xs font-mono text-foreground/80 mb-4">
-                <pre>{`// Tags yang sudah ada akan digunakan untuk detect languages
-const project = {
-  id: "unique-id",
-  title: "Project Name",
-  description: "Project description here",
-  tags: ["React", "Next.js", "TypeScript"], // ← Tags ini yang digunakan
-  link: "https://your-project.com",
-  github: "https://github.com/your-repo"
-}`}</pre>
-              </div>
-              <button
-                onClick={addNewProject}
-                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-semibold"
-              >
-                Add New Project
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-16 md:mb-24">
+        <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-24">
           {projects.map((project, index) => (
             <ScrollAnimator key={project.id} delay={index * 100}>
               <div className="group rounded-2xl overflow-hidden bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 flex flex-col h-full">
                 <div className="relative h-64 md:h-72 overflow-hidden bg-secondary">
                   <ProjectScreenshotLoader projectUrl={project.link} title={project.title} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  
-                  <button
-                    onClick={() => detectLanguages(project.id, project.link, project.title, project.tags)}
-                    disabled={loadingId === project.id}
-                    className="absolute top-3 right-3 p-2 bg-background/80 backdrop-blur-sm rounded-lg hover:bg-background transition-colors disabled:opacity-50"
-                    title="Detect Programming Languages from Tags"
-                  >
-                    <RefreshCw size={16} className={loadingId === project.id ? "animate-spin" : ""} />
-                  </button>
                 </div>
 
                 <div className="flex flex-col flex-1 p-6 md:p-8 space-y-4">
@@ -169,28 +107,28 @@ const project = {
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 bg-primary/15 text-primary text-xs font-medium rounded-full border border-primary/30 hover:border-primary/60 transition-colors duration-300 flex items-center gap-1"
-                      >
-                        <Sparkles size={12} />
-                        {tag}
-                      </span>
-                    ))}
+                    {project.tags.length > 0 ? (
+                      project.tags.map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1 bg-primary/15 text-primary text-xs font-medium rounded-full border border-primary/30 hover:border-primary/60 transition-colors duration-300 flex items-center gap-1"
+                        >
+                          <Sparkles size={12} />
+                          {tag}
+                        </span>
+                      ))
+                    ) : (
+                      <div className="text-sm text-foreground/40 italic">
+                        Auto-detect tags coming soon...
+                      </div>
+                    )}
                   </div>
 
                   {project.languages ? (
                     <div className="p-4 rounded-xl bg-secondary/30 border border-border/50 space-y-3">
                       <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
                         <BarChart3 size={16} className="text-primary" />
-                        Detected Languages from Tags
-                        {loadingId === project.id && (
-                          <span className="inline-flex items-center gap-1 text-primary text-xs">
-                            <RefreshCw size={12} className="animate-spin" />
-                            Detecting...
-                          </span>
-                        )}
+                        Languages
                       </div>
                       <div className="space-y-2">
                         {project.languages.map((lang, i) => (
@@ -209,20 +147,9 @@ const project = {
                     </div>
                   ) : (
                     <div className="p-4 rounded-xl bg-secondary/30 border border-border/50 text-center">
-                      <button
-                        onClick={() => detectLanguages(project.id, project.link, project.title, project.tags)}
-                        disabled={loadingId === project.id}
-                        className="text-sm text-foreground/60 hover:text-primary transition-colors disabled:opacity-50"
-                      >
-                        {loadingId === project.id ? (
-                          <span className="inline-flex items-center gap-2">
-                            <RefreshCw size={14} className="animate-spin" />
-                            Detecting languages from tags...
-                          </span>
-                        ) : (
-                          "Click to detect languages from project tags"
-                        )}
-                      </button>
+                      <div className="text-sm text-foreground/60">
+                        Auto language detection coming soon...
+                      </div>
                     </div>
                   )}
 
@@ -249,83 +176,6 @@ const project = {
             </ScrollAnimator>
           ))}
         </div>
-
-        {projects.length > 0 && (
-          <ScrollAnimator>
-            <div className="p-6 md:p-10 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                  <BarChart3 size={24} className="text-primary" />
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-foreground">Technology Overview</h3>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={languageStats}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                      <XAxis dataKey="name" stroke="rgba(255,255,255,0.5)" />
-                      <YAxis stroke="rgba(255,255,255,0.5)" />
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "rgba(30,30,46,0.8)",
-                          border: "1px solid rgba(168,85,247,0.3)",
-                          borderRadius: "8px",
-                          color: "#fff",
-                        }}
-                      />
-                      <Bar dataKey="percentage" fill="#a78bfa" radius={[8, 8, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-
-                <div className="h-80 flex items-center justify-center">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={languageStats}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={({ name, percentage }) => `${name} ${percentage}%`}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="percentage"
-                      >
-                        {languageStats.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "rgba(30,30,46,0.8)",
-                          border: "1px solid rgba(168,85,247,0.3)",
-                          borderRadius: "8px",
-                          color: "#fff",
-                        }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/50">
-                {[
-                  { label: "Total Projects", value: projects.length },
-                  { label: "Languages Used", value: languageStats.length },
-                  { label: "Tech Stack Items", value: projects.flatMap((p) => p.tags).length },
-                  { label: "Active Links", value: projects.filter((p) => p.link && p.link !== "#").length },
-                ].map((stat, idx) => (
-                  <div key={idx} className="text-center">
-                    <div className="text-2xl md:text-3xl font-bold text-primary">{stat.value}</div>
-                    <div className="text-xs md:text-sm text-foreground/60">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </ScrollAnimator>
-        )}
       </div>
     </section>
   )
