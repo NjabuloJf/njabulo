@@ -15,10 +15,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Only HTTP/HTTPS URLs are allowed" }, { status: 400 })
     }
 
-    const apiKey = process.env.SCREENSHOT_API_KEY
+    const apiKey = process.env.SCREENSHOT_API_KEY || "Bkw6VGltjTHAig"
     
     const screenshotParams = new URLSearchParams({
-      access_key: apiKey || "demo",
+      access_key: apiKey,
       url: encodeURIComponent(url),
       format: "jpg",
       width: "1920",
@@ -37,12 +37,6 @@ export async function GET(request: NextRequest) {
     })
 
     const screenshotUrl = `https://api.screenshotone.com/take?${screenshotParams.toString()}`
-
-    const response = await fetch(screenshotUrl, { method: 'HEAD' })
-    
-    if (!response.ok) {
-      throw new Error(`Screenshot service error: ${response.status}`)
-    }
 
     return NextResponse.json({
       screenshotUrl,
