@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Code2, Palette, Zap, Globe, Database, Cpu, BarChart3 } from "lucide-react"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts"
 
 const techLogos: any = {
   React: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
@@ -13,6 +12,13 @@ const techLogos: any = {
   PostgreSQL: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
   MongoDB: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
   Python: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  JavaScript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+  HTML: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+  CSS: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+  Express: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+  MySQL: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+  Git: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+  Docker: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
 }
 
 export default function Skills() {
@@ -24,12 +30,6 @@ export default function Skills() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
-          const cards = entry.target.querySelectorAll(".skill-card")
-          cards.forEach((card, index) => {
-            setTimeout(() => {
-              card.classList.add("fade-in-up")
-            }, index * 100)
-          })
         }
       },
       { threshold: 0.1 },
@@ -76,103 +76,30 @@ export default function Skills() {
   ]
 
   const technologyData = [
-    { name: "React", value: 95 },
-    { name: "TypeScript", value: 90 },
-    { name: "Next.js", value: 88 },
-    { name: "Node.js", value: 85 },
-    { name: "Tailwind", value: 92 },
-    { name: "PostgreSQL", value: 80 },
-    { name: "MongoDB", value: 75 },
-    { name: "Python", value: 70 },
+    { name: "React", percentage: 95 },
+    { name: "TypeScript", percentage: 90 },
+    { name: "Next.js", percentage: 88 },
+    { name: "Node.js", percentage: 85 },
+    { name: "Tailwind", percentage: 92 },
+    { name: "PostgreSQL", percentage: 80 },
+    { name: "MongoDB", percentage: 75 },
+    { name: "Python", percentage: 70 },
   ]
 
   const skillCategories = [
-    { name: "Frontend", value: 35 },
-    { name: "Backend", value: 30 },
-    { name: "Database", value: 20 },
-    { name: "DevOps", value: 15 },
+    { name: "Frontend", percentage: 35 },
+    { name: "Backend", percentage: 30 },
+    { name: "Database", percentage: 20 },
+    { name: "DevOps", percentage: 15 },
   ]
 
   const experienceData = [
-    { year: "2020", skills: 40 },
-    { year: "2021", skills: 60 },
-    { year: "2022", skills: 75 },
-    { year: "2023", skills: 85 },
-    { year: "2024", skills: 95 },
+    { year: "2020", percentage: 40 },
+    { year: "2021", percentage: 60 },
+    { year: "2022", percentage: 75 },
+    { year: "2023", percentage: 85 },
+    { year: "2024", percentage: 95 },
   ]
-
-  const COLORS = ["#a78bfa", "#ec4899", "#06b6d4", "#14b8a6", "#f59e0b", "#ef4444", "#10b981", "#8b5cf6"]
-  const CATEGORY_COLORS = ["#a78bfa", "#ec4899", "#06b6d4", "#f59e0b"]
-
-  const CustomBar = (props: any) => {
-    const { fill, x, y, width, height, payload } = props
-    const logoUrl = techLogos[payload.name]
-    
-    return (
-      <g>
-        <rect
-          x={x}
-          y={y}
-          width={width}
-          height={height}
-          fill={fill}
-          rx={4}
-          ry={4}
-          className="transition-all duration-500 ease-out"
-        />
-        {logoUrl && (
-          <image
-            href={logoUrl}
-            x={x - 25}
-            y={y + height/2 - 8}
-            width={16}
-            height={16}
-          />
-        )}
-      </g>
-    )
-  }
-
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      const logoUrl = techLogos[label]
-      return (
-        <div className="p-3 bg-background border border-primary/30 rounded-lg shadow-lg">
-          <div className="flex items-center gap-2 mb-1">
-            {logoUrl && (
-              <img src={logoUrl} alt={label} className="w-4 h-4" />
-            )}
-            <p className="font-semibold text-foreground">{label}</p>
-          </div>
-          <p className="text-primary">{`${payload[0].value}%`}</p>
-        </div>
-      )
-    }
-    return null
-  }
-
-  const CustomPieLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, name }: any) => {
-    const RADIAN = Math.PI / 180
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5
-    const x = cx + radius * Math.cos(-midAngle * RADIAN)
-    const y = cy + radius * Math.sin(-midAngle * RADIAN)
-
-    return (
-      <g>
-        <text 
-          x={x} 
-          y={y} 
-          fill="white" 
-          textAnchor={x > cx ? 'start' : 'end'} 
-          dominantBaseline="central"
-          fontSize={12}
-          fontWeight="500"
-        >
-          {name}
-        </text>
-      </g>
-    )
-  }
 
   return (
     <section
@@ -181,158 +108,124 @@ export default function Skills() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 animate-fade-in-up">My Skills</h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto animate-fade-in-up animation-delay-100">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4">My Skills</h2>
+          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
             A comprehensive toolkit for building exceptional digital experiences
           </p>
         </div>
 
         <div className="mb-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="p-6 rounded-2xl bg-card border border-border hover:scale-105 transition-transform duration-300">
+          <div className="p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center animate-bounce">
+              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
                 <BarChart3 size={20} className="text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground animate-fade-in-right">Technology Proficiency</h3>
+              <h3 className="text-xl font-semibold text-foreground">Technology Proficiency</h3>
             </div>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={technologyData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                  <XAxis 
-                    dataKey="name" 
-                    stroke="rgba(255,255,255,0.5)" 
-                    fontSize={12}
-                    angle={-45}
-                    textAnchor="end"
-                    height={80}
-                  />
-                  <YAxis 
-                    stroke="rgba(255,255,255,0.5)" 
-                    fontSize={12}
-                    domain={[0, 100]}
-                  />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar 
-                    dataKey="value" 
-                    shape={<CustomBar />}
-                    radius={[4, 4, 0, 0]}
-                    stroke="rgba(168,85,247,0.3)"
-                    strokeWidth={1}
-                    animationBegin={0}
-                    animationDuration={1500}
-                  >
-                    {technologyData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="space-y-4">
+              {technologyData.map((tech, index) => (
+                <div key={index} className="flex items-center gap-3 group">
+                  {techLogos[tech.name] && (
+                    <img 
+                      src={techLogos[tech.name]} 
+                      alt={tech.name}
+                      className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
+                    />
+                  )}
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm font-medium text-foreground/80">{tech.name}</span>
+                      <span className="text-xs font-semibold text-primary">{tech.percentage}%</span>
+                    </div>
+                    <div className="h-2 bg-border/50 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-primary transition-all duration-1000 ease-out"
+                        style={{ 
+                          width: isVisible ? `${tech.percentage}%` : '0%',
+                          transitionDelay: `${index * 100}ms`
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl bg-card border border-border hover:scale-105 transition-transform duration-300">
+          <div className="p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center animate-pulse">
+              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
                 <Palette size={20} className="text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground animate-fade-in-right animation-delay-100">Skill Distribution</h3>
+              <h3 className="text-xl font-semibold text-foreground">Skill Distribution</h3>
             </div>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={skillCategories}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={CustomPieLabel}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                    animationBegin={0}
-                    animationDuration={1000}
-                  >
-                    {skillCategories.map((entry, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={CATEGORY_COLORS[index % CATEGORY_COLORS.length]} 
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "rgba(30,30,46,0.9)",
-                      border: "1px solid rgba(168,85,247,0.3)",
-                      borderRadius: "8px",
-                      color: "#fff",
-                    }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+            <div className="space-y-4">
+              {skillCategories.map((category, index) => (
+                <div key={index} className="flex items-center gap-3 group">
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm font-medium text-foreground/80">{category.name}</span>
+                      <span className="text-xs font-semibold text-primary">{category.percentage}%</span>
+                    </div>
+                    <div className="h-2 bg-border/50 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-accent transition-all duration-1000 ease-out"
+                        style={{ 
+                          width: isVisible ? `${category.percentage}%` : '0%',
+                          transitionDelay: `${index * 150}ms`
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl bg-card border border-border hover:scale-105 transition-transform duration-300">
+          <div className="p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center animate-spin-slow">
+              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
                 <Zap size={20} className="text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground animate-fade-in-right animation-delay-200">Experience Growth</h3>
+              <h3 className="text-xl font-semibold text-foreground">Experience Growth</h3>
             </div>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={experienceData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                  <XAxis 
-                    dataKey="year" 
-                    stroke="rgba(255,255,255,0.5)" 
-                    fontSize={12}
-                  />
-                  <YAxis 
-                    stroke="rgba(255,255,255,0.5)" 
-                    fontSize={12}
-                    domain={[0, 100]}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "rgba(30,30,46,0.9)",
-                      border: "1px solid rgba(168,85,247,0.3)",
-                      borderRadius: "8px",
-                      color: "#fff",
-                    }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="skills" 
-                    stroke="#a78bfa" 
-                    strokeWidth={3}
-                    dot={{ fill: "#a78bfa", strokeWidth: 2, r: 4 }}
-                    activeDot={{ r: 6, fill: "#ec4899" }}
-                    animationBegin={0}
-                    animationDuration={1500}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+            <div className="space-y-4">
+              {experienceData.map((exp, index) => (
+                <div key={index} className="flex items-center gap-3 group">
+                  <span className="text-sm font-medium text-foreground/80 w-12">{exp.year}</span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs text-foreground/60">Skill Level</span>
+                      <span className="text-xs font-semibold text-primary">{exp.percentage}%</span>
+                    </div>
+                    <div className="h-2 bg-border/50 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out"
+                        style={{ 
+                          width: isVisible ? `${exp.percentage}%` : '0%',
+                          transitionDelay: `${index * 200}ms`
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {[
-            { label: "Projects Completed", value: "50+", delay: 0 },
-            { label: "Technologies", value: "25+", delay: 100 },
-            { label: "Years Experience", value: "4+", delay: 200 },
-            { label: "Certifications", value: "12", delay: 300 },
+            { label: "Projects Completed", value: "50+" },
+            { label: "Technologies", value: "25+" },
+            { label: "Years Experience", value: "4+" },
+            { label: "Certifications", value: "12" },
           ].map((stat, idx) => (
             <div 
               key={idx} 
-              className="text-center p-6 rounded-2xl bg-card border border-border hover:scale-110 transition-all duration-300 animate-fade-in-up"
-              style={{ animationDelay: `${stat.delay}ms` }}
+              className="text-center p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300"
             >
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-2 animate-count-up">
-                {stat.value}
-              </div>
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">{stat.value}</div>
               <div className="text-sm text-foreground/60">{stat.label}</div>
             </div>
           ))}
@@ -344,13 +237,12 @@ export default function Skills() {
             return (
               <div
                 key={index}
-                className="skill-card p-6 rounded-2xl bg-card border border-border hover:border-primary/50 hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer opacity-0"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="skill-card p-6 rounded-2xl bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 cursor-pointer"
               >
-                <div className="mb-4 inline-block p-3 bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors duration-300 animate-pulse">
+                <div className="mb-4 inline-block p-3 bg-primary/10 rounded-lg">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-foreground hover:text-primary transition-colors duration-300">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">
                   {skill.title}
                 </h3>
                 <p className="text-foreground/60 text-sm leading-relaxed">{skill.description}</p>
@@ -358,69 +250,31 @@ export default function Skills() {
             )
           })}
         </div>
-      </div>
 
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes fadeInRight {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        @keyframes countUp {
-          from {
-            opacity: 0;
-            transform: scale(0.5);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        @keyframes spinSlow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        .animate-fade-in-up {
-          animation: fadeInUp 0.6s ease-out forwards;
-        }
-        .animate-fade-in-right {
-          animation: fadeInRight 0.6s ease-out forwards;
-        }
-        .animate-count-up {
-          animation: countUp 0.8s ease-out forwards;
-        }
-        .animate-spin-slow {
-          animation: spinSlow 3s linear infinite;
-        }
-        .animation-delay-100 {
-          animation-delay: 100ms;
-        }
-        .animation-delay-200 {
-          animation-delay: 200ms;
-        }
-        .fade-in-up {
-          animation: fadeInUp 0.6s ease-out forwards;
-        }
-      `}</style>
+        <div className="mt-16 p-8 rounded-2xl bg-card border border-border">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+              <Cpu size={24} className="text-primary" />
+            </div>
+            <h3 className="text-2xl font-bold text-foreground">Technology Stack</h3>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {Object.entries(techLogos).map(([tech, logo]) => (
+              <div 
+                key={tech} 
+                className="flex flex-col items-center gap-2 p-4 rounded-xl bg-secondary/30 border border-border/50 hover:border-primary/50 transition-all duration-300 group"
+              >
+                <img 
+                  src={logo as string} 
+                  alt={tech}
+                  className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
+                />
+                <span className="text-xs font-medium text-foreground/70 text-center">{tech}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
