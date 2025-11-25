@@ -6,17 +6,17 @@ import { AlertCircle, Loader } from "lucide-react"
 interface ProjectScreenshotLoaderProps {
   projectUrl?: string
   title: string
-  fallbackImage?: string
 }
 
-export function ProjectScreenshotLoader({ projectUrl, title, fallbackImage }: ProjectScreenshotLoaderProps) {
-  const [screenshot, setScreenshot] = useState<string | null>(fallbackImage || null)
+export function ProjectScreenshotLoader({ projectUrl, title }: ProjectScreenshotLoaderProps) {
+  const [screenshot, setScreenshot] = useState<string | null>(null)
   const [loading, setLoading] = useState(!!projectUrl)
   const [error, setError] = useState(false)
 
   useEffect(() => {
     if (!projectUrl || !projectUrl.startsWith("http")) {
       setLoading(false)
+      setError(true)
       return
     }
 
@@ -25,20 +25,30 @@ export function ProjectScreenshotLoader({ projectUrl, title, fallbackImage }: Pr
         setLoading(true)
         setError(false)
 
-        const encodedUrl = encodeURIComponent(projectUrl)
-        const screenshotUrl = `https://api.screenshotone.com/take?access_key=free&url=${encodedUrl}&output=image&format=png&quality=85&viewport_width=1280&viewport_height=720`
+        // Use our own API route instead of direct screenshot service
+        const response = await fetch(`/api/screenshot?url=${encodeURIComponent(projectUrl)}`)
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch screenshot')
+        }
 
-        // Verify screenshot loads
-        const img = new Image()
-        img.onload = () => {
-          setScreenshot(screenshotUrl)
-          setLoading(false)
+        const data = await response.json()
+        
+        if (data.success && data.screenshotUrl) {
+          // Verify the screenshot image loads
+          const img = new Image()
+          img.onload = () => {
+            setScreenshot(data.screenshotUrl)
+            setLoading(false)
+          }
+          img.onerror = () => {
+            setError(true)
+            setLoading(false)
+          }
+          img.src = data.screenshotUrl
+        } else {
+          throw new Error('No screenshot URL returned')
         }
-        img.onerror = () => {
-          setError(true)
-          setLoading(false)
-        }
-        img.src = screenshotUrl
       } catch (err) {
         setError(true)
         setLoading(false)
@@ -50,7 +60,7 @@ export function ProjectScreenshotLoader({ projectUrl, title, fallbackImage }: Pr
 
   if (loading) {
     return (
-      <div className="w-full h-64 bg-secondary/50 rounded-xl flex items-center justify-center border border-border/50">
+      <div className="w-full h-full bg-secondary/50 flex items-center justify-center">
         <Loader size={32} className="text-primary animate-spin" />
       </div>
     )
@@ -58,12 +68,19 @@ export function ProjectScreenshotLoader({ projectUrl, title, fallbackImage }: Pr
 
   if (error || !screenshot) {
     return (
-      <div className="w-full h-64 bg-secondary/50 rounded-xl flex flex-col items-center justify-center gap-3 border border-border/50">
+      <div className="w-full h-full bg-secondary/50 flex flex-col items-center justify-center gap-3">
         <AlertCircle size={32} className="text-accent/60" />
-        <p className="text-sm text-foreground/50">{title}</p>
+        <p className="text-sm text-foreground/50 text-center px-4">Failed to load screenshot for {title}</p>
       </div>
     )
   }
 
-  return <img src={screenshot || "/placeholder.svg"} alt={title} className="w-full h-64 object-cover rounded-xl" />
+  return (
+    <img 
+      src={screenshot} 
+      alt={`Screenshot of ${title}`} 
+      className="w-full h-full object-cover"
+      onError={() => setError(true)}
+    />
+  )
 }
