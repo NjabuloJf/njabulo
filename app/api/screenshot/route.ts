@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Only HTTP/HTTPS URLs are allowed" }, { status: 400 })
     }
 
-    const apiKey = process.env.SCREENSHOT_API_KEY || "Bkw6VGmtjTHAig"
+    const apiKey = process.env.SCREENSHOT_API_KEY || "Bkw6VGltjTHAig"
     
     // Parameter yang lebih sederhana
     const screenshotParams = new URLSearchParams({
