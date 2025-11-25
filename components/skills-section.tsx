@@ -126,6 +126,7 @@ export default function SkillsSection() {
     return Object.entries(totalBySkill).map(([name, level]) => ({
       name,
       percentage: Math.round(level / skillCategories.length),
+      logo: techLogos[name]
     }))
   }
 
@@ -139,6 +140,55 @@ export default function SkillsSection() {
   const skillStats = calculateSkillStats()
   const categoryStats = calculateCategoryStats()
   const COLORS = ["#a78bfa", "#ec4899", "#06b6d4", "#14b8a6", "#f59e0b", "#ef4444", "#10b981", "#8b5cf6"]
+
+  // Custom Tooltip dengan logo
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload
+      return (
+        <div className="p-3 bg-background border border-primary/30 rounded-lg shadow-lg">
+          <div className="flex items-center gap-2 mb-1">
+            {data.logo && (
+              <img src={data.logo} alt={label} className="w-4 h-4" />
+            )}
+            <p className="font-semibold text-foreground">{label}</p>
+          </div>
+          <p className="text-primary">{`${payload[0].value}%`}</p>
+        </div>
+      )
+    }
+    return null
+  }
+
+  // Custom Bar dengan logo di atas chart
+  const CustomBar = (props: any) => {
+    const { fill, x, y, width, height, payload } = props
+    const logoUrl = payload.logo
+    
+    return (
+      <g>
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          fill={fill}
+          rx={4}
+          ry={4}
+          className="transition-all duration-500 ease-out"
+        />
+        {logoUrl && (
+          <image
+            href={logoUrl}
+            x={x + width/2 - 8} // Center the logo above the bar
+            y={y - 25} // Position above the bar
+            width={16}
+            height={16}
+          />
+        )}
+      </g>
+    )
+  }
 
   return (
     <section className="min-h-screen py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -163,7 +213,7 @@ export default function SkillsSection() {
           <ConceptMap />
         </ScrollAnimator>
 
-        {/* Skills Overview dengan Charts - Kembali seperti sebelumnya */}
+        {/* Skills Overview dengan Charts - Pertahankan style sebelumnya tapi tambah logo */}
         <ScrollAnimator>
           <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 mb-16 md:mb-24">
             <div className="flex items-center gap-3 mb-6">
@@ -175,7 +225,7 @@ export default function SkillsSection() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={skillStats.slice(0, 8)}>
+                  <BarChart data={skillStats.slice(0, 8)} margin={{ top: 30, right: 30, left: 20, bottom: 60 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                     <XAxis 
                       dataKey="name" 
@@ -190,15 +240,16 @@ export default function SkillsSection() {
                       fontSize={12}
                       domain={[0, 100]}
                     />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "rgba(30,30,46,0.8)",
-                        border: "1px solid rgba(168,85,247,0.3)",
-                        borderRadius: "8px",
-                        color: "#fff",
-                      }}
-                    />
-                    <Bar dataKey="percentage" fill="#a78bfa" radius={[8, 8, 0, 0]} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar 
+                      dataKey="percentage" 
+                      shape={<CustomBar />}
+                      radius={[8, 8, 0, 0]}
+                    >
+                      {skillStats.slice(0, 8).map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
