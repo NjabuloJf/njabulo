@@ -37,6 +37,17 @@ const techLogos: any = {
   "AWS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
   "Git & GitHub": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
   "Linux": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+  "UI/UX Design": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+  "REST APIs": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+  "Authentication": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lock/lock.svg",
+  "Design Systems": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+  "Prototyping": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+  "Accessibility (WCAG)": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/accessibility/accessibility.svg",
+  "Animation Design": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/framer/framer-original.svg",
+  "CI/CD Pipeline": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg",
+  "Testing (Jest, Cypress)": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg",
+  "Responsive Design": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+  "Web Components": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
 }
 
 export default function SkillsSection() {
@@ -106,28 +117,95 @@ export default function SkillsSection() {
 
   const calculateSkillStats = () => {
     const allSkills = skillCategories.flatMap(category => category.skills)
-    const totalBySkill: { [key: string]: number } = {}
-    
-    allSkills.forEach(skill => {
-      totalBySkill[skill.name] = (totalBySkill[skill.name] || 0) + skill.level
-    })
-
-    return Object.entries(totalBySkill).map(([name, level]) => ({
-      name,
-      percentage: Math.round(level / skillCategories.length),
+    return allSkills.map(skill => ({
+      name: skill.name,
+      percentage: skill.level,
+      logo: techLogos[skill.name]
     }))
   }
 
   const calculateCategoryStats = () => {
     return skillCategories.map(category => ({
-      name: category.title,
+      name: category.title.split(' ')[0], // Ambil kata pertama untuk label yang lebih pendek
       percentage: Math.round(category.skills.reduce((sum, skill) => sum + skill.level, 0) / category.skills.length),
+      fullName: category.title
     }))
   }
 
   const skillStats = calculateSkillStats()
   const categoryStats = calculateCategoryStats()
   const COLORS = ["#a78bfa", "#ec4899", "#06b6d4", "#14b8a6", "#f59e0b", "#ef4444", "#10b981", "#8b5cf6"]
+
+  // Custom Bar dengan logo
+  const CustomBar = (props: any) => {
+    const { fill, x, y, width, height, payload } = props
+    const logoUrl = payload.logo
+    
+    return (
+      <g>
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          fill={fill}
+          rx={4}
+          ry={4}
+          className="transition-all duration-500 ease-out"
+        />
+        {logoUrl && (
+          <image
+            href={logoUrl}
+            x={x - 25}
+            y={y + height/2 - 8}
+            width={16}
+            height={16}
+          />
+        )}
+      </g>
+    )
+  }
+
+  // Custom Tooltip dengan logo
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload
+      return (
+        <div className="p-3 bg-background border border-primary/30 rounded-lg shadow-lg">
+          <div className="flex items-center gap-2 mb-1">
+            {data.logo && (
+              <img src={data.logo} alt={label} className="w-4 h-4" />
+            )}
+            <p className="font-semibold text-foreground">{label}</p>
+          </div>
+          <p className="text-primary">{`${payload[0].value}%`}</p>
+        </div>
+      )
+    }
+    return null
+  }
+
+  // Custom Pie Label
+  const CustomPieLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, payload }: any) => {
+    const RADIAN = Math.PI / 180
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5
+    const x = cx + radius * Math.cos(-midAngle * RADIAN)
+    const y = cy + radius * Math.sin(-midAngle * RADIAN)
+
+    return (
+      <text 
+        x={x} 
+        y={y} 
+        fill="white" 
+        textAnchor={x > cx ? 'start' : 'end'} 
+        dominantBaseline="central"
+        fontSize={12}
+        fontWeight="500"
+      >
+        {payload.name}
+      </text>
+    )
+  }
 
   return (
     <section className="min-h-screen py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -152,46 +230,53 @@ export default function SkillsSection() {
           <ConceptMap />
         </ScrollAnimator>
 
+        {/* Skills Overview dengan Charts */}
         <ScrollAnimator>
           <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 mb-16 md:mb-24">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                <BarChart3 size={20} className="text-primary" />
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                <BarChart3 size={24} className="text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground">Skills Overview</h3>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground">Skills Overview</h3>
+                <p className="text-foreground/60 text-sm">Detailed breakdown of technical proficiency across all categories</p>
+              </div>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="h-80">
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <div className="h-96">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={skillStats.slice(0, 8)}>
+                  <BarChart data={skillStats.slice(0, 10)} margin={{ top: 20, right: 30, left: 40, bottom: 60 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                     <XAxis 
                       dataKey="name" 
                       stroke="rgba(255,255,255,0.5)" 
-                      fontSize={12}
+                      fontSize={11}
                       angle={-45}
                       textAnchor="end"
                       height={80}
+                      interval={0}
                     />
                     <YAxis 
                       stroke="rgba(255,255,255,0.5)" 
                       fontSize={12}
                       domain={[0, 100]}
                     />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "rgba(30,30,46,0.8)",
-                        border: "1px solid rgba(168,85,247,0.3)",
-                        borderRadius: "8px",
-                        color: "#fff",
-                      }}
-                    />
-                    <Bar dataKey="percentage" fill="#a78bfa" radius={[8, 8, 0, 0]} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar 
+                      dataKey="percentage" 
+                      shape={<CustomBar />}
+                      radius={[4, 4, 0, 0]}
+                    >
+                      {skillStats.slice(0, 10).map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
 
-              <div className="h-80 flex items-center justify-center">
+              <div className="h-96">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -199,18 +284,21 @@ export default function SkillsSection() {
                       cx="50%"
                       cy="50%"
                       labelLine={false}
-                      label={({ name, percentage }) => `${name} ${percentage}%`}
-                      outerRadius={80}
+                      label={CustomPieLabel}
+                      outerRadius={120}
+                      innerRadius={60}
                       fill="#8884d8"
                       dataKey="percentage"
+                      paddingAngle={2}
                     >
                       {categoryStats.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip
+                    <Tooltip 
+                      formatter={(value, name, props) => [`${value}%`, props.payload.fullName]}
                       contentStyle={{
-                        backgroundColor: "rgba(30,30,46,0.8)",
+                        backgroundColor: "rgba(30,30,46,0.9)",
                         border: "1px solid rgba(168,85,247,0.3)",
                         borderRadius: "8px",
                         color: "#fff",
@@ -220,9 +308,31 @@ export default function SkillsSection() {
                 </ResponsiveContainer>
               </div>
             </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/50">
+              {[
+                { label: "Total Skills", value: skillStats.length, icon: Code2 },
+                { label: "Categories", value: skillCategories.length, icon: Layers },
+                { label: "Avg Proficiency", value: "89%", icon: BarChart3 },
+                { label: "Years Exp", value: "3+", icon: Award },
+              ].map((stat, idx) => {
+                const StatIcon = stat.icon
+                return (
+                  <div key={idx} className="text-center p-4 rounded-xl bg-secondary/30 border border-border/50">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <StatIcon size={16} className="text-primary" />
+                      <div className="text-2xl md:text-3xl font-bold text-primary">{stat.value}</div>
+                    </div>
+                    <div className="text-xs md:text-sm text-foreground/60">{stat.label}</div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </ScrollAnimator>
 
+        {/* Skill Categories */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 mb-16 md:mb-24">
           {skillCategories.map((category, categoryIndex) => {
             const CategoryIcon = category.icon
@@ -267,6 +377,7 @@ export default function SkillsSection() {
           })}
         </div>
 
+        {/* Soft Skills */}
         <ScrollAnimator className="mb-16 md:mb-24">
           <div className="text-center mb-10 md:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Soft Skills & Attributes</h2>
@@ -291,31 +402,6 @@ export default function SkillsSection() {
                 </div>
               )
             })}
-          </div>
-        </ScrollAnimator>
-
-        <ScrollAnimator>
-          <div className="p-8 md:p-10 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                <BarChart3 size={24} className="text-primary" />
-              </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground">Skills Overview</h3>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/50">
-              {[
-                { label: "Total Skills", value: skillStats.length },
-                { label: "Categories", value: skillCategories.length },
-                { label: "Average Proficiency", value: "89%" },
-                { label: "Years Experience", value: "3+" },
-              ].map((stat, idx) => (
-                <div key={idx} className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-primary">{stat.value}</div>
-                  <div className="text-xs md:text-sm text-foreground/60">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </ScrollAnimator>
       </div>
