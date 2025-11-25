@@ -9,7 +9,9 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const validatedUrl = new URL(url)
+    // Decode the URL first (it comes encoded from the client)
+    const decodedUrl = decodeURIComponent(url)
+    const validatedUrl = new URL(decodedUrl)
     
     if (!validatedUrl.protocol.startsWith('http')) {
       return NextResponse.json({ error: "Only HTTP/HTTPS URLs are allowed" }, { status: 400 })
@@ -17,47 +19,37 @@ export async function GET(request: NextRequest) {
 
     const apiKey = process.env.SCREENSHOT_API_KEY || "Bkw6VGltjTHAig"
     
-    // Parameter yang lebih optimal
+    // Parameter yang lebih sederhana
     const screenshotParams = new URLSearchParams({
       access_key: apiKey,
-      url: encodeURIComponent(url),
+      url: decodedUrl, // Use decoded URL, no encoding
       format: "jpg",
       viewport_width: "1280",
-      viewport_height: "720", 
+      viewport_height: "720",
       full_page: "false",
       block_ads: "true",
       block_cookie_banners: "true",
       block_trackers: "true",
-      delay: "3",
-      timeout: "30",
-      response_type: "json",
-      image_quality: "80"
+      delay: "2",
+      timeout: "20"
     })
 
     const screenshotUrl = `https://api.screenshotone.com/take?${screenshotParams.toString()}`
 
-    console.log('Screenshot URL:', screenshotUrl)
+    console.log('Final Screenshot URL:', screenshotUrl)
 
-    // Test if the screenshot service works
-    const testResponse = await fetch(screenshotUrl)
+    // Test the screenshot
+    const testResponse = await fetch(screenshotUrl, {
+      method: 'HEAD' // Use HEAD to check if it works without downloading the image
+    })
     
     if (!testResponse.ok) {
       throw new Error(`Screenshot service returned ${testResponse.status}`)
     }
 
-    // For JSON response type, we need to get the image URL from the response
-    const responseData = await testResponse.json()
-    
-    let finalScreenshotUrl = screenshotUrl
-    
-    // If response contains image URL, use that instead
-    if (responseData && responseData.url) {
-      finalScreenshotUrl = responseData.url
-    }
-
     return NextResponse.json({
-      screenshotUrl: finalScreenshotUrl,
-      originalUrl: url,
+      screenshotUrl: screenshotUrl,
+      originalUrl: decodedUrl,
       success: true
     })
 
