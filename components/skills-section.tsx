@@ -115,31 +115,41 @@ export default function SkillsSection() {
     { icon: Zap, label: "Quick Learning", description: "Rapidly adapting to new technologies and frameworks" },
   ]
 
+  // Hitung statistik skill langsung dari skillCategories tanpa averaging
   const calculateSkillStats = () => {
     const allSkills = skillCategories.flatMap(category => category.skills)
-    const totalBySkill: { [key: string]: number } = {}
     
-    allSkills.forEach(skill => {
-      totalBySkill[skill.name] = (totalBySkill[skill.name] || 0) + skill.level
-    })
-
-    return Object.entries(totalBySkill).map(([name, level]) => ({
-      name,
-      percentage: Math.round(level / skillCategories.length),
-      logo: techLogos[name]
-    }))
+    // Urutkan berdasarkan level tertinggi dan ambil top 8
+    return allSkills
+      .sort((a, b) => b.level - a.level)
+      .slice(0, 8)
+      .map(skill => ({
+        name: skill.name,
+        percentage: skill.level, // Langsung pakai level asli dari skillCategories
+        logo: techLogos[skill.name]
+      }))
   }
 
+  // Hitung statistik kategori dengan rata-rata yang benar
   const calculateCategoryStats = () => {
     return skillCategories.map(category => ({
       name: category.title,
       percentage: Math.round(category.skills.reduce((sum, skill) => sum + skill.level, 0) / category.skills.length),
+      skillCount: category.skills.length,
+      topSkill: category.skills.sort((a, b) => b.level - a.level)[0].name
     }))
   }
 
   const skillStats = calculateSkillStats()
   const categoryStats = calculateCategoryStats()
   const COLORS = ["#a78bfa", "#ec4899", "#06b6d4", "#14b8a6", "#f59e0b", "#ef4444", "#10b981", "#8b5cf6"]
+
+  // Hitung total average proficiency dari semua skill
+  const calculateTotalAverageProficiency = () => {
+    const allSkills = skillCategories.flatMap(category => category.skills)
+    const total = allSkills.reduce((sum, skill) => sum + skill.level, 0)
+    return Math.round(total / allSkills.length)
+  }
 
   // Custom Tooltip dengan logo
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -153,7 +163,24 @@ export default function SkillsSection() {
             )}
             <p className="font-semibold text-foreground">{label}</p>
           </div>
-          <p className="text-primary">{`${payload[0].value}%`}</p>
+          <p className="text-primary">{`${payload[0].value}% Proficiency`}</p>
+        </div>
+      )
+    }
+    return null
+  }
+
+  // Custom Tooltip untuk Pie Chart
+  const PieTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload
+      return (
+        <div className="p-3 bg-background border border-primary/30 rounded-lg shadow-lg">
+          <p className="font-semibold text-foreground mb-1">{data.name}</p>
+          <p className="text-primary">{`${data.percentage}% Average Proficiency`}</p>
+          <p className="text-xs text-foreground/60 mt-1">
+            {data.skillCount} skills • Top: {data.topSkill}
+          </p>
         </div>
       )
     }
@@ -180,8 +207,8 @@ export default function SkillsSection() {
         {logoUrl && (
           <image
             href={logoUrl}
-            x={x + width/2 - 8} // Center the logo above the bar
-            y={y - 25} // Position above the bar
+            x={x + width/2 - 8}
+            y={y - 25}
             width={16}
             height={16}
           />
@@ -189,6 +216,9 @@ export default function SkillsSection() {
       </g>
     )
   }
+
+  const totalAverageProficiency = calculateTotalAverageProficiency()
+  const totalSkills = skillCategories.flatMap(category => category.skills).length
 
   return (
     <section className="min-h-screen py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -213,7 +243,7 @@ export default function SkillsSection() {
           <ConceptMap />
         </ScrollAnimator>
 
-        {/* Skills Overview dengan Charts - Pertahankan style sebelumnya tapi tambah logo */}
+        {/* Skills Overview dengan Charts */}
         <ScrollAnimator>
           <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 mb-16 md:mb-24">
             <div className="flex items-center gap-3 mb-6">
@@ -225,7 +255,7 @@ export default function SkillsSection() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={skillStats.slice(0, 8)} margin={{ top: 30, right: 30, left: 20, bottom: 60 }}>
+                  <BarChart data={skillStats} margin={{ top: 30, right: 30, left: 20, bottom: 60 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                     <XAxis 
                       dataKey="name" 
@@ -246,7 +276,7 @@ export default function SkillsSection() {
                       shape={<CustomBar />}
                       radius={[8, 8, 0, 0]}
                     >
-                      {skillStats.slice(0, 8).map((entry, index) => (
+                      {skillStats.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Bar>
@@ -271,14 +301,7 @@ export default function SkillsSection() {
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "rgba(30,30,46,0.8)",
-                        border: "1px solid rgba(168,85,247,0.3)",
-                        borderRadius: "8px",
-                        color: "#fff",
-                      }}
-                    />
+                    <Tooltip content={<PieTooltip />} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
@@ -290,14 +313,22 @@ export default function SkillsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 mb-16 md:mb-24">
           {skillCategories.map((category, categoryIndex) => {
             const CategoryIcon = category.icon
+            const categoryAverage = Math.round(category.skills.reduce((sum, skill) => sum + skill.level, 0) / category.skills.length)
+            
             return (
               <ScrollAnimator key={categoryIndex} delay={categoryIndex * 100}>
                 <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                      <CategoryIcon size={24} className="text-primary" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                        <CategoryIcon size={24} className="text-primary" />
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-bold text-foreground">{category.title}</h3>
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-foreground">{category.title}</h3>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-primary">{categoryAverage}%</div>
+                      <div className="text-xs text-foreground/60">Average</div>
+                    </div>
                   </div>
 
                   <div className="space-y-4">
@@ -371,9 +402,9 @@ export default function SkillsSection() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/50">
               {[
-                { label: "Total Skills", value: skillStats.length },
+                { label: "Total Skills", value: totalSkills },
                 { label: "Categories", value: skillCategories.length },
-                { label: "Average Proficiency", value: "89%" },
+                { label: "Avg Proficiency", value: `${totalAverageProficiency}%` },
                 { label: "Years Experience", value: "3+" },
               ].map((stat, idx) => (
                 <div key={idx} className="text-center">
