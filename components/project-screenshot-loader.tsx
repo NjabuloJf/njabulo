@@ -12,11 +12,13 @@ export function ProjectScreenshotLoader({ projectUrl, title }: ProjectScreenshot
   const [screenshot, setScreenshot] = useState<string | null>(null)
   const [loading, setLoading] = useState(!!projectUrl)
   const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
 
   useEffect(() => {
     if (!projectUrl || !projectUrl.startsWith("http")) {
       setLoading(false)
       setError(true)
+      setErrorMessage("Invalid URL format")
       return
     }
 
@@ -24,30 +26,37 @@ export function ProjectScreenshotLoader({ projectUrl, title }: ProjectScreenshot
       try {
         setLoading(true)
         setError(false)
+        setErrorMessage("")
 
         console.log('Fetching screenshot for:', projectUrl)
 
-        // Use our API route - URL will be encoded properly
         const response = await fetch(`/api/screenshot?url=${encodeURIComponent(projectUrl)}`)
         
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}))
-          throw new Error(errorData.error || `HTTP ${response.status}`)
+          throw new Error(errorData.error || errorData.details || `HTTP ${response.status}`)
         }
 
         const data = await response.json()
-        console.log('Screenshot data:', data)
         
         if (data.success && data.screenshotUrl) {
-          // Set screenshot URL directly
+          // Test if image loads properly
+          await new Promise((resolve, reject) => {
+            const img = new Image()
+            img.onload = () => resolve(true)
+            img.onerror = () => reject(new Error('Failed to load image'))
+            img.src = data.screenshotUrl
+          })
+
           setScreenshot(data.screenshotUrl)
-          setLoading(false)
         } else {
           throw new Error(data.error || 'No screenshot URL returned')
         }
       } catch (err) {
-        console.error('Screenshot load error:', err)
+        console.error('Screenshot error:', err)
         setError(true)
+        setErrorMessage(err instanceof Error ? err.message : 'Unknown error occurred')
+      } finally {
         setLoading(false)
       }
     }
@@ -64,12 +73,23 @@ export function ProjectScreenshotLoader({ projectUrl, title }: ProjectScreenshot
     )
   }
 
-  if (error || !screenshot) {
+  if (error) {
     return (
       <div className="w-full h-full bg-secondary/50 flex flex-col items-center justify-center gap-3 p-4">
         <AlertCircle size={32} className="text-accent/60" />
         <p className="text-sm text-foreground/50 text-center">Failed to load screenshot</p>
         <p className="text-xs text-foreground/30 text-center">{title}</p>
+        {errorMessage && (
+          <p className="text-xs text-foreground/30 text-center max-w-xs">Error: {errorMessage}</p>
+        )}
+      </div>
+    )
+  }
+
+  if (!screenshot) {
+    return (
+      <div className="w-full h-full bg-secondary/50 flex items-center justify-center">
+        <p className="text-sm text-foreground/50">No screenshot available</p>
       </div>
     )
   }
@@ -79,7 +99,10 @@ export function ProjectScreenshotLoader({ projectUrl, title }: ProjectScreenshot
       src={screenshot} 
       alt={`Screenshot of ${title}`} 
       className="w-full h-full object-cover"
-      onError={() => setError(true)}
+      onError={() => {
+        setError(true)
+        setErrorMessage('Image failed to load in browser')
+      }}
     />
   )
 }
