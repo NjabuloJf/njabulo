@@ -59,7 +59,7 @@ export default function Hero() {
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/30 hover:border-primary/50 transition-all duration-300 group cursor-pointer">
               <Sparkles size={16} className="text-primary" />
-              <span className="text-sm font-medium text-primary">Welcome to my digital space</span>
+              <span className="text-sm font-medium text-primary">欢迎来到我的投资组合</span>
             </div>
           </div>
         </ScrollAnimator>
