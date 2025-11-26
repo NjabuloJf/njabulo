@@ -17,20 +17,19 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Only HTTP/HTTPS URLs are allowed" }, { status: 400 })
     }
 
-    const apiKey = process.env.SCREENSHOT_API_KEY || "Bkw6VGltjTHAig"
+    const apiKey = process.env.SCREENSHOT_API_KEY || "971ecf"
     
-    // Parameter yang lebih sederhana
+    // Parameter untuk ScreenshotMachine
     const screenshotParams = new URLSearchParams({
-      access_key: apiKey,
+      key: apiKey,
       url: decodedUrl,
-      format: "jpg",
-      viewport_width: "1280", 
-      viewport_height: "720",
-      full_page: "false",
-      delay: "3"
+      dimension: "1024x768",
+      format: "JPG",
+      cacheLimit: "0",
+      delay: "3000" // delay dalam milidetik (3 detik)
     })
 
-    const screenshotUrl = `https://api.screenshotone.com/take?${screenshotParams.toString()}`
+    const screenshotUrl = `https://api.screenshotmachine.com?${screenshotParams.toString()}`
 
     console.log('Testing screenshot URL:', screenshotUrl)
 
@@ -41,10 +40,10 @@ export async function GET(request: NextRequest) {
       // Coba dapatkan error message dari response
       let errorMessage = `Screenshot service returned ${testResponse.status}`
       try {
-        const errorData = await testResponse.json()
-        errorMessage = errorData.error_message || errorData.error_code || errorMessage
+        const errorText = await testResponse.text()
+        errorMessage = errorText || errorMessage
       } catch (e) {
-        // Ignore JSON parse error
+        // Ignore parse error
       }
       throw new Error(errorMessage)
     }
