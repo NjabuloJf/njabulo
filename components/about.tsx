@@ -58,19 +58,43 @@ export default function About() {
       <div className="max-w-6xl w-full space-y-16 md:space-y-20 relative z-10">
         {/* Header */}
         <ScrollAnimator className="text-center space-y-4 md:space-y-6">
-          <div className="flex justify-center mb-4">
-            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary to-accent p-1">
-              <div className="w-full h-full rounded-full bg-background flex items-center justify-center p-2">
-                <Image
-                  src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
-                  alt="Logo"
-                  width={80}
-                  height={80}
-                  className="w-16 h-16 md:w-20 md:h-20 object-contain"
-                />
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              {/* Outer glowing ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse"></div>
+              
+              {/* Main gradient circle */}
+              <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
+                
+                {/* Inner container with background matching page */}
+                <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
+                  
+                  {/* Logo image with gradient overlay */}
+                  <div className="relative w-full h-full">
+                    <Image
+                      src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                      alt="Logo"
+                      fill
+                      className="object-cover scale-110"
+                      style={{ 
+                        maskImage: 'radial-gradient(circle, black 60%, transparent 100%)',
+                        WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
+                      }}
+                    />
+                    
+                    {/* Gradient overlay to blend with circle */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
+                  </div>
+                </div>
               </div>
+              
+              {/* Floating particles */}
+              <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent rounded-full animate-bounce opacity-80"></div>
+              <div className="absolute -bottom-1 -left-2 w-3 h-3 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute top-4 -right-4 w-2 h-2 bg-accent rounded-full animate-ping opacity-60"></div>
             </div>
           </div>
+          
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
             About Me
           </h1>
