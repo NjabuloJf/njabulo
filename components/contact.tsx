@@ -332,12 +332,11 @@ ${formData.message}
                 </div>
               </div>
               <p className="text-lg md:text-2xl text-foreground font-light italic leading-relaxed">
-                Every project is an opportunity to create something extraordinary. Let's build something beautiful
-                together and make an impact.
+                每个项目都是创造非凡之作的机会。让我们携手共建美好事物，共创辉煌。
               </p>
               <div className="pt-4 space-y-1">
                 <p className="text-base md:text-lg font-semibold text-primary">Everlyn Amethyst</p>
-                <p className="text-sm text-foreground/60">Creative Developer & Designer</p>
+                <p className="text-sm text-foreground/60">Web Developer & Designer</p>
               </div>
             </blockquote>
           </div>
