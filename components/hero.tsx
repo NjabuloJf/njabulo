@@ -16,7 +16,13 @@ import {
   Play,
   Pause,
   Music,
-  X
+  X,
+  Volume2,
+  Heart,
+  Shuffle,
+  SkipBack,
+  SkipForward,
+  Repeat
 } from "lucide-react"
 
 const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
@@ -44,17 +50,40 @@ const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
 export default function Hero() {
   const fullText = "Creative developer & UI/UX designer crafting beautiful, interactive digital experiences. Specializing in modern web technologies with a passion for performance and user satisfaction."
   const [isMusicOpen, setIsMusicOpen] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [showWelcome, setShowWelcome] = useState(true)
+
+  useEffect(() => {
+    // Auto show music player after 2 seconds
+    const timer = setTimeout(() => {
+      setIsMusicOpen(true)
+      setIsPlaying(true)
+    }, 2000)
+
+    // Auto hide welcome message after 5 seconds
+    const welcomeTimer = setTimeout(() => {
+      setShowWelcome(false)
+    }, 5000)
+
+    return () => {
+      clearTimeout(timer)
+      clearTimeout(welcomeTimer)
+    }
+  }, [])
 
   const toggleMusic = () => {
     setIsMusicOpen(!isMusicOpen)
-    if (!isMusicOpen) {
-      setIsPlaying(true)
-    }
   }
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying)
+  }
+
+  const currentTrack = {
+    title: "Coding Focus Flow",
+    artist: "Lofi & Ambient Mix",
+    cover: "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400&h=400&fit=crop",
+    progress: 65
   }
 
   return (
@@ -71,6 +100,29 @@ export default function Hero() {
           style={{ animationDelay: "2s" }}
         ></div>
       </div>
+
+      {/* Welcome Notification */}
+      {showWelcome && (
+        <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-right duration-500">
+          <div className="bg-gradient-to-r from-primary/20 to-accent/20 backdrop-blur-md border border-primary/30 rounded-2xl p-4 shadow-2xl max-w-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                <Music size={20} className="text-white" />
+              </div>
+              <div className="flex-1">
+                <p className="font-semibold text-foreground text-sm">Music Player Ready</p>
+                <p className="text-foreground/60 text-xs">Background music started automatically</p>
+              </div>
+              <button 
+                onClick={() => setShowWelcome(false)}
+                className="w-6 h-6 rounded-full bg-border/50 hover:bg-border transition-colors flex items-center justify-center"
+              >
+                <X size={12} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="relative z-10 max-w-5xl w-full space-y-10 md:space-y-12">
         {/* Centered Welcome Badge */}
@@ -210,78 +262,140 @@ export default function Hero() {
             {/* Music Player Button */}
             <button
               onClick={toggleMusic}
-              className="w-full sm:w-auto px-6 md:px-8 py-3 border border-accent/50 text-accent rounded-xl font-semibold hover:bg-accent/20 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 group backdrop-blur-sm"
+              className="w-full sm:w-auto px-6 md:px-8 py-3 border border-accent/50 text-accent rounded-xl font-semibold hover:bg-accent/20 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 group backdrop-blur-sm relative"
             >
               <Music size={18} className="group-hover:scale-110 transition-transform" />
-              <span>Play Music</span>
+              <span>Music Player</span>
+              {isPlaying && (
+                <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
+              )}
             </button>
           </div>
         </ScrollAnimator>
       </div>
 
-      {/* Music Player Pop-up */}
+      {/* Modern Music Player Pop-up */}
       {isMusicOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-card/95 backdrop-blur-md rounded-2xl border border-border/50 shadow-2xl max-w-md w-full relative overflow-hidden">
-            {/* Header */}
-            <div className="p-6 border-b border-border/50 bg-gradient-to-r from-primary/10 to-accent/10">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-xl rounded-3xl border border-border/50 shadow-2xl max-w-sm w-full relative overflow-hidden animate-in slide-in-from-bottom duration-500">
+            
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-primary rounded-full blur-2xl"></div>
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-accent rounded-full blur-2xl"></div>
+            </div>
+
+            {/* Header dengan gradient */}
+            <div className="relative p-6 bg-gradient-to-r from-primary/20 to-accent/20 border-b border-border/50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                    <Music size={20} className="text-white" />
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                    <Music size={24} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground">My Playlist</h3>
-                    <p className="text-sm text-foreground/60">YouTube Music</p>
+                    <h3 className="font-bold text-foreground text-lg">Vibe Station</h3>
+                    <p className="text-foreground/60 text-sm">Your Coding Companion</p>
                   </div>
                 </div>
                 <button
                   onClick={toggleMusic}
-                  className="w-8 h-8 rounded-full bg-border/50 hover:bg-border transition-colors flex items-center justify-center"
+                  className="w-10 h-10 rounded-xl bg-black/20 hover:bg-black/30 transition-colors flex items-center justify-center backdrop-blur-sm border border-white/10"
                 >
-                  <X size={16} />
+                  <X size={18} />
                 </button>
               </div>
             </div>
 
             {/* Music Player Content */}
-            <div className="p-6 space-y-4">
-              <div className="aspect-video rounded-xl overflow-hidden bg-secondary/50 border border-border/50">
+            <div className="p-6 space-y-6">
+              {/* Album Art & Track Info */}
+              <div className="text-center space-y-4">
+                <div className="relative mx-auto w-48 h-48 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Music size={64} className="text-white/80" />
+                  </div>
+                  {isPlaying && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent flex items-end justify-center pb-4">
+                      <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center animate-pulse">
+                        <Volume2 size={16} className="text-white" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-bold text-foreground text-xl">{currentTrack.title}</h4>
+                  <p className="text-foreground/60">{currentTrack.artist}</p>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm text-foreground/60">
+                  <span>2:15</span>
+                  <span>3:45</span>
+                </div>
+                <div className="w-full h-2 bg-border/50 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-1000"
+                    style={{ width: `${currentTrack.progress}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Player Controls */}
+              <div className="flex items-center justify-between">
+                <button className="p-3 rounded-xl hover:bg-border/20 transition-colors group">
+                  <Shuffle size={20} className="text-foreground/60 group-hover:text-foreground" />
+                </button>
+                <button className="p-3 rounded-xl hover:bg-border/20 transition-colors group">
+                  <SkipBack size={24} className="text-foreground/60 group-hover:text-foreground" />
+                </button>
+                <button 
+                  onClick={togglePlayPause}
+                  className="w-16 h-16 rounded-2xl bg-gradient-to-r from-primary to-accent flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
+                >
+                  {isPlaying ? (
+                    <Pause size={24} className="text-white" />
+                  ) : (
+                    <Play size={24} className="text-white ml-1" />
+                  )}
+                </button>
+                <button className="p-3 rounded-xl hover:bg-border/20 transition-colors group">
+                  <SkipForward size={24} className="text-foreground/60 group-hover:text-foreground" />
+                </button>
+                <button className="p-3 rounded-xl hover:bg-border/20 transition-colors group">
+                  <Repeat size={20} className="text-foreground/60 group-hover:text-foreground" />
+                </button>
+              </div>
+
+              {/* Additional Controls */}
+              <div className="flex items-center justify-between pt-4">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-border/20 transition-colors group">
+                  <Heart size={18} className="text-foreground/60 group-hover:text-red-500" />
+                  <span className="text-sm text-foreground/60 group-hover:text-foreground">Like</span>
+                </button>
+                <button className="flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-border/20 transition-colors group">
+                  <Volume2 size={18} className="text-foreground/60 group-hover:text-foreground" />
+                  <span className="text-sm text-foreground/60 group-hover:text-foreground">Volume</span>
+                </button>
+              </div>
+
+              {/* YouTube Embed (Hidden but functional) */}
+              <div className="absolute opacity-0 pointer-events-none">
                 <iframe
-                  src={`https://music.youtube.com/embed/playlist?list=PL5Ac2HRi7XJLznlMfxJr45wSO9O7Lv2wt&autoplay=${isPlaying ? 1 : 0}`}
-                  className="w-full h-full"
+                  src={`https://music.youtube.com/embed/playlist?list=PL5Ac2HRi7XJLznlMfxJr45wSO9O7Lv2wt&autoplay=${isPlaying ? 1 : 0}&loop=1`}
+                  className="w-0 h-0"
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                 />
               </div>
-              
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={togglePlayPause}
-                    className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center hover:scale-105 transition-transform"
-                  >
-                    {isPlaying ? (
-                      <Pause size={20} className="text-white" />
-                    ) : (
-                      <Play size={20} className="text-white ml-1" />
-                    )}
-                  </button>
-                  <div>
-                    <p className="font-semibold text-foreground">Work & Focus Playlist</p>
-                    <p className="text-sm text-foreground/60">YouTube Music</p>
-                  </div>
-                </div>
-                
-                <div className="text-right">
-                  <p className="text-sm font-medium text-foreground">Auto-play</p>
-                  <p className="text-xs text-foreground/60">Background</p>
-                </div>
-              </div>
 
-              <div className="pt-4">
-                <p className="text-sm text-foreground/70 text-center">
-                  Music will continue playing in the background while you browse
+              {/* Status Message */}
+              <div className="pt-4 border-t border-border/50">
+                <p className="text-center text-sm text-foreground/60">
+                  🎵 Music playing in background • Enjoy your visit!
                 </p>
               </div>
             </div>
