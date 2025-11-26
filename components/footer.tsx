@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { useState, useEffect } from "react"
+import Image from "next/image"
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -88,32 +89,19 @@ export default function Footer() {
       ></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header Section - Rounded */}
-        <div className="mb-12 md:mb-16 p-6 md:p-8 rounded-3xl bg-gradient-to-r from-primary/20 via-accent/15 to-primary/20 border border-primary/60 hover:border-primary/80 transition-all duration-300 shadow-2xl shadow-primary/30 hover:shadow-primary/50">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Let's Work Together</h3>
-              <p className="text-foreground/70 text-sm md:text-base">
-                Got a project or idea? I'd love to hear from you and create something amazing together.
-              </p>
-            </div>
-            <Link
-              href="/contact"
-              className="px-6 md:px-8 py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-primary/50 flex items-center gap-2 whitespace-nowrap group"
-            >
-              <Send size={18} />
-              Get in Touch
-            </Link>
-          </div>
-        </div>
-
         {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
           {/* Brand Section */}
           <div className="col-span-2 md:col-span-1 space-y-4">
             <Link href="/" className="inline-flex items-center gap-2 group">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center text-primary-foreground font-bold text-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                EA
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center text-primary-foreground font-bold text-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 overflow-hidden">
+                <Image 
+                  src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png" 
+                  alt="Logo" 
+                  width={48} 
+                  height={48}
+                  className="object-cover w-full h-full"
+                />
               </div>
               <span className="font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300">
                 Everlyn
@@ -131,7 +119,7 @@ export default function Footer() {
             return (
               <div key={idx} className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-primary/20 flex items-center justify-center">
                     <SectionIcon size={16} className="text-primary" />
                   </div>
                   <h4 className="font-semibold text-foreground text-sm md:text-base">{section.title}</h4>
@@ -158,13 +146,13 @@ export default function Footer() {
         </div>
 
         {/* Social Links Section - Rounded container */}
-        <div className="py-8 md:py-12 border-y border-border/50 mb-8 md:mb-10">
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
+        <div className="py-8 md:py-12 border-y border-border/50 mb-8 md:mb-10 rounded-3xl bg-background/50 backdrop-blur-sm">
+          <div className="space-y-4 max-w-2xl mx-auto px-6">
+            <div className="flex items-center justify-center gap-2">
               <Users size={18} className="text-accent" />
               <h4 className="font-semibold text-foreground text-sm md:text-base">Connect With Me</h4>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center gap-3">
               {socialLinks.map((social, idx) => {
                 const Icon = social.icon
                 return (
@@ -173,7 +161,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-3 md:p-3.5 bg-card/50 border border-border/50 text-foreground rounded-2xl transition-all duration-300 hover:scale-125 hover:border-primary/50 group ${social.color}`}
+                    className={`p-3 md:p-3.5 bg-card/70 border border-border/50 text-foreground rounded-2xl transition-all duration-300 hover:scale-125 hover:border-primary/50 group backdrop-blur-sm ${social.color}`}
                     aria-label={social.label}
                     title={social.label}
                   >
@@ -187,8 +175,8 @@ export default function Footer() {
 
         {/* Contact Info */}
         <div className="mb-8 md:mb-12 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group">
-            <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+          <div className="flex items-center gap-3 p-4 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group backdrop-blur-sm">
+            <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
               <Mail size={20} className="text-primary" />
             </div>
             <div>
@@ -201,8 +189,8 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group">
-            <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center group-hover:bg-accent/30 transition-colors">
+          <div className="flex items-center gap-3 p-4 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group backdrop-blur-sm">
+            <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center group-hover:bg-accent/30 transition-colors">
               <MapPin size={20} className="text-accent" />
             </div>
             <div>
@@ -213,7 +201,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Footer */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-sm p-6 rounded-3xl bg-background/50 border border-border/30 backdrop-blur-sm">
           <div className="flex items-center gap-1 text-foreground/60">
             <span>© {year} Everlyn Amethyst. Made with</span>
             <Heart size={16} className="text-primary fill-primary animate-pulse" />
