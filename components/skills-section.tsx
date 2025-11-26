@@ -1,264 +1,138 @@
 "use client"
 
-import {
-  Code2,
-  Palette,
-  Zap,
-  Users,
-  Award,
-  Globe,
-  Database,
-  Layers,
-  Server,
-  Smartphone,
-  Lightbulb,
-  Target,
-  ArrowRight,
-  CheckCircle,
-  Cloud,
-  BarChart3,
-  Sparkles,
-  Cpu,
+import { useEffect, useRef, useState } from "react"
+import { 
+  Code2, 
+  Palette, 
+  Zap, 
+  Globe, 
+  Database, 
+  Cpu, 
+  BarChart3, 
+  Sparkles, 
+  Target, 
+  Rocket, 
+  Terminal, 
+  Layers, 
+  Award, 
+  Users, 
   GitBranch,
-  Shield,
-  Workflow,
-  Eye,
-  Rocket,
-  Terminal,
+  MessageCircle,
+  Server
 } from "lucide-react"
 import { ScrollAnimator } from "./scroll-animator"
 import Image from "next/image"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
 
 const techLogos: any = {
-  "React & Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-  "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-  "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-  "Framer Motion": "https://lannytourl.vestia.icu/api/file/692645eb7a2f9dd921ddd74f.png",
-  "Node.js & Express": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-  "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-  "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-  "GraphQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
-  "Figma": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-  "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-  "AWS": "https://lannytourl.vestia.icu/api/file/69264bad5ade314b7217b00d.png",
-  "Git & GitHub": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-  "Linux": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-  "UI/UX Design": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-  "REST APIs": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-  "Authentication": "https://lannytourl.vestia.icu/api/file/692646847a2f9dd921ddd751.png",
-  "Design Systems": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-  "Prototyping": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-  "Accessibility (WCAG)": "https://lannytourl.vestia.icu/api/file/69264ba65ade314b7217b00b.png",
-  "Animation Design": "https://lannytourl.vestia.icu/api/file/692645eb7a2f9dd921ddd74f.png",
-  "CI/CD Pipeline": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg",
-  "Testing (Jest, Cypress)": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg",
-  "Responsive Design": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-  "Web Components": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+  React: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  TypeScript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+  "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+  "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+  Tailwind: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+  PostgreSQL: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+  MongoDB: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+  Python: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  JavaScript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+  HTML: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+  CSS: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+  Express: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+  MySQL: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+  Git: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+  Docker: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
 }
 
-export default function SkillsSection() {
-  const skillCategories = [
-    {
-      title: "Frontend Development",
-      icon: Smartphone,
-      decorator: Code2,
-      skills: [
-        { name: "React & Next.js", level: 95 },
-        { name: "TypeScript", level: 90 },
-        { name: "Tailwind CSS", level: 95 },
-        { name: "Framer Motion", level: 85 },
-        { name: "Responsive Design", level: 98 },
-        { name: "Web Components", level: 80 },
-      ],
-    },
-    {
-      title: "Backend Development",
-      icon: Server,
-      decorator: Database,
-      skills: [
-        { name: "Node.js & Express", level: 88 },
-        { name: "PostgreSQL", level: 87 },
-        { name: "MongoDB", level: 85 },
-        { name: "REST APIs", level: 92 },
-        { name: "GraphQL", level: 80 },
-        { name: "Authentication", level: 90 },
-      ],
-    },
-    {
-      title: "Design & UX",
-      icon: Palette,
-      decorator: Eye,
-      skills: [
-        { name: "UI/UX Design", level: 92 },
-        { name: "Figma", level: 90 },
-        { name: "Design Systems", level: 88 },
-        { name: "Prototyping", level: 85 },
-        { name: "Accessibility (WCAG)", level: 89 },
-        { name: "Animation Design", level: 91 },
-      ],
-    },
-    {
-      title: "Tools & DevOps",
-      icon: Zap,
-      decorator: GitBranch,
-      skills: [
-        { name: "Git & GitHub", level: 93 },
-        { name: "Docker", level: 82 },
-        { name: "CI/CD Pipeline", level: 80 },
-        { name: "AWS", level: 78 },
-        { name: "Linux", level: 85 },
-        { name: "Testing (Jest, Cypress)", level: 86 },
-      ],
-    },
-  ]
+export default function Skills() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
 
-  const softSkills = [
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 },
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  const skills = [
     {
-      icon: Users,
-      label: "Team Collaboration",
-      description: "Working effectively in agile teams and with diverse stakeholders",
-      decorator: Workflow
-    },
-    { 
-      icon: Lightbulb, 
-      label: "Problem Solving", 
-      description: "Breaking down complex problems into elegant solutions",
+      icon: Code2,
+      title: "Frontend Development",
+      description: "React, Next.js, TypeScript, Tailwind CSS with pixel-perfect implementations",
       decorator: Sparkles
     },
-    { 
-      icon: Award, 
-      label: "Leadership", 
-      description: "Mentoring junior developers and leading technical initiatives",
+    {
+      icon: Palette,
+      title: "UI/UX Design",
+      description: "Beautiful, intuitive interfaces with attention to detail and user experience",
       decorator: Target
     },
-    { 
-      icon: Target, 
-      label: "Project Management", 
-      description: "Delivering projects on time with excellent quality",
-      decorator: CheckCircle
-    },
-    { 
-      icon: Globe, 
-      label: "Communication", 
-      description: "Clear documentation and client presentations",
-      decorator: MessageCircle
-    },
-    { 
-      icon: Zap, 
-      label: "Quick Learning", 
-      description: "Rapidly adapting to new technologies and frameworks",
+    {
+      icon: Zap,
+      title: "Performance",
+      description: "Optimized code, fast load times, and smooth animations without heavy overhead",
       decorator: Rocket
+    },
+    {
+      icon: Globe,
+      title: "Full Stack",
+      description: "Backend integration, API design, and database management expertise",
+      decorator: Database
+    },
+    {
+      icon: Database,
+      title: "Data Management",
+      description: "SQL, NoSQL databases, and state management solutions",
+      decorator: Layers
+    },
+    {
+      icon: Cpu,
+      title: "Advanced Tech",
+      description: "Web optimization, security best practices, and modern tooling",
+      decorator: Terminal
     },
   ]
 
-  // Hitung statistik skill langsung dari skillCategories tanpa averaging
-  const calculateSkillStats = () => {
-    const allSkills = skillCategories.flatMap(category => category.skills)
-    
-    // Urutkan berdasarkan level tertinggi dan ambil top 8
-    return allSkills
-      .sort((a, b) => b.level - a.level)
-      .slice(0, 8)
-      .map(skill => ({
-        name: skill.name,
-        percentage: skill.level, // Langsung pakai level asli dari skillCategories
-        logo: techLogos[skill.name]
-      }))
-  }
+  const technologyData = [
+    { name: "React", percentage: 95 },
+    { name: "TypeScript", percentage: 90 },
+    { name: "Next.js", percentage: 88 },
+    { name: "Node.js", percentage: 85 },
+    { name: "Tailwind", percentage: 92 },
+    { name: "PostgreSQL", percentage: 80 },
+    { name: "MongoDB", percentage: 75 },
+    { name: "Python", percentage: 70 },
+  ]
 
-  // Hitung statistik kategori dengan rata-rata yang benar
-  const calculateCategoryStats = () => {
-    return skillCategories.map(category => ({
-      name: category.title,
-      percentage: Math.round(category.skills.reduce((sum, skill) => sum + skill.level, 0) / category.skills.length),
-      skillCount: category.skills.length,
-      topSkill: category.skills.sort((a, b) => b.level - a.level)[0].name
-    }))
-  }
+  const skillCategories = [
+    { name: "Frontend", percentage: 35, icon: Code2 },
+    { name: "Backend", percentage: 30, icon: Server },
+    { name: "Database", percentage: 20, icon: Database },
+    { name: "DevOps", percentage: 15, icon: GitBranch },
+  ]
 
-  const skillStats = calculateSkillStats()
-  const categoryStats = calculateCategoryStats()
-  const COLORS = ["#a78bfa", "#ec4899", "#06b6d4", "#14b8a6", "#f59e0b", "#ef4444", "#10b981", "#8b5cf6"]
-
-  // Hitung total average proficiency dari semua skill
-  const calculateTotalAverageProficiency = () => {
-    const allSkills = skillCategories.flatMap(category => category.skills)
-    const total = allSkills.reduce((sum, skill) => sum + skill.level, 0)
-    return Math.round(total / allSkills.length)
-  }
-
-  // Custom Tooltip dengan logo
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload
-      return (
-        <div className="p-3 bg-background border border-primary/30 rounded-lg shadow-lg">
-          <div className="flex items-center gap-2 mb-1">
-            {data.logo && (
-              <img src={data.logo} alt={label} className="w-4 h-4" />
-            )}
-            <p className="font-semibold text-foreground">{label}</p>
-          </div>
-          <p className="text-primary">{`${payload[0].value}% Proficiency`}</p>
-        </div>
-      )
-    }
-    return null
-  }
-
-  // Custom Tooltip untuk Pie Chart
-  const PieTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload
-      return (
-        <div className="p-3 bg-background border border-primary/30 rounded-lg shadow-lg">
-          <p className="font-semibold text-foreground mb-1">{data.name}</p>
-          <p className="text-primary">{`${data.percentage}% Average Proficiency`}</p>
-          <p className="text-xs text-foreground/60 mt-1">
-            {data.skillCount} skills • Top: {data.topSkill}
-          </p>
-        </div>
-      )
-    }
-    return null
-  }
-
-  // Custom Bar dengan logo di atas chart
-  const CustomBar = (props: any) => {
-    const { fill, x, y, width, height, payload } = props
-    const logoUrl = payload.logo
-    
-    return (
-      <g>
-        <rect
-          x={x}
-          y={y}
-          width={width}
-          height={height}
-          fill={fill}
-          rx={4}
-          ry={4}
-          className="transition-all duration-500 ease-out"
-        />
-        {logoUrl && (
-          <image
-            href={logoUrl}
-            x={x + width/2 - 8}
-            y={y - 25}
-            width={16}
-            height={16}
-          />
-        )}
-      </g>
-    )
-  }
-
-  const totalAverageProficiency = calculateTotalAverageProficiency()
-  const totalSkills = skillCategories.flatMap(category => category.skills).length
+  const experienceData = [
+    { year: "2020", percentage: 40 },
+    { year: "2021", percentage: 60 },
+    { year: "2022", percentage: 75 },
+    { year: "2023", percentage: 85 },
+    { year: "2024", percentage: 95 },
+  ]
 
   return (
-    <section className="min-h-screen py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section
+      id="skills"
+      className="min-h-screen py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+    >
+      {/* Background elements */}
       <div className="absolute top-20 left-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div
         className="absolute bottom-20 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"
@@ -310,214 +184,233 @@ export default function SkillsSection() {
             <Terminal size={40} className="text-accent hidden sm:block" />
           </h1>
           <p className="text-base sm:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed">
-            A comprehensive overview of my technical expertise, tools mastery, and continuous learning journey in modern
-            web development and design.
+            A comprehensive toolkit for building exceptional digital experiences with modern technologies
           </p>
         </ScrollAnimator>
 
-        {/* Skills Overview dengan Charts */}
-        <ScrollAnimator>
-          <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 mb-16 md:mb-24 hover:border-primary/50 transition-all duration-300">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                <BarChart3 size={20} className="text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold text-foreground">Skills Overview</h3>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={skillStats} margin={{ top: 30, right: 30, left: 20, bottom: 60 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                    <XAxis 
-                      dataKey="name" 
-                      stroke="rgba(255,255,255,0.5)" 
-                      fontSize={12}
-                      angle={-45}
-                      textAnchor="end"
-                      height={80}
-                    />
-                    <YAxis 
-                      stroke="rgba(255,255,255,0.5)" 
-                      fontSize={12}
-                      domain={[0, 100]}
-                    />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Bar 
-                      dataKey="percentage" 
-                      shape={<CustomBar />}
-                      radius={[8, 8, 0, 0]}
-                    >
-                      {skillStats.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-
-              <div className="h-80 flex items-center justify-center">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={categoryStats}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ name, percentage }) => `${name} ${percentage}%`}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="percentage"
-                    >
-                      {categoryStats.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip content={<PieTooltip />} />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </div>
-        </ScrollAnimator>
-
-        {/* Skill Categories */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 mb-16 md:mb-24">
-          {skillCategories.map((category, categoryIndex) => {
-            const CategoryIcon = category.icon
-            const CategoryDecorator = category.decorator
-            const categoryAverage = Math.round(category.skills.reduce((sum, skill) => sum + skill.level, 0) / category.skills.length)
-            
-            return (
-              <ScrollAnimator key={categoryIndex} delay={categoryIndex * 100}>
-                <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-6 group relative overflow-hidden">
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
-                    <CategoryIcon size={100} className="absolute right-4 bottom-4" />
-                  </div>
-
-                  <div className="flex items-center justify-between relative z-10">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300 relative">
-                        <CategoryIcon size={24} className="text-primary group-hover:text-white transition-colors" />
-                        <CategoryDecorator size={12} className="absolute -top-1 -right-1 text-accent animate-pulse" />
-                      </div>
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                        {category.title}
-                      </h3>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm font-semibold text-primary">{categoryAverage}%</div>
-                      <div className="text-xs text-foreground/60">Average</div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4 relative z-10">
-                    {category.skills.map((skill, skillIndex) => (
-                      <div key={skillIndex} className="space-y-2 group/skill">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            {techLogos[skill.name] && (
-                              <img 
-                                src={techLogos[skill.name]} 
-                                alt={skill.name}
-                                className="w-4 h-4 group-hover/skill:scale-110 transition-transform"
-                              />
-                            )}
-                            <span className="font-semibold text-foreground text-sm group-hover/skill:text-primary transition-colors">
-                              {skill.name}
-                            </span>
-                          </div>
-                          <span className="text-xs font-bold text-primary">{skill.level}%</span>
-                        </div>
-                        <div className="w-full h-1.5 bg-border/50 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out group-hover/skill:scale-105"
-                            style={{ width: `${skill.level}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </ScrollAnimator>
-            )
-          })}
-        </div>
-
-        {/* Soft Skills */}
-        <ScrollAnimator className="mb-16 md:mb-24">
-          <div className="text-center mb-10 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 flex items-center justify-center gap-3">
-              <Users size={32} className="text-primary" />
-              Soft Skills & Attributes
-              <Sparkles size={32} className="text-accent" />
-            </h2>
-            <p className="text-foreground/60">The interpersonal and professional qualities that drive success</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {softSkills.map((skill, index) => {
-              const SkillIcon = skill.icon
-              const SkillDecorator = skill.decorator
+        {/* Stats Cards */}
+        <ScrollAnimator delay={100}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 md:mb-24">
+            {[
+              { label: "Projects Completed", value: "50+", icon: Layers },
+              { label: "Technologies", value: "25+", icon: Code2 },
+              { label: "Years Experience", value: "4+", icon: Award },
+              { label: "Certifications", value: "12", icon: Users },
+            ].map((stat, idx) => {
+              const StatIcon = stat.icon
               return (
-                <div
-                  key={index}
-                  className="p-6 rounded-xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-3 group cursor-pointer relative overflow-hidden"
+                <div 
+                  key={idx} 
+                  className="text-center p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group relative overflow-hidden"
                 >
                   {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
-                    <SkillIcon size={60} className="absolute right-2 bottom-2" />
+                    <StatIcon size={60} className="absolute right-2 bottom-2" />
                   </div>
 
-                  <div className="flex items-center gap-3 relative z-10">
-                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
-                      <SkillIcon size={20} className="text-primary group-hover:text-white transition-colors" />
+                  <div className="relative z-10">
+                    <div className="flex justify-center mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
+                        <StatIcon size={20} className="text-primary group-hover:text-white transition-colors" />
+                      </div>
                     </div>
-                    <SkillDecorator size={16} className="text-accent animate-pulse" />
+                    <div className="text-2xl md:text-3xl font-bold text-primary group-hover:scale-110 transition-transform">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-foreground/60 mt-1">{stat.label}</div>
                   </div>
-                  <h4 className="font-bold text-foreground group-hover:text-primary transition-colors relative z-10">
-                    {skill.label}
-                  </h4>
-                  <p className="text-sm text-foreground/60 relative z-10">{skill.description}</p>
                 </div>
               )
             })}
           </div>
         </ScrollAnimator>
 
-        {/* Stats Section */}
-        <ScrollAnimator>
-          <div className="p-8 md:p-10 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                <BarChart3 size={24} className="text-primary" />
-              </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground">Skills Overview</h3>
-            </div>
+        {/* Skills Grid */}
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 md:mb-24">
+          {skills.map((skill, index) => {
+            const Icon = skill.icon
+            const Decorator = skill.decorator
+            return (
+              <ScrollAnimator key={index} delay={index * 100}>
+                <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300 cursor-pointer group relative overflow-hidden">
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
+                    <Icon size={80} className="absolute right-4 bottom-4" />
+                  </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/50">
-              {[
-                { label: "Total Skills", value: totalSkills, icon: Layers },
-                { label: "Categories", value: skillCategories.length, icon: Database },
-                { label: "Avg Proficiency", value: `${totalAverageProficiency}%`, icon: Target },
-                { label: "Years Experience", value: "3+", icon: Award },
-              ].map((stat, idx) => {
-                const StatIcon = stat.icon
-                return (
-                  <div key={idx} className="text-center group">
-                    <div className="flex justify-center mb-2">
-                      <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
-                        <StatIcon size={16} className="text-primary group-hover:text-white transition-colors" />
+                  <div className="flex items-center gap-3 mb-4 relative z-10">
+                    <div className="relative">
+                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
+                        <Icon className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
+                      </div>
+                      <Decorator size={12} className="absolute -top-1 -right-1 text-accent animate-pulse" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {skill.title}
+                    </h3>
+                  </div>
+                  <p className="text-foreground/60 text-sm leading-relaxed relative z-10">{skill.description}</p>
+                </div>
+              </ScrollAnimator>
+            )
+          })}
+        </div>
+
+        {/* Charts Grid */}
+        <div className="mb-16 md:mb-24 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <ScrollAnimator delay={100}>
+            <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
+                  <BarChart3 size={20} className="text-primary group-hover:text-white transition-colors" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                  Technology Proficiency
+                </h3>
+              </div>
+              <div className="space-y-4">
+                {technologyData.map((tech, index) => (
+                  <div key={index} className="flex items-center gap-3 group/tech">
+                    {techLogos[tech.name] && (
+                      <img 
+                        src={techLogos[tech.name]} 
+                        alt={tech.name}
+                        className="w-5 h-5 group-hover/tech:scale-110 transition-transform"
+                      />
+                    )}
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium text-foreground/70 group-hover/tech:text-foreground transition-colors">
+                          {tech.name}
+                        </span>
+                        <span className="text-xs font-semibold text-primary">{tech.percentage}%</span>
+                      </div>
+                      <div className="h-1.5 bg-border/50 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out group-hover/tech:scale-105"
+                          style={{ 
+                            width: isVisible ? `${tech.percentage}%` : '0%',
+                            transitionDelay: `${index * 100}ms`
+                          }}
+                        ></div>
                       </div>
                     </div>
-                    <div className="text-2xl md:text-3xl font-bold text-primary group-hover:scale-110 transition-transform">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs md:text-sm text-foreground/60">{stat.label}</div>
                   </div>
-                )
-              })}
+                ))}
+              </div>
+            </div>
+          </ScrollAnimator>
+
+          <ScrollAnimator delay={200}>
+            <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
+                  <Palette size={20} className="text-primary group-hover:text-white transition-colors" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                  Skill Distribution
+                </h3>
+              </div>
+              <div className="space-y-4">
+                {skillCategories.map((category, index) => {
+                  const CategoryIcon = category.icon
+                  return (
+                    <div key={index} className="flex items-center gap-3 group/category">
+                      <div className="w-5 h-5 flex items-center justify-center">
+                        <CategoryIcon size={16} className="text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium text-foreground/70 group-hover/category:text-foreground transition-colors">
+                            {category.name}
+                          </span>
+                          <span className="text-xs font-semibold text-primary">{category.percentage}%</span>
+                        </div>
+                        <div className="h-1.5 bg-border/50 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-accent transition-all duration-1000 ease-out group-hover/category:scale-105"
+                            style={{ 
+                              width: isVisible ? `${category.percentage}%` : '0%',
+                              transitionDelay: `${index * 150}ms`
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </ScrollAnimator>
+
+          <ScrollAnimator delay={300}>
+            <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
+                  <Zap size={20} className="text-primary group-hover:text-white transition-colors" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                  Experience Growth
+                </h3>
+              </div>
+              <div className="space-y-4">
+                {experienceData.map((exp, index) => (
+                  <div key={index} className="flex items-center gap-3 group/exp">
+                    <span className="text-sm font-medium text-foreground/70 w-12 group-hover/exp:text-foreground transition-colors">
+                      {exp.year}
+                    </span>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs text-foreground/60">Skill Level</span>
+                        <span className="text-xs font-semibold text-primary">{exp.percentage}%</span>
+                      </div>
+                      <div className="h-1.5 bg-border/50 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-primary transition-all duration-1000 ease-out group-hover/exp:scale-105"
+                          style={{ 
+                            width: isVisible ? `${exp.percentage}%` : '0%',
+                            transitionDelay: `${index * 200}ms`
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollAnimator>
+        </div>
+
+        {/* Technology Stack */}
+        <ScrollAnimator delay={400}>
+          <div className="p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                <Cpu size={24} className="text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold text-foreground">Technology Stack</h3>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {Object.entries(techLogos).map(([tech, logo]) => (
+                <div 
+                  key={tech} 
+                  className="flex flex-col items-center gap-2 p-4 rounded-xl bg-secondary/30 border border-border/50 hover:border-primary/50 transition-all duration-300 group relative overflow-hidden"
+                >
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
+                    <Cpu size={40} className="absolute right-1 bottom-1" />
+                  </div>
+
+                  <img 
+                    src={logo as string} 
+                    alt={tech}
+                    className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 relative z-10"
+                  />
+                  <span className="text-xs font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors relative z-10">
+                    {tech}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </ScrollAnimator>
