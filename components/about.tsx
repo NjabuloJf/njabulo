@@ -1,5 +1,5 @@
 "use client"
-import { Code2, Palette, Zap, Users, Award, Globe, Lightbulb, Target, Briefcase } from "lucide-react"
+import { Code2, Palette, Zap, Users, Award, Globe, Lightbulb, Target, Briefcase, Rocket, Sparkles, Trophy, Star, Map, Workflow, Compass, Shield, Heart, GitBranch, Cpu, Eye } from "lucide-react"
 import { ScrollAnimator } from "./scroll-animator"
 import Image from "next/image"
 import { useEffect, useState } from "react"
@@ -41,17 +41,37 @@ export default function About() {
   ]
 
   const achievements = [
-    { icon: Award, label: "5+ Awards", value: "Won" },
-    { icon: Briefcase, label: "20+ Projects", value: "Delivered" },
-    { icon: Users, label: "100%", value: "Satisfaction" },
-    { icon: Zap, label: "3+ Years", value: "Experience" },
+    { icon: Trophy, label: "5+ Awards", value: "Won", decorator: Sparkles },
+    { icon: Rocket, label: "20+ Projects", value: "Delivered", decorator: Zap },
+    { icon: Heart, label: "100%", value: "Satisfaction", decorator: Star },
+    { icon: Cpu, label: "3+ Years", value: "Experience", decorator: GitBranch },
   ]
 
   const values = [
-    { icon: Lightbulb, label: "Innovation", description: "Always exploring new technologies and approaches" },
-    { icon: Target, label: "Quality", description: "Delivering excellence in every project detail" },
-    { icon: Users, label: "Collaboration", description: "Working seamlessly with teams and clients" },
-    { icon: Globe, label: "Accessibility", description: "Creating inclusive digital experiences for all" },
+    { 
+      icon: Lightbulb, 
+      label: "Innovation", 
+      description: "Always exploring new technologies and approaches",
+      decorator: Sparkles
+    },
+    { 
+      icon: Target, 
+      label: "Quality", 
+      description: "Delivering excellence in every project detail",
+      decorator: Shield
+    },
+    { 
+      icon: Users, 
+      label: "Collaboration", 
+      description: "Working seamlessly with teams and clients",
+      decorator: Workflow
+    },
+    { 
+      icon: Globe, 
+      label: "Accessibility", 
+      description: "Creating inclusive digital experiences for all",
+      decorator: Eye
+    },
   ]
 
   // Typing animation effect
@@ -60,11 +80,10 @@ export default function About() {
       const timer = setTimeout(() => {
         setDisplayedText(prev => prev + fullText[currentIndex])
         setCurrentIndex(prev => prev + 1)
-      }, 15) // Kecepatan mengetik (ms per karakter)
+      }, 15)
 
       return () => clearTimeout(timer)
     } else {
-      // Setelah selesai, hilangkan cursor setelah beberapa saat
       const cursorTimer = setTimeout(() => {
         setShowCursor(false)
       }, 1000)
@@ -172,17 +191,31 @@ export default function About() {
         {/* Achievements */}
         <div>
           <ScrollAnimator className="text-center mb-10 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Achievements & Impact</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground flex items-center justify-center gap-3">
+              <Sparkles size={32} className="text-primary" />
+              Achievements & Impact
+              <Zap size={32} className="text-accent" />
+            </h2>
           </ScrollAnimator>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {achievements.map((achievement, index) => {
               const Icon = achievement.icon
+              const Decorator = achievement.decorator
               return (
                 <ScrollAnimator key={index} delay={index * 50}>
-                  <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg text-center space-y-2 group cursor-pointer">
-                    <Icon size={28} className="mx-auto text-primary group-hover:scale-110 transition-transform" />
-                    <p className="text-lg md:text-2xl font-bold text-primary">{achievement.value}</p>
-                    <p className="text-xs md:text-sm text-foreground/60">{achievement.label}</p>
+                  <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg text-center space-y-3 group cursor-pointer relative overflow-hidden">
+                    {/* Background Icon Effect */}
+                    <div className="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
+                      <Decorator size={80} />
+                    </div>
+                    <div className="relative z-10">
+                      <div className="relative flex justify-center mb-3">
+                        <Icon size={32} className="text-primary group-hover:scale-110 transition-transform" />
+                        <Decorator size={16} className="absolute -top-1 -right-1 text-accent animate-pulse" />
+                      </div>
+                      <p className="text-lg md:text-2xl font-bold text-primary">{achievement.value}</p>
+                      <p className="text-xs md:text-sm text-foreground/60">{achievement.label}</p>
+                    </div>
                   </div>
                 </ScrollAnimator>
               )
@@ -193,7 +226,11 @@ export default function About() {
         {/* Experience Timeline */}
         <div>
           <ScrollAnimator className="text-center mb-10 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Professional Journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground flex items-center justify-center gap-3">
+              <Map size={32} className="text-primary" />
+              Professional Journey
+              <Workflow size={32} className="text-accent" />
+            </h2>
           </ScrollAnimator>
           <div className="space-y-4 md:space-y-6">
             {experiences.map((exp, idx) => {
@@ -201,9 +238,13 @@ export default function About() {
               return (
                 <ScrollAnimator key={idx} delay={idx * 100}>
                   <div
-                    className={`p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 ${exp.color} border-l-4 space-y-3 group cursor-pointer`}
+                    className={`p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 ${exp.color} border-l-4 space-y-3 group cursor-pointer relative overflow-hidden`}
                   >
-                    <div className="flex items-start justify-between gap-4">
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
+                      <Briefcase size={120} className="absolute right-4 top-4" />
+                    </div>
+                    <div className="flex items-start justify-between gap-4 relative z-10">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
@@ -228,21 +269,35 @@ export default function About() {
         {/* Core Values */}
         <div>
           <ScrollAnimator className="text-center mb-10 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Core Values</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground flex items-center justify-center gap-3">
+              <Compass size={32} className="text-primary" />
+              Core Values
+              <Shield size={32} className="text-accent" />
+            </h2>
           </ScrollAnimator>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {values.map((value, idx) => {
               const ValueIcon = value.icon
+              const Decorator = value.decorator
               return (
                 <ScrollAnimator key={idx} delay={idx * 60}>
-                  <div className="p-6 rounded-xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 space-y-3 group cursor-pointer">
-                    <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
-                      <ValueIcon size={24} className="text-primary group-hover:text-white transition-colors" />
+                  <div className="p-6 rounded-xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 space-y-3 group cursor-pointer relative overflow-hidden">
+                    {/* Background Decorator */}
+                    <div className="absolute -right-2 -bottom-2 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
+                      <Decorator size={60} />
                     </div>
-                    <h4 className="font-bold text-foreground group-hover:text-primary transition-colors">
-                      {value.label}
-                    </h4>
-                    <p className="text-sm text-foreground/60">{value.description}</p>
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
+                          <ValueIcon size={24} className="text-primary group-hover:text-white transition-colors" />
+                        </div>
+                        <Decorator size={20} className="text-accent animate-pulse" />
+                      </div>
+                      <h4 className="font-bold text-foreground group-hover:text-primary transition-colors">
+                        {value.label}
+                      </h4>
+                      <p className="text-sm text-foreground/60">{value.description}</p>
+                    </div>
                   </div>
                 </ScrollAnimator>
               )
