@@ -1,242 +1,207 @@
 "use client"
-
-import {
-  Github,
-  Linkedin,
-  Mail,
-  Twitter,
-  Instagram,
-  Dribbble,
-  ExternalLink,
-  Heart,
-  ArrowUp,
-  Code,
-  Star,
-  Users,
-  MapPin,
-  Send,
-} from "lucide-react"
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { ScrollAnimator } from "./scroll-animator"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
-export default function Footer() {
-  const year = new Date().getFullYear()
-  const [showScroll, setShowScroll] = useState(false)
+const SparklesIcon = () => (
+  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+  </svg>
+)
+
+const ChevronDownIcon = () => (
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+  </svg>
+)
+
+const CodeIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+  </svg>
+)
+
+const DesignIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+  </svg>
+)
+
+const PerformanceIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+  </svg>
+)
+
+const TargetIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+  </svg>
+)
+
+const StarIcon = () => (
+  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+  </svg>
+)
+
+const ArrowRightIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+  </svg>
+)
+
+const MessageIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+  </svg>
+)
+
+const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
+  const [displayedText, setDisplayedText] = useState("")
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScroll(window.scrollY > 300)
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(prev => prev + text[currentIndex])
+        setCurrentIndex(prev => prev + 1)
+      }, 50)
+      return () => clearTimeout(timeout)
     }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
-
-  const socialLinks = [
-    { icon: Github, label: "GitHub", href: "https://github.com", color: "hover:text-gray-400" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com", color: "hover:text-blue-400" },
-    { icon: Twitter, label: "Twitter", href: "https://twitter.com", color: "hover:text-sky-400" },
-    { icon: Mail, label: "Email", href: "mailto:everlyn@example.com", color: "hover:text-rose-400" },
-    { icon: Instagram, label: "Instagram", href: "https://instagram.com", color: "hover:text-pink-400" },
-    { icon: Dribbble, label: "Dribbble", href: "https://dribbble.com", color: "hover:text-rose-500" },
-  ]
-
-  const footerLinks = [
-    {
-      title: "Navigation",
-      icon: ExternalLink,
-      links: [
-        { label: "Home", href: "/" },
-        { label: "About", href: "/about" },
-        { label: "Skills", href: "/skills" },
-        { label: "Projects", href: "/projects" },
-        { label: "Contact", href: "/contact" },
-      ],
-    },
-    {
-      title: "Resources",
-      icon: Code,
-      links: [
-        { label: "Resume", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Documentation", href: "#" },
-        { label: "FAQ", href: "#" },
-      ],
-    },
-    {
-      title: "Legal",
-      icon: Star,
-      links: [
-        { label: "Privacy Policy", href: "#" },
-        { label: "Terms of Service", href: "#" },
-        { label: "Cookie Policy", href: "#" },
-        { label: "Disclaimer", href: "#" },
-      ],
-    },
-  ]
+  }, [currentIndex, text])
 
   return (
-    <footer className="relative bg-gradient-to-b from-background to-secondary/10 border-t border-primary/60 shadow-2xl shadow-primary/20 pt-16 md:pt-20 pb-8">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-      <div
-        className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl opacity-20 animate-pulse"
-        style={{ animationDelay: "2s" }}
-      ></div>
+    <span className="typing-text">
+      {displayedText}
+      <span className="animate-pulse">|</span>
+    </span>
+  )
+}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
-          {/* Brand Section */}
-          <div className="col-span-2 md:col-span-1 space-y-4">
-            <Link href="/" className="inline-flex items-center gap-2 group">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center text-primary-foreground font-bold text-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 overflow-hidden">
-                <Image 
-                  src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png" 
-                  alt="Logo" 
-                  width={48} 
-                  height={48}
-                  className="object-cover w-full h-full"
+export default function Hero() {
+  const fullText = "Creative developer & UI/UX designer crafting beautiful, interactive digital experiences. Specializing in modern web technologies with a passion for performance and user satisfaction."
+
+  return (
+    <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-5 md:left-10 w-48 md:w-72 h-48 md:h-72 bg-primary/15 rounded-full blur-3xl opacity-50 animate-pulse"></div>
+        <div
+          className="absolute bottom-20 right-5 md:right-10 w-48 md:w-72 h-48 md:h-72 bg-accent/15 rounded-full blur-3xl opacity-50 animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute top-1/2 left-1/3 w-40 h-40 bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse"
+          style={{ animationDelay: "2s" }}
+        ></div>
+      </div>
+
+      <div className="relative z-10 max-w-5xl w-full space-y-10 md:space-y-12">
+        {/* Centered Welcome Badge */}
+        <ScrollAnimator>
+          <div className="flex justify-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/30 hover:border-primary/50 transition-all duration-300 group cursor-pointer">
+              <SparklesIcon />
+              <span className="text-sm font-medium text-primary">Welcome to my digital space</span>
+            </div>
+          </div>
+        </ScrollAnimator>
+
+        <div className="space-y-8 md:space-y-10">
+          {/* Profile Image - Full rectangular card */}
+          <ScrollAnimator delay={100}>
+            <div className="flex flex-col items-center gap-6">
+              <div className="relative w-full max-w-2xl h-80 rounded-3xl overflow-hidden border-4 border-primary/20 shadow-2xl bg-card/50 backdrop-blur-sm">
+                <Image
+                  src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                  alt="Everlyn Amethyst"
+                  fill
+                  className="object-cover"
+                  priority
                 />
               </div>
-              <span className="font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300">
-                Everlyn
-              </span>
-            </Link>
-            <p className="text-foreground/60 text-sm leading-relaxed max-w-xs flex items-start gap-2">
-              <Code size={16} className="text-primary flex-shrink-0 mt-0.5" />
-              Creating beautiful, high-performance digital experiences with passion and precision.
-            </p>
-          </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary leading-tight text-center">
+                Everlyn Amethyst
+              </h1>
+            </div>
+          </ScrollAnimator>
 
-          {/* Footer Links with Icons */}
-          {footerLinks.map((section, idx) => {
-            const SectionIcon = section.icon
-            return (
-              <div key={idx} className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-primary/20 flex items-center justify-center">
-                    <SectionIcon size={16} className="text-primary" />
-                  </div>
-                  <h4 className="font-semibold text-foreground text-sm md:text-base">{section.title}</h4>
-                </div>
-                <ul className="space-y-2.5">
-                  {section.links.map((link, i) => (
-                    <li key={i}>
-                      <Link
-                        href={link.href}
-                        className="text-foreground/60 hover:text-primary transition-colors duration-300 text-sm flex items-center gap-2 group"
-                      >
-                        <ExternalLink
-                          size={14}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        />
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+          {/* Typing Text Card */}
+          <ScrollAnimator delay={200}>
+            <div className="relative bg-card/70 backdrop-blur-md rounded-3xl border border-border/50 p-6 md:p-8 shadow-2xl max-w-4xl mx-auto">
+              <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-b from-primary to-accent rounded-l-3xl"></div>
+              <div className="pl-6 md:pl-8">
+                <p className="text-base sm:text-lg md:text-xl text-foreground/90 font-light leading-relaxed italic min-h-[120px]">
+                  <TypingText text={fullText} />
+                </p>
               </div>
-            )
-          })}
+            </div>
+          </ScrollAnimator>
         </div>
 
-        {/* Social Links Section - Rounded container */}
-        <div className="py-8 md:py-12 border-y border-border/50 mb-8 md:mb-10 rounded-3xl bg-background/50 backdrop-blur-sm">
-          <div className="space-y-4 max-w-2xl mx-auto px-6">
-            <div className="flex items-center justify-center gap-2">
-              <Users size={18} className="text-accent" />
-              <h4 className="font-semibold text-foreground text-sm md:text-base">Connect With Me</h4>
-            </div>
-            <div className="flex flex-wrap justify-center gap-3">
-              {socialLinks.map((social, idx) => {
-                const Icon = social.icon
-                return (
-                  <a
-                    key={idx}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-3 md:p-3.5 bg-card/70 border border-border/50 text-foreground rounded-2xl transition-all duration-300 hover:scale-125 hover:border-primary/50 group backdrop-blur-sm ${social.color}`}
-                    aria-label={social.label}
-                    title={social.label}
-                  >
-                    <Icon size={20} className="group-hover:scale-125 transition-transform duration-300" />
-                  </a>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Info */}
-        <div className="mb-8 md:mb-12 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex items-center gap-3 p-4 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group backdrop-blur-sm">
-            <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
-              <Mail size={20} className="text-primary" />
-            </div>
-            <div>
-              <p className="text-xs text-foreground/60">Email</p>
-              <a
-                href="mailto:everlyn@example.com"
-                className="text-sm font-semibold text-foreground hover:text-primary transition-colors"
+        <ScrollAnimator delay={300}>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 py-8">
+            {[
+              { label: "Full Stack", desc: "Frontend & Backend", icon: <CodeIcon /> },
+              { label: "Design", desc: "Beautiful UX", icon: <DesignIcon /> },
+              { label: "Performance", desc: "Fast & Smooth", icon: <PerformanceIcon /> },
+              { label: "Results", desc: "Goal Driven", icon: <TargetIcon /> },
+            ].map((concept, idx) => (
+              <div
+                key={idx}
+                className="p-4 md:p-5 rounded-xl bg-card/70 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 group cursor-pointer text-center space-y-2"
               >
-                everlyn@example.com
-              </a>
-            </div>
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mx-auto group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
+                  <div className="text-primary group-hover:text-white transition-colors">
+                    {concept.icon}
+                  </div>
+                </div>
+                <div className="font-semibold text-sm text-foreground">{concept.label}</div>
+                <div className="text-xs text-foreground/60">{concept.desc}</div>
+              </div>
+            ))}
           </div>
-          <div className="flex items-center gap-3 p-4 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group backdrop-blur-sm">
-            <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center group-hover:bg-accent/30 transition-colors">
-              <MapPin size={20} className="text-accent" />
-            </div>
-            <div>
-              <p className="text-xs text-foreground/60">Location</p>
-              <p className="text-sm font-semibold text-foreground">Based Worldwide • Remote</p>
-            </div>
-          </div>
-        </div>
+        </ScrollAnimator>
 
-        {/* Bottom Footer */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-sm p-6 rounded-3xl bg-background/50 border border-border/30 backdrop-blur-sm">
-          <div className="flex items-center gap-1 text-foreground/60">
-            <span>© {year} Everlyn Amethyst. Made with</span>
-            <Heart size={16} className="text-primary fill-primary animate-pulse" />
-            <span>by Everlyn</span>
+        <ScrollAnimator delay={400}>
+          <div className="flex flex-wrap gap-2 md:gap-3 items-center justify-center">
+            {["Full Stack", "UI/UX Design", "React & Next.js", "TypeScript Expert"].map((tag, idx) => (
+              <div
+                key={idx}
+                className="px-3 md:px-4 py-2 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30 hover:border-primary/50 transition-all flex items-center gap-2 group cursor-pointer hover:scale-105"
+              >
+                <StarIcon />
+                <span className="text-xs md:text-sm font-medium text-primary">{tag}</span>
+              </div>
+            ))}
           </div>
-          <div className="flex items-center gap-4 text-foreground/60">
-            <a
-              href="#"
-              className="hover:text-primary transition-colors duration-300 flex items-center gap-1 hover:scale-110"
-            >
-              <ExternalLink size={14} />
-              Privacy
-            </a>
-            <span className="text-border">/</span>
-            <a
-              href="#"
-              className="hover:text-primary transition-colors duration-300 flex items-center gap-1 hover:scale-110"
-            >
-              <ExternalLink size={14} />
-              Terms
-            </a>
-          </div>
-        </div>
+        </ScrollAnimator>
 
-        {/* Scroll to top button */}
-        {showScroll && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 p-3 bg-gradient-to-br from-primary to-accent text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 animate-float"
-            aria-label="Scroll to top"
-          >
-            <ArrowUp size={24} />
-          </button>
-        )}
+        <ScrollAnimator delay={500}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 pt-4 md:pt-6">
+            <Link
+              href="/projects"
+              className="w-full sm:w-auto px-6 md:px-8 py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group backdrop-blur-sm"
+            >
+              <span>View My Work</span>
+              <ArrowRightIcon />
+            </Link>
+            <Link
+              href="/contact"
+              className="w-full sm:w-auto px-6 md:px-8 py-3 border border-primary/50 text-primary rounded-xl font-semibold hover:bg-primary/20 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 group backdrop-blur-sm"
+            >
+              <span>Get In Touch</span>
+              <MessageIcon />
+            </Link>
+          </div>
+        </ScrollAnimator>
       </div>
-    </footer>
+
+      <div className="absolute bottom-8 md:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-primary/50 z-10">
+        <ChevronDownIcon />
+      </div>
+    </section>
   )
 }
