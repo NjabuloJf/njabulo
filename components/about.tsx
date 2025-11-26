@@ -74,7 +74,6 @@ export default function About() {
     },
   ]
 
-  // Typing animation effect
   useEffect(() => {
     if (currentIndex < fullText.length) {
       const timer = setTimeout(() => {
@@ -91,7 +90,6 @@ export default function About() {
     }
   }, [currentIndex, fullText])
 
-  // Cursor blink effect
   useEffect(() => {
     if (showCursor) {
       const cursorTimer = setInterval(() => {
@@ -110,20 +108,15 @@ export default function About() {
       ></div>
 
       <div className="max-w-6xl w-full space-y-16 md:space-y-20 relative z-10">
-        {/* Header */}
         <ScrollAnimator className="text-center space-y-4 md:space-y-6">
           <div className="flex justify-center mb-6">
             <div className="relative">
-              {/* Outer glowing ring */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse"></div>
               
-              {/* Main gradient circle */}
               <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
                 
-                {/* Inner container with background matching page */}
                 <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
                   
-                  {/* Logo image with gradient overlay */}
                   <div className="relative w-full h-full">
                     <Image
                       src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
@@ -136,13 +129,11 @@ export default function About() {
                       }}
                     />
                     
-                    {/* Gradient overlay to blend with circle */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
                   </div>
                 </div>
               </div>
               
-              {/* Floating particles */}
               <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent rounded-full animate-bounce opacity-80"></div>
               <div className="absolute -bottom-1 -left-2 w-3 h-3 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
               <div className="absolute top-4 -right-4 w-2 h-2 bg-accent rounded-full animate-ping opacity-60"></div>
@@ -153,7 +144,6 @@ export default function About() {
             About Me
           </h1>
           
-          {/* Typing Animation Container */}
           <div className="min-h-[120px] flex items-center justify-center">
             <p className="text-base sm:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed text-center">
               {displayedText}
@@ -164,10 +154,8 @@ export default function About() {
           </div>
         </ScrollAnimator>
 
-        {/* Blockquote Card */}
         <ScrollAnimator>
           <div className="relative p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group overflow-hidden">
-            {/* Left color bar */}
             <div className="absolute left-0 top-0 bottom-0 w-1 md:w-1.5 bg-gradient-to-b from-primary via-accent to-primary"></div>
 
             <blockquote className="ml-4 md:ml-6 space-y-4">
@@ -188,7 +176,6 @@ export default function About() {
           </div>
         </ScrollAnimator>
 
-        {/* Achievements */}
         <div>
           <ScrollAnimator className="text-center mb-10 md:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground flex items-center justify-center gap-3">
@@ -204,7 +191,6 @@ export default function About() {
               return (
                 <ScrollAnimator key={index} delay={index * 50}>
                   <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg text-center space-y-3 group cursor-pointer relative overflow-hidden">
-                    {/* Background Icon Effect */}
                     <div className="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
                       <Decorator size={80} />
                     </div>
@@ -223,7 +209,6 @@ export default function About() {
           </div>
         </div>
 
-        {/* Experience Timeline */}
         <div>
           <ScrollAnimator className="text-center mb-10 md:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground flex items-center justify-center gap-3">
@@ -240,7 +225,6 @@ export default function About() {
                   <div
                     className={`p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 ${exp.color} border-l-4 space-y-3 group cursor-pointer relative overflow-hidden`}
                   >
-                    {/* Background Pattern */}
                     <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
                       <Briefcase size={120} className="absolute right-4 top-4" />
                     </div>
@@ -266,7 +250,6 @@ export default function About() {
           </div>
         </div>
 
-        {/* Core Values */}
         <div>
           <ScrollAnimator className="text-center mb-10 md:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground flex items-center justify-center gap-3">
@@ -282,7 +265,6 @@ export default function About() {
               return (
                 <ScrollAnimator key={idx} delay={idx * 60}>
                   <div className="p-6 rounded-xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 space-y-3 group cursor-pointer relative overflow-hidden">
-                    {/* Background Decorator */}
                     <div className="absolute -right-2 -bottom-2 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
                       <Decorator size={60} />
                     </div>
