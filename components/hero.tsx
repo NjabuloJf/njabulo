@@ -80,29 +80,34 @@ export default function Hero() {
           </div>
         </ScrollAnimator>
 
-        <div className="flex items-center gap-6">
-          <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-primary/20">
-            <Image
-              src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
-              alt="Everlyn Amethyst"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="space-y-4 md:space-y-6 flex-1">
-            <ScrollAnimator delay={100}>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary leading-tight">
+        <div className="space-y-8 md:space-y-10">
+          <ScrollAnimator delay={100}>
+            <div className="flex flex-col items-center gap-6">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl">
+                <Image
+                  src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                  alt="Everlyn Amethyst"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary leading-tight text-center">
                 Everlyn Amethyst
               </h1>
-            </ScrollAnimator>
+            </div>
+          </ScrollAnimator>
 
-            <ScrollAnimator delay={200}>
-              <p className="text-base sm:text-lg md:text-xl text-foreground/70 font-light leading-relaxed max-w-2xl">
-                Creative developer & UI/UX designer crafting beautiful, interactive digital experiences. Specializing in
-                modern web technologies with a passion for performance and user satisfaction.
-              </p>
-            </ScrollAnimator>
-          </div>
+          <ScrollAnimator delay={200}>
+            <div className="relative bg-card/50 rounded-2xl border border-border/50 p-6 md:p-8 shadow-lg max-w-4xl mx-auto">
+              <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-primary to-accent rounded-l-2xl"></div>
+              <div className="pl-6 md:pl-8">
+                <p className="text-base sm:text-lg md:text-xl text-foreground/80 font-light leading-relaxed italic">
+                  "Creative developer & UI/UX designer crafting beautiful, interactive digital experiences. Specializing in
+                  modern web technologies with a passion for performance and user satisfaction."
+                </p>
+              </div>
+            </div>
+          </ScrollAnimator>
         </div>
 
         <ScrollAnimator delay={300}>
