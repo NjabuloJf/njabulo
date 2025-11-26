@@ -2,8 +2,15 @@
 import { Code2, Palette, Zap, Users, Award, Globe, Lightbulb, Target, Briefcase } from "lucide-react"
 import { ScrollAnimator } from "./scroll-animator"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
 export default function About() {
+  const [displayedText, setDisplayedText] = useState("")
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [showCursor, setShowCursor] = useState(true)
+
+  const fullText = "A passionate creative developer with 3+ years of experience transforming ideas into stunning, high-performance digital experiences. Combining technical expertise with design thinking to create meaningful solutions."
+
   const experiences = [
     {
       icon: Briefcase,
@@ -46,6 +53,34 @@ export default function About() {
     { icon: Users, label: "Collaboration", description: "Working seamlessly with teams and clients" },
     { icon: Globe, label: "Accessibility", description: "Creating inclusive digital experiences for all" },
   ]
+
+  // Typing animation effect
+  useEffect(() => {
+    if (currentIndex < fullText.length) {
+      const timer = setTimeout(() => {
+        setDisplayedText(prev => prev + fullText[currentIndex])
+        setCurrentIndex(prev => prev + 1)
+      }, 15) // Kecepatan mengetik (ms per karakter)
+
+      return () => clearTimeout(timer)
+    } else {
+      // Setelah selesai, hilangkan cursor setelah beberapa saat
+      const cursorTimer = setTimeout(() => {
+        setShowCursor(false)
+      }, 1000)
+      return () => clearTimeout(cursorTimer)
+    }
+  }, [currentIndex, fullText])
+
+  // Cursor blink effect
+  useEffect(() => {
+    if (showCursor) {
+      const cursorTimer = setInterval(() => {
+        setShowCursor(prev => !prev)
+      }, 500)
+      return () => clearInterval(cursorTimer)
+    }
+  }, [showCursor])
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -98,11 +133,16 @@ export default function About() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
             About Me
           </h1>
-          <p className="text-base sm:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed">
-            A passionate creative developer with 3+ years of experience transforming ideas into stunning,
-            high-performance digital experiences. Combining technical expertise with design thinking to create
-            meaningful solutions.
-          </p>
+          
+          {/* Typing Animation Container */}
+          <div className="min-h-[120px] flex items-center justify-center">
+            <p className="text-base sm:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed text-center">
+              {displayedText}
+              {showCursor && (
+                <span className="inline-block w-2 h-5 bg-primary ml-1 animate-pulse align-middle"></span>
+              )}
+            </p>
+          </div>
         </ScrollAnimator>
 
         {/* Blockquote Card */}
