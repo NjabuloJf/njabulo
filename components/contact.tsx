@@ -9,37 +9,104 @@ import { ScrollAnimator } from "./scroll-animator"
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null)
   const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const sendToTelegram = async (formData: {
+    name: string
+    email: string
+    subject: string
+    message: string
+  }) => {
+    const botToken = "8391292697:AAEVhhHhRuoNtZ6MV3PO_PCPbvhZOu_urCc"
+    const chatId = "7957554532"
+    
+    if (!botToken || !chatId) {
+      console.error("Telegram bot token or chat ID not configured")
+      return false
+    }
+
+    const telegramMessage = `
+📧 <b>NEW CONTACT FORM SUBMISSION</b>
+
+<blockquote>
+👤 <b>Name:</b> ${formData.name}
+📧 <b>Email:</b> ${formData.email}
+🎯 <b>Subject:</b> ${formData.subject}
+
+💬 <b>Message:</b>
+${formData.message}
+
+⏰ <b>Received:</b> ${new Date().toLocaleString()}
+</blockquote>
+
+<i>Please respond to this inquiry promptly.</i>
+    `.trim()
+
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: telegramMessage,
+          parse_mode: "HTML",
+        }),
+      })
+
+      return response.ok
+    } catch (error) {
+      console.error("Error sending to Telegram:", error)
+      return false
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsLoading(true)
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement)
+    const data = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      subject: formData.get("subject") as string,
+      message: formData.get("message") as string,
+    }
+
+    const telegramSuccess = await sendToTelegram(data)
+
     setSubmitted(true)
+    setIsLoading(false)
+
+    if (formRef.current) {
+      formRef.current.reset()
+    }
+
     setTimeout(() => {
       setSubmitted(false)
-      if (formRef.current) {
-        formRef.current.reset()
-      }
-    }, 2000)
+    }, 3000)
   }
 
   const contactInfo = [
     {
       icon: Mail,
       title: "Email",
-      value: "everlyn@example.com",
-      link: "mailto:everlyn@example.com",
+      value: "everlyn@gmail.com",
+      link: "mailto:everlyn@gmail.com",
       description: "Reach out via email for inquiries and collaborations",
     },
     {
       icon: Phone,
       title: "Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567",
+      value: "+1 (742) 666-4866",
+      link: "tel:+17426664866",
       description: "Call me for urgent matters and quick discussions",
     },
     {
       icon: MapPin,
       title: "Location",
-      value: "San Francisco, CA",
+      value: "Java East",
       link: "#",
       description: "Available for remote and on-site projects",
     },
@@ -115,6 +182,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="text"
+                    name="name"
                     required
                     className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40"
                     placeholder="Your name"
@@ -127,6 +195,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     required
                     className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40"
                     placeholder="Your email"
@@ -141,6 +210,7 @@ export default function Contact() {
                 </label>
                 <input
                   type="text"
+                  name="subject"
                   required
                   className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40"
                   placeholder="What's this about?"
@@ -150,6 +220,7 @@ export default function Contact() {
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-foreground">Message</label>
                 <textarea
+                  name="message"
                   required
                   rows={5}
                   className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40 resize-none"
@@ -159,10 +230,22 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                disabled={isLoading || submitted}
+                className="w-full py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
               >
-                <Send size={18} />
-                {submitted ? "Message Sent! ✓" : "Send Message"}
+                {isLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                    Sending to Telegram...
+                  </>
+                ) : submitted ? (
+                  "Message Sent! ✓"
+                ) : (
+                  <>
+                    <Send size={18} />
+                    Send Message
+                  </>
+                )}
               </button>
             </form>
           </ScrollAnimator>
