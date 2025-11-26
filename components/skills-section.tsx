@@ -22,7 +22,8 @@ import {
   Play,
   Pause,
   ChevronRight,
-  Star
+  Sparkle,
+  Orbit
 } from "lucide-react"
 import { ScrollAnimator } from "./scroll-animator"
 import Image from "next/image"
@@ -69,35 +70,33 @@ export default function Skills() {
     return () => observer.disconnect()
   }, [])
 
-  // Enhanced smooth horizontal scroll animation dengan physics-based movement
+  // Ultra smooth horizontal scroll dengan wave effect
   useEffect(() => {
     const techStackElement = techStackRef.current
     if (!techStackElement) return
 
     let animationFrame: number
     let scrollPosition = 0
-    const baseSpeed = 0.6
-    let velocity = baseSpeed
-    let acceleration = 0
-    const friction = 0.96
+    const baseSpeed = 0.8
+    let time = 0
 
     const animateScroll = () => {
       if (!isHovered && isPlaying) {
-        // Apply acceleration and friction for smooth physics
-        velocity = velocity * friction + acceleration
-        scrollPosition += velocity
+        time += 0.02
+        // Wave effect dengan easing yang lebih natural
+        const wave = Math.sin(time) * 0.3 + 0.7
+        scrollPosition += baseSpeed * wave
         
         const maxScroll = techStackElement.scrollWidth / 2
         
-        // Bounce effect when reaching edges
-        if (scrollPosition >= maxScroll || scrollPosition <= 0) {
-          velocity = -velocity * 0.8 // Bounce with energy loss
-          acceleration = 0
+        // Seamless looping
+        if (scrollPosition >= maxScroll) {
+          scrollPosition = 0
         }
         
-        // Smooth easing with bounce
-        const progress = (scrollPosition % maxScroll) / maxScroll
-        const easedScroll = easeOutBounce(progress) * maxScroll
+        // Ultra smooth scroll dengan easing
+        const progress = scrollPosition / maxScroll
+        const easedScroll = easeInOutCubic(progress) * maxScroll
         
         techStackElement.scrollLeft = easedScroll
       }
@@ -105,20 +104,9 @@ export default function Skills() {
       animationFrame = requestAnimationFrame(animateScroll)
     }
 
-    // Advanced easing functions
-    const easeOutBounce = (x: number) => {
-      const n1 = 7.5625;
-      const d1 = 2.75;
-
-      if (x < 1 / d1) {
-        return n1 * x * x;
-      } else if (x < 2 / d1) {
-        return n1 * (x -= 1.5 / d1) * x + 0.75;
-      } else if (x < 2.5 / d1) {
-        return n1 * (x -= 2.25 / d1) * x + 0.9375;
-      } else {
-        return n1 * (x -= 2.625 / d1) * x + 0.984375;
-      }
+    // Smooth easing functions
+    const easeInOutCubic = (x: number) => {
+      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
     }
 
     // Start animation
@@ -466,140 +454,152 @@ export default function Skills() {
           </ScrollAnimator>
         </div>
 
-        {/* Ultra Modern Technology Stack Carousel */}
+        {/* Ultra Modern Fluid Tech Carousel */}
         <ScrollAnimator delay={400}>
-          <div className="p-8 rounded-2xl bg-gradient-to-br from-card/80 to-card/60 border border-border/50 hover:border-primary/50 transition-all duration-500 group/carousel relative overflow-hidden">
-            {/* Animated background */}
-            <div className="absolute inset-0 opacity-5">
-              <div className="absolute top-0 left-0 w-32 h-32 bg-primary rounded-full blur-2xl animate-pulse"></div>
-              <div className="absolute bottom-0 right-0 w-32 h-32 bg-accent rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="p-8 rounded-3xl bg-gradient-to-br from-card/80 via-card/60 to-card/80 border border-border/30 hover:border-primary/40 transition-all duration-700 group/carousel relative overflow-hidden">
+            {/* Animated background waves */}
+            <div className="absolute inset-0 opacity-[0.03]">
+              <div className="absolute top-1/4 left-0 w-64 h-64 bg-primary rounded-full blur-3xl animate-float"></div>
+              <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-accent rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
             </div>
 
-            {/* Header dengan controls */}
+            {/* Floating particles */}
+            <div className="absolute inset-0 overflow-hidden">
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-2 h-2 bg-primary/30 rounded-full animate-float"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    animationDuration: `${8 + Math.random() * 10}s`
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Header dengan elegant controls */}
             <div className="flex items-center justify-between mb-8 relative z-10">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
-                  <Cpu size={28} className="text-white" />
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl group/icon">
+                    <Cpu size={28} className="text-white transition-transform duration-500 group-hover/icon:scale-110" />
+                  </div>
+                  <Sparkle className="absolute -top-1 -right-1 w-4 h-4 text-accent animate-pulse" />
                 </div>
                 <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground">Technology Stack</h3>
-                  <p className="text-foreground/60 text-sm">Interactive tech carousel</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+                    Tech Ecosystem
+                  </h3>
+                  <p className="text-foreground/60 text-sm">Fluid technology showcase</p>
                 </div>
               </div>
               
-              {/* Play/Pause Controls */}
+              {/* Minimal Play/Pause Controls */}
               <button
                 onClick={togglePlay}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 border border-primary/30 hover:border-primary/50 transition-all duration-300 group/control"
+                className="group/control relative overflow-hidden rounded-2xl p-3 bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 hover:border-primary/40 transition-all duration-500"
               >
-                {isPlaying ? (
-                  <>
-                    <Pause size={16} className="text-primary" />
-                    <span className="text-sm font-medium text-primary">Pause</span>
-                  </>
-                ) : (
-                  <>
-                    <Play size={16} className="text-primary" />
-                    <span className="text-sm font-medium text-primary">Play</span>
-                  </>
-                )}
+                <div className="relative z-10">
+                  {isPlaying ? (
+                    <Pause size={20} className="text-primary transition-transform duration-300 group-hover/control:scale-110" />
+                  ) : (
+                    <Play size={20} className="text-primary transition-transform duration-300 group-hover/control:scale-110" />
+                  )}
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 opacity-0 group-hover/control:opacity-100 transition-opacity duration-500"></div>
               </button>
             </div>
             
-            {/* Enhanced Carousel Container */}
+            {/* Fluid Carousel Container */}
             <div className="relative">
-              {/* Gradient overlay dengan animasi */}
-              <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-card to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-card to-transparent z-10"></div>
+              {/* Dynamic gradient overlays */}
+              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-card via-card/80 to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-card via-card/80 to-transparent z-10"></div>
               
-              {/* Animated border */}
-              <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 bg-[length:200%_100%] animate-gradient-border opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-500"></div>
+              {/* Animated border effect */}
+              <div className="absolute inset-0 rounded-2xl border-2 border-transparent bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 bg-[length:300%_100%] animate-gradient-x opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-700"></div>
               
               <div 
                 ref={techStackRef}
-                className="flex space-x-8 overflow-x-auto scrollbar-hide py-6 px-4 relative z-5"
+                className="flex space-x-6 overflow-x-auto scrollbar-hide py-8 px-6 relative z-5"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                {/* Tech cards dengan enhanced design */}
+                {/* Tech cards dengan fluid design */}
                 {[...Object.entries(techLogos), ...Object.entries(techLogos)].map(([tech, logo], index) => (
                   <div 
                     key={`${tech}-${index}`}
-                    className="flex flex-col items-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-secondary/40 to-secondary/20 border-2 border-border/30 hover:border-primary/50 transition-all duration-700 group/tech flex-shrink-0 min-w-[140px] relative overflow-hidden"
+                    className="group/tech relative flex-shrink-0 transform transition-all duration-700 hover:scale-105"
+                    style={{
+                      transform: `translateY(${Math.sin(index * 0.5) * 5}px)`,
+                    }}
                   >
-                    {/* Background effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-500"></div>
-                    
-                    {/* Glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover/tech:opacity-30 transition-all duration-500 scale-95 group-hover/tech:scale-100"></div>
-                    
-                    {/* Icon container dengan floating effect */}
-                    <div className="relative z-10">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-white to-white/80 shadow-lg flex items-center justify-center group-hover/tech:scale-110 group-hover/tech:rotate-3 transition-all duration-500 p-3">
-                        <img 
-                          src={logo as string} 
-                          alt={tech}
-                          className="w-10 h-10 transition-transform duration-500"
-                        />
-                      </div>
+                    <div className="flex flex-col items-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/3 border border-white/10 hover:border-primary/30 backdrop-blur-sm transition-all duration-500 group-hover/tech:shadow-2xl group-hover/tech:bg-gradient-to-br group-hover/tech:from-white/10 group-hover/tech:to-white/5 relative overflow-hidden">
+                      {/* Animated background */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-500"></div>
                       
-                      {/* Floating particles */}
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full opacity-0 group-hover/tech:opacity-100 group-hover/tech:animate-bounce transition-all duration-500"></div>
-                      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary rounded-full opacity-0 group-hover/tech:opacity-100 group-hover/tech:animate-bounce transition-all duration-500" style={{ animationDelay: '0.3s' }}></div>
-                    </div>
+                      {/* Floating effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover/tech:opacity-20 transition-all duration-500 scale-95 group-hover/tech:scale-100"></div>
 
-                    {/* Tech name dengan enhanced typography */}
-                    <div className="text-center relative z-10">
-                      <span className="text-sm font-semibold text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover/tech:from-primary group-hover/tech:to-accent transition-all duration-500">
-                        {tech}
-                      </span>
-                      
-                      {/* Proficiency indicator */}
-                      <div className="flex justify-center mt-2 space-x-1">
-                        {[1, 2, 3].map((star) => (
-                          <Star 
-                            key={star}
-                            size={10}
-                            className={`
-                              ${star <= Math.ceil((index % 8) + 1) ? 'fill-primary text-primary' : 'text-border'}
-                              transition-colors duration-300
-                            `}
+                      {/* Icon dengan fluid animation */}
+                      <div className="relative z-10 transform transition-all duration-700 group-hover/tech:scale-110 group-hover/tech:rotate-6">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-white to-white/90 shadow-lg flex items-center justify-center p-3 backdrop-blur-sm">
+                          <img 
+                            src={logo as string} 
+                            alt={tech}
+                            className="w-10 h-10 transition-all duration-500 group-hover/tech:scale-110"
                           />
-                        ))}
+                        </div>
+                        
+                        {/* Orbiting particles */}
+                        <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent rounded-full opacity-0 group-hover/tech:opacity-100 transition-all duration-500 animate-orbit"></div>
+                        <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-primary rounded-full opacity-0 group-hover/tech:opacity-100 transition-all duration-500 animate-orbit" style={{ animationDelay: '0.5s' }}></div>
                       </div>
-                    </div>
 
-                    {/* Hover arrow indicator */}
-                    <ChevronRight 
-                      size={16} 
-                      className="absolute bottom-3 right-3 text-primary opacity-0 group-hover/tech:opacity-100 transform translate-x-2 group-hover/tech:translate-x-0 transition-all duration-300" 
-                    />
+                      {/* Tech name dengan elegant typography */}
+                      <div className="text-center relative z-10">
+                        <span className="text-sm font-semibold text-foreground/90 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover/tech:from-primary group-hover/tech:to-accent transition-all duration-500">
+                          {tech}
+                        </span>
+                      </div>
+
+                      {/* Subtle hover indicator */}
+                      <ChevronRight 
+                        size={16} 
+                        className="absolute bottom-4 right-4 text-primary/60 opacity-0 group-hover/tech:opacity-100 transform translate-x-2 group-hover/tech:translate-x-0 transition-all duration-300" 
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Enhanced controls footer */}
-            <div className="flex items-center justify-between mt-6 pt-6 border-t border-border/30 relative z-10">
+            {/* Minimal footer dengan elegant indicator */}
+            <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10 relative z-10">
               <div className="flex items-center gap-3">
-                <div className="flex space-x-1">
+                <div className="flex space-x-1.5">
                   {[1, 2, 3].map((dot) => (
                     <div
                       key={dot}
-                      className={`w-2 h-2 rounded-full transition-all duration-500 ${
-                        isPlaying ? 'bg-primary animate-pulse' : 'bg-border'
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-700 ${
+                        isPlaying ? 'bg-primary animate-pulse' : 'bg-foreground/30'
                       }`}
-                      style={{ animationDelay: `${dot * 0.2}s` }}
+                      style={{ 
+                        animationDelay: `${dot * 0.3}s`,
+                        scale: isPlaying ? '1' : '0.8'
+                      }}
                     />
                   ))}
                 </div>
-                <span className="text-xs text-foreground/60">
-                  {isPlaying ? 'Auto-scrolling' : 'Paused'} • Hover to interact
+                <span className="text-xs text-foreground/50 font-medium">
+                  {isPlaying ? 'Flowing' : 'Paused'} • Hover to explore
                 </span>
               </div>
               
-              <div className="flex items-center gap-2 text-xs text-foreground/60">
-                <span>{Object.keys(techLogos).length}+ Technologies</span>
+              <div className="text-xs text-foreground/40 font-light">
+                {Object.keys(techLogos).length} technologies
               </div>
             </div>
           </div>
@@ -628,7 +628,7 @@ export default function Skills() {
           animation: shimmer 2s infinite;
         }
         
-        @keyframes gradient-border {
+        @keyframes gradient-x {
           0% {
             background-position: -100% 0;
           }
@@ -637,8 +637,34 @@ export default function Skills() {
           }
         }
         
-        .animate-gradient-border {
-          animation: gradient-border 3s linear infinite;
+        .animate-gradient-x {
+          animation: gradient-x 3s linear infinite;
+        }
+        
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-10px) rotate(180deg);
+          }
+        }
+        
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes orbit {
+          0% {
+            transform: rotate(0deg) translateX(12px) rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg) translateX(12px) rotate(-360deg);
+          }
+        }
+        
+        .animate-orbit {
+          animation: orbit 3s linear infinite;
         }
       `}</style>
     </section>
