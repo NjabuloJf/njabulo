@@ -18,9 +18,16 @@ import {
   Cloud,
   BarChart3,
   Sparkles,
+  Cpu,
+  GitBranch,
+  Shield,
+  Workflow,
+  Eye,
+  Rocket,
+  Terminal,
 } from "lucide-react"
 import { ScrollAnimator } from "./scroll-animator"
-import ConceptMap from "./concept-map"
+import Image from "next/image"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
 
 const techLogos: any = {
@@ -55,6 +62,7 @@ export default function SkillsSection() {
     {
       title: "Frontend Development",
       icon: Smartphone,
+      decorator: Code2,
       skills: [
         { name: "React & Next.js", level: 95 },
         { name: "TypeScript", level: 90 },
@@ -67,6 +75,7 @@ export default function SkillsSection() {
     {
       title: "Backend Development",
       icon: Server,
+      decorator: Database,
       skills: [
         { name: "Node.js & Express", level: 88 },
         { name: "PostgreSQL", level: 87 },
@@ -79,6 +88,7 @@ export default function SkillsSection() {
     {
       title: "Design & UX",
       icon: Palette,
+      decorator: Eye,
       skills: [
         { name: "UI/UX Design", level: 92 },
         { name: "Figma", level: 90 },
@@ -91,6 +101,7 @@ export default function SkillsSection() {
     {
       title: "Tools & DevOps",
       icon: Zap,
+      decorator: GitBranch,
       skills: [
         { name: "Git & GitHub", level: 93 },
         { name: "Docker", level: 82 },
@@ -107,12 +118,38 @@ export default function SkillsSection() {
       icon: Users,
       label: "Team Collaboration",
       description: "Working effectively in agile teams and with diverse stakeholders",
+      decorator: Workflow
     },
-    { icon: Lightbulb, label: "Problem Solving", description: "Breaking down complex problems into elegant solutions" },
-    { icon: Award, label: "Leadership", description: "Mentoring junior developers and leading technical initiatives" },
-    { icon: Target, label: "Project Management", description: "Delivering projects on time with excellent quality" },
-    { icon: Globe, label: "Communication", description: "Clear documentation and client presentations" },
-    { icon: Zap, label: "Quick Learning", description: "Rapidly adapting to new technologies and frameworks" },
+    { 
+      icon: Lightbulb, 
+      label: "Problem Solving", 
+      description: "Breaking down complex problems into elegant solutions",
+      decorator: Sparkles
+    },
+    { 
+      icon: Award, 
+      label: "Leadership", 
+      description: "Mentoring junior developers and leading technical initiatives",
+      decorator: Target
+    },
+    { 
+      icon: Target, 
+      label: "Project Management", 
+      description: "Delivering projects on time with excellent quality",
+      decorator: CheckCircle
+    },
+    { 
+      icon: Globe, 
+      label: "Communication", 
+      description: "Clear documentation and client presentations",
+      decorator: MessageCircle
+    },
+    { 
+      icon: Zap, 
+      label: "Quick Learning", 
+      description: "Rapidly adapting to new technologies and frameworks",
+      decorator: Rocket
+    },
   ]
 
   // Hitung statistik skill langsung dari skillCategories tanpa averaging
@@ -229,9 +266,48 @@ export default function SkillsSection() {
       ></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header dengan Logo */}
         <ScrollAnimator className="text-center space-y-4 md:space-y-6 mb-16 md:mb-24">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              {/* Outer glowing ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse"></div>
+              
+              {/* Main gradient circle */}
+              <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
+                
+                {/* Inner container dengan background */}
+                <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
+                  
+                  {/* Logo image dengan gradient overlay */}
+                  <div className="relative w-full h-full">
+                    <Image
+                      src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                      alt="Skills Logo"
+                      fill
+                      className="object-cover scale-110"
+                      style={{ 
+                        maskImage: 'radial-gradient(circle, black 60%, transparent 100%)',
+                        WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
+                      }}
+                    />
+                    
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Floating particles */}
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-bounce opacity-80"></div>
+              <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
+            </div>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent flex items-center justify-center gap-4">
+            <Cpu size={40} className="text-primary hidden sm:block" />
             Technical Skills
+            <Terminal size={40} className="text-accent hidden sm:block" />
           </h1>
           <p className="text-base sm:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed">
             A comprehensive overview of my technical expertise, tools mastery, and continuous learning journey in modern
@@ -239,13 +315,9 @@ export default function SkillsSection() {
           </p>
         </ScrollAnimator>
 
-        <ScrollAnimator className="mb-16 md:mb-24">
-          <ConceptMap />
-        </ScrollAnimator>
-
         {/* Skills Overview dengan Charts */}
         <ScrollAnimator>
-          <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 mb-16 md:mb-24">
+          <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 mb-16 md:mb-24 hover:border-primary/50 transition-all duration-300">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
                 <BarChart3 size={20} className="text-primary" />
@@ -313,17 +385,26 @@ export default function SkillsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 mb-16 md:mb-24">
           {skillCategories.map((category, categoryIndex) => {
             const CategoryIcon = category.icon
+            const CategoryDecorator = category.decorator
             const categoryAverage = Math.round(category.skills.reduce((sum, skill) => sum + skill.level, 0) / category.skills.length)
             
             return (
               <ScrollAnimator key={categoryIndex} delay={categoryIndex * 100}>
-                <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-6">
-                  <div className="flex items-center justify-between">
+                <div className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-6 group relative overflow-hidden">
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
+                    <CategoryIcon size={100} className="absolute right-4 bottom-4" />
+                  </div>
+
+                  <div className="flex items-center justify-between relative z-10">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                        <CategoryIcon size={24} className="text-primary" />
+                      <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300 relative">
+                        <CategoryIcon size={24} className="text-primary group-hover:text-white transition-colors" />
+                        <CategoryDecorator size={12} className="absolute -top-1 -right-1 text-accent animate-pulse" />
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground">{category.title}</h3>
+                      <h3 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                        {category.title}
+                      </h3>
                     </div>
                     <div className="text-right">
                       <div className="text-sm font-semibold text-primary">{categoryAverage}%</div>
@@ -331,25 +412,27 @@ export default function SkillsSection() {
                     </div>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-4 relative z-10">
                     {category.skills.map((skill, skillIndex) => (
-                      <div key={skillIndex} className="space-y-2">
+                      <div key={skillIndex} className="space-y-2 group/skill">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             {techLogos[skill.name] && (
                               <img 
                                 src={techLogos[skill.name]} 
                                 alt={skill.name}
-                                className="w-4 h-4"
+                                className="w-4 h-4 group-hover/skill:scale-110 transition-transform"
                               />
                             )}
-                            <span className="font-semibold text-foreground text-sm">{skill.name}</span>
+                            <span className="font-semibold text-foreground text-sm group-hover/skill:text-primary transition-colors">
+                              {skill.name}
+                            </span>
                           </div>
                           <span className="text-xs font-bold text-primary">{skill.level}%</span>
                         </div>
                         <div className="w-full h-1.5 bg-border/50 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out"
+                            className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out group-hover/skill:scale-105"
                             style={{ width: `${skill.level}%` }}
                           ></div>
                         </div>
@@ -365,25 +448,38 @@ export default function SkillsSection() {
         {/* Soft Skills */}
         <ScrollAnimator className="mb-16 md:mb-24">
           <div className="text-center mb-10 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Soft Skills & Attributes</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 flex items-center justify-center gap-3">
+              <Users size={32} className="text-primary" />
+              Soft Skills & Attributes
+              <Sparkles size={32} className="text-accent" />
+            </h2>
             <p className="text-foreground/60">The interpersonal and professional qualities that drive success</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {softSkills.map((skill, index) => {
               const SkillIcon = skill.icon
+              const SkillDecorator = skill.decorator
               return (
                 <div
                   key={index}
-                  className="p-6 rounded-xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-3 group cursor-pointer"
+                  className="p-6 rounded-xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 space-y-3 group cursor-pointer relative overflow-hidden"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                    <SkillIcon size={20} className="text-primary" />
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
+                    <SkillIcon size={60} className="absolute right-2 bottom-2" />
                   </div>
-                  <h4 className="font-bold text-foreground">
+
+                  <div className="flex items-center gap-3 relative z-10">
+                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
+                      <SkillIcon size={20} className="text-primary group-hover:text-white transition-colors" />
+                    </div>
+                    <SkillDecorator size={16} className="text-accent animate-pulse" />
+                  </div>
+                  <h4 className="font-bold text-foreground group-hover:text-primary transition-colors relative z-10">
                     {skill.label}
                   </h4>
-                  <p className="text-sm text-foreground/60">{skill.description}</p>
+                  <p className="text-sm text-foreground/60 relative z-10">{skill.description}</p>
                 </div>
               )
             })}
@@ -402,16 +498,26 @@ export default function SkillsSection() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/50">
               {[
-                { label: "Total Skills", value: totalSkills },
-                { label: "Categories", value: skillCategories.length },
-                { label: "Avg Proficiency", value: `${totalAverageProficiency}%` },
-                { label: "Years Experience", value: "3+" },
-              ].map((stat, idx) => (
-                <div key={idx} className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-primary">{stat.value}</div>
-                  <div className="text-xs md:text-sm text-foreground/60">{stat.label}</div>
-                </div>
-              ))}
+                { label: "Total Skills", value: totalSkills, icon: Layers },
+                { label: "Categories", value: skillCategories.length, icon: Database },
+                { label: "Avg Proficiency", value: `${totalAverageProficiency}%`, icon: Target },
+                { label: "Years Experience", value: "3+", icon: Award },
+              ].map((stat, idx) => {
+                const StatIcon = stat.icon
+                return (
+                  <div key={idx} className="text-center group">
+                    <div className="flex justify-center mb-2">
+                      <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
+                        <StatIcon size={16} className="text-primary group-hover:text-white transition-colors" />
+                      </div>
+                    </div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary group-hover:scale-110 transition-transform">
+                      {stat.value}
+                    </div>
+                    <div className="text-xs md:text-sm text-foreground/60">{stat.label}</div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </ScrollAnimator>
