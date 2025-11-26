@@ -43,6 +43,7 @@ const techLogos: any = {
 
 export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const techStackRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -60,6 +61,36 @@ export default function Skills() {
     }
 
     return () => observer.disconnect()
+  }, [])
+
+  // Animation untuk tech stack horizontal scroll
+  useEffect(() => {
+    const techStackElement = techStackRef.current
+    if (!techStackElement) return
+
+    let animationFrame: number
+    let scrollPosition = 0
+    const scrollSpeed = 0.5
+
+    const animateScroll = () => {
+      scrollPosition += scrollSpeed
+      
+      // Reset scroll position ketika mencapai akhir
+      const maxScroll = techStackElement.scrollWidth - techStackElement.clientWidth
+      if (scrollPosition >= maxScroll) {
+        scrollPosition = 0
+      }
+      
+      techStackElement.scrollLeft = scrollPosition
+      animationFrame = requestAnimationFrame(animateScroll)
+    }
+
+    // Start animation
+    animationFrame = requestAnimationFrame(animateScroll)
+
+    return () => {
+      cancelAnimationFrame(animationFrame)
+    }
   }, [])
 
   const skills = [
@@ -126,6 +157,44 @@ export default function Skills() {
     { year: "2023", percentage: 85 },
     { year: "2024", percentage: 95 },
   ]
+
+  // Custom Bar Chart Component
+  const CustomBarChart = () => {
+    const maxPercentage = Math.max(...technologyData.map(tech => tech.percentage))
+    
+    return (
+      <div className="space-y-4">
+        {technologyData.map((tech, index) => (
+          <div key={index} className="flex items-center gap-3 group/tech">
+            {techLogos[tech.name] && (
+              <img 
+                src={techLogos[tech.name]} 
+                alt={tech.name}
+                className="w-5 h-5 group-hover/tech:scale-110 transition-transform"
+              />
+            )}
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium text-foreground/70 group-hover/tech:text-foreground transition-colors">
+                  {tech.name}
+                </span>
+                <span className="text-xs font-semibold text-primary">{tech.percentage}%</span>
+              </div>
+              <div className="h-1.5 bg-border/50 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out group-hover/tech:scale-105"
+                  style={{ 
+                    width: isVisible ? `${tech.percentage}%` : '0%',
+                    transitionDelay: `${index * 100}ms`
+                  }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
 
   return (
     <section
@@ -268,36 +337,7 @@ export default function Skills() {
                   Technology Proficiency
                 </h3>
               </div>
-              <div className="space-y-4">
-                {technologyData.map((tech, index) => (
-                  <div key={index} className="flex items-center gap-3 group/tech">
-                    {techLogos[tech.name] && (
-                      <img 
-                        src={techLogos[tech.name]} 
-                        alt={tech.name}
-                        className="w-5 h-5 group-hover/tech:scale-110 transition-transform"
-                      />
-                    )}
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-foreground/70 group-hover/tech:text-foreground transition-colors">
-                          {tech.name}
-                        </span>
-                        <span className="text-xs font-semibold text-primary">{tech.percentage}%</span>
-                      </div>
-                      <div className="h-1.5 bg-border/50 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out group-hover/tech:scale-105"
-                          style={{ 
-                            width: isVisible ? `${tech.percentage}%` : '0%',
-                            transitionDelay: `${index * 100}ms`
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <CustomBarChart />
             </div>
           </ScrollAnimator>
 
@@ -381,7 +421,7 @@ export default function Skills() {
           </ScrollAnimator>
         </div>
 
-        {/* Technology Stack */}
+        {/* Technology Stack dengan Horizontal Scroll Animation */}
         <ScrollAnimator delay={400}>
           <div className="p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300">
             <div className="flex items-center gap-3 mb-6">
@@ -390,31 +430,55 @@ export default function Skills() {
               </div>
               <h3 className="text-2xl font-bold text-foreground">Technology Stack</h3>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {Object.entries(techLogos).map(([tech, logo]) => (
+            
+            <div 
+              ref={techStackRef}
+              className="flex space-x-6 overflow-x-auto scrollbar-hide py-4"
+              style={{ scrollBehavior: 'smooth' }}
+            >
+              {/* Duplicate items untuk seamless looping */}
+              {[...Object.entries(techLogos), ...Object.entries(techLogos)].map(([tech, logo], index) => (
                 <div 
-                  key={tech} 
-                  className="flex flex-col items-center gap-2 p-4 rounded-xl bg-secondary/30 border border-border/50 hover:border-primary/50 transition-all duration-300 group relative overflow-hidden"
+                  key={`${tech}-${index}`}
+                  className="flex flex-col items-center gap-2 p-4 rounded-xl bg-secondary/30 border border-border/50 hover:border-primary/50 transition-all duration-300 group flex-shrink-0 min-w-[100px]"
                 >
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
-                    <Cpu size={40} className="absolute right-1 bottom-1" />
-                  </div>
-
                   <img 
                     src={logo as string} 
                     alt={tech}
-                    className="w-8 h-8 transition-transform duration-300 group-hover:scale-110 relative z-10"
+                    className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
                   />
-                  <span className="text-xs font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors relative z-10">
+                  <span className="text-xs font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors">
                     {tech}
                   </span>
                 </div>
               ))}
             </div>
+
+            {/* Scroll indicator */}
+            <div className="flex justify-center mt-4">
+              <div className="flex space-x-1">
+                {[1, 2, 3].map((dot) => (
+                  <div
+                    key={dot}
+                    className="w-2 h-2 rounded-full bg-primary/30 animate-pulse"
+                    style={{ animationDelay: `${dot * 0.3}s` }}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </ScrollAnimator>
       </div>
+
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   )
 }
