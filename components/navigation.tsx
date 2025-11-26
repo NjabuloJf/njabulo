@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, BookOpen, Heart, BarChart3, Flame } from "lucide-react"
+import { Home, BookOpen, Terminal, BarChart3, Mail } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -10,14 +10,22 @@ export default function Navigation() {
   const navItems = [
     { href: "/", icon: Home, label: "Home" },
     { href: "/about", icon: BookOpen, label: "About" },
-    { href: "/skills", icon: Flame, label: "Skills" },
+    { href: "/skills", icon: Terminal, label: "Skills" },
     { href: "/projects", icon: BarChart3, label: "Projects" },
-    { href: "/contact", icon: Heart, label: "Contact" },
+    { href: "/contact", icon: Mail, label: "Contact" },
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-gradient-to-t from-background via-background/95 to-background/80 backdrop-blur-xl border-t border-primary/40 z-50 rounded-t-3xl shadow-2xl shadow-primary/20">
-      <div className="flex items-center justify-around h-20 px-2">
+    <nav 
+      className="fixed bottom-0 left-0 right-0 md:hidden backdrop-blur-xl border-t border-primary/40 z-50 rounded-t-3xl shadow-2xl shadow-primary/20"
+      style={{
+        backgroundImage: `url('https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      <div className="flex items-center justify-around h-20 px-2 bg-black/60 rounded-t-3xl">
         {navItems.map(({ href, icon: Icon, label }) => {
           const isActive = pathname === href
           return (
@@ -26,8 +34,8 @@ export default function Navigation() {
               href={href}
               className={`flex flex-col items-center justify-center w-full h-full gap-1.5 transition-all duration-300 ${
                 isActive
-                  ? "text-primary border-t-2 border-primary bg-primary/5"
-                  : "text-foreground/50 hover:text-primary"
+                  ? "text-primary border-t-2 border-primary bg-primary/20 backdrop-blur-sm"
+                  : "text-foreground/50 hover:text-primary hover:bg-white/10"
               }`}
             >
               <Icon className="w-6 h-6" />
