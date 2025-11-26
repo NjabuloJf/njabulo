@@ -74,7 +74,7 @@ export default function Hero() {
                   <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
                     <div className="relative w-full h-full">
                       <Image
-                        src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                        src="https://lannytourl.vestia.icu/api/file/6926fa67fdcdd67351cb6d10.png"
                         alt="Everlyn Amethyst"
                         fill
                         className="object-cover scale-110"
