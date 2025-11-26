@@ -80,7 +80,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="relative bg-gradient-to-b from-background to-secondary/10 border-t border-primary/60 shadow-2xl shadow-primary/20 pt-12 md:pt-16 pb-8">
+    <footer className="relative bg-gradient-to-b from-background to-secondary/10 border-t-0 shadow-2xl shadow-primary/20 pt-12 md:pt-16 pb-8">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl opacity-20 animate-pulse"></div>
       <div
@@ -88,8 +88,11 @@ export default function Footer() {
         style={{ animationDelay: "2s" }}
       ></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Main Footer Grid - Langsung dimulai tanpa header section */}
+      {/* Top curved section */}
+      <div className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-background to-transparent rounded-t-[3rem] md:rounded-t-[4rem] -translate-y-1"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-8">
+        {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
           {/* Brand Section */}
           <div className="col-span-2 md:col-span-1 space-y-4">
