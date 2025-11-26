@@ -194,7 +194,7 @@ export default function Footer() {
             </div>
             <div>
               <p className="text-xs text-foreground/60">Location</p>
-              <p className="text-sm font-semibold text-foreground">Based Worldwide • Remote</p>
+              <p className="text-sm font-semibold text-foreground">Indonesian, Java East</p>
             </div>
           </div>
         </div>
