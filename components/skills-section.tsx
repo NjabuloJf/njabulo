@@ -70,21 +70,21 @@ export default function Skills() {
     return () => observer.disconnect()
   }, [])
 
-  // Ultra smooth horizontal scroll dengan wave effect
+  // ⚡ FAST scroll animation - dipercepat
   useEffect(() => {
     const techStackElement = techStackRef.current
     if (!techStackElement) return
 
     let animationFrame: number
     let scrollPosition = 0
-    const baseSpeed = 0.8
+    const baseSpeed = 2.5 // ⚡ DIPERCEPAT dari 0.8
     let time = 0
 
     const animateScroll = () => {
       if (!isHovered && isPlaying) {
-        time += 0.02
-        // Wave effect dengan easing yang lebih natural
-        const wave = Math.sin(time) * 0.3 + 0.7
+        time += 0.03
+        // Minimal wave effect untuk kecepatan optimal
+        const wave = Math.sin(time) * 0.1 + 0.95
         scrollPosition += baseSpeed * wave
         
         const maxScroll = techStackElement.scrollWidth / 2
@@ -94,19 +94,11 @@ export default function Skills() {
           scrollPosition = 0
         }
         
-        // Ultra smooth scroll dengan easing
-        const progress = scrollPosition / maxScroll
-        const easedScroll = easeInOutCubic(progress) * maxScroll
-        
-        techStackElement.scrollLeft = easedScroll
+        // Direct scroll untuk performa maksimal
+        techStackElement.scrollLeft = scrollPosition
       }
       
       animationFrame = requestAnimationFrame(animateScroll)
-    }
-
-    // Smooth easing functions
-    const easeInOutCubic = (x: number) => {
-      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
     }
 
     // Start animation
@@ -454,7 +446,7 @@ export default function Skills() {
           </ScrollAnimator>
         </div>
 
-        {/* Ultra Modern Fluid Tech Carousel */}
+        {/* Ultra Modern Fluid Tech Carousel - DIPERCEPAT */}
         <ScrollAnimator delay={400}>
           <div className="p-8 rounded-3xl bg-gradient-to-br from-card/80 via-card/60 to-card/80 border border-border/30 hover:border-primary/40 transition-all duration-700 group/carousel relative overflow-hidden">
             {/* Animated background waves */}
@@ -492,7 +484,7 @@ export default function Skills() {
                   <h3 className="text-2xl md:text-3xl font-bold text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
                     Tech Ecosystem
                   </h3>
-                  <p className="text-foreground/60 text-sm">Fluid technology showcase</p>
+                  <p className="text-foreground/60 text-sm">Fast technology showcase</p>
                 </div>
               </div>
               
@@ -512,7 +504,7 @@ export default function Skills() {
               </button>
             </div>
             
-            {/* Fluid Carousel Container */}
+            {/* Fluid Carousel Container - DIPERCEPAT */}
             <div className="relative">
               {/* Dynamic gradient overlays */}
               <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-card via-card/80 to-transparent z-10"></div>
@@ -594,7 +586,7 @@ export default function Skills() {
                   ))}
                 </div>
                 <span className="text-xs text-foreground/50 font-medium">
-                  {isPlaying ? 'Flowing' : 'Paused'} • Hover to explore
+                  {isPlaying ? 'Fast Scrolling' : 'Paused'} • Hover to explore
                 </span>
               </div>
               
