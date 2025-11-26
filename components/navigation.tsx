@@ -34,7 +34,7 @@ export default function Navigation() {
               href={href}
               className={`flex flex-col items-center justify-center w-full h-full gap-1.5 transition-all duration-300 ${
                 isActive
-                  ? "text-primary border-t-2 border-primary bg-primary/20 backdrop-blur-sm"
+                  ? "text-primary border-t-2 border-primary bg-primary/10"
                   : "text-foreground/50 hover:text-primary hover:bg-white/10"
               }`}
             >
