@@ -38,11 +38,7 @@ export default function Footer() {
 
   const socialLinks = [
     { icon: Github, label: "GitHub", href: "https://github.com", color: "hover:text-gray-400" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com", color: "hover:text-blue-400" },
-    { icon: Twitter, label: "Twitter", href: "https://twitter.com", color: "hover:text-sky-400" },
-    { icon: Mail, label: "Email", href: "mailto:everlyn@example.com", color: "hover:text-rose-400" },
-    { icon: Instagram, label: "Instagram", href: "https://instagram.com", color: "hover:text-pink-400" },
-    { icon: Dribbble, label: "Dribbble", href: "https://dribbble.com", color: "hover:text-rose-500" },
+    { icon: Mail, label: "Email", href: "mailto:everlyn@gmail.com", color: "hover:text-rose-400" }
   ]
 
   const footerLinks = [
@@ -188,7 +184,7 @@ export default function Footer() {
                 href="mailto:everlyn@example.com"
                 className="text-sm font-semibold text-foreground hover:text-primary transition-colors"
               >
-                everlyn@example.com
+                everlyn@gmail.com
               </a>
             </div>
           </div>
