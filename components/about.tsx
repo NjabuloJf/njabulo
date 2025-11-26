@@ -9,7 +9,7 @@ export default function About() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showCursor, setShowCursor] = useState(true)
 
-  const fullText = "A passionate creative developer with 3+ years of experience transforming ideas into stunning, high-performance digital experiences. Combining technical expertise with design thinking to create meaningful solutions."
+  const fullText = "A passionate web developer with 3+ years of experience transforming ideas into stunning, high-performance digital experiences. Combining technical expertise with design thinking to create meaningful solutions."
 
   const experiences = [
     {
