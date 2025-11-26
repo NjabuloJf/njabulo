@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/anjat.jpg",
+        url: "/anjay.jpg",
         media: "(prefers-color-scheme: dark)",
       },
       {
