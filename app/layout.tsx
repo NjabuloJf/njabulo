@@ -9,7 +9,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Everlyn Amethyst | Portfolio",
   description:
-    "Everlyn Amethyst - Creative Developer & Designer. Showcase of amazing projects and skills with smooth animations.",
+    "Everlyn Amethyst - クリエイティブ開発者兼デザイナー。滑らかなアニメーションで素晴らしいプロジェクトとスキルを披露します。",
   generator: "探索之境Amethyst",
   icons: {
     icon: [
