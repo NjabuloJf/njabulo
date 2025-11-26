@@ -38,7 +38,7 @@ const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
 }
 
 export default function Hero() {
-  const fullText = "Creative developer & UI/UX designer crafting beautiful, interactive digital experiences. Specializing in modern web technologies with a passion for performance and user satisfaction."
+  const fullText = "Web developer & UI/UX designer crafting beautiful, interactive digital experiences. Specializing in modern web technologies with a passion for performance and user satisfaction."
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
