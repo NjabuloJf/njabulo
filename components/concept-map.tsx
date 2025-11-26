@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 "use client"
 
 import { useEffect, useRef } from "react"
@@ -28,12 +34,8 @@ export default function ConceptMap() {
     canvas.width = width * scale
     canvas.height = height * scale
     ctx.scale(scale, scale)
-
-    // Clear canvas
     ctx.fillStyle = "rgba(15, 15, 25, 0.5)"
     ctx.fillRect(0, 0, width, height)
-
-    // Draw connections
     ctx.strokeStyle = "rgba(168, 139, 250, 0.3)"
     ctx.lineWidth = 2
     ctx.setLineDash([5, 5])
@@ -44,8 +46,6 @@ export default function ConceptMap() {
     concepts.slice(1).forEach((concept) => {
       const x = (width * concept.x) / 100
       const y = (height * concept.y) / 100
-
-      // Draw line
       ctx.beginPath()
       ctx.moveTo(centerX, centerY)
       ctx.lineTo(x, y)
