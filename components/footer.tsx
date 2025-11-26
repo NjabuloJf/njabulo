@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 "use client"
 
 import {
@@ -77,20 +83,16 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-gradient-to-b from-background to-secondary/10 border-t-0 shadow-2xl shadow-primary/20 pt-12 md:pt-16 pb-8">
-      {/* Background decoration */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl opacity-20 animate-pulse"></div>
       <div
         className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl opacity-20 animate-pulse"
         style={{ animationDelay: "2s" }}
       ></div>
 
-      {/* Top curved section */}
       <div className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-background to-transparent rounded-t-[3rem] md:rounded-t-[4rem] -translate-y-1"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-8">
-        {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
-          {/* Brand Section */}
           <div className="col-span-2 md:col-span-1 space-y-4">
             <Link href="/" className="inline-flex items-center gap-2 group">
               <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center text-primary-foreground font-bold text-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 overflow-hidden">
@@ -112,7 +114,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Footer Links with Icons */}
           {footerLinks.map((section, idx) => {
             const SectionIcon = section.icon
             return (
@@ -144,7 +145,6 @@ export default function Footer() {
           })}
         </div>
 
-        {/* Social Links Section - Rounded container */}
         <div className="py-8 md:py-12 border-y border-border/50 mb-8 md:mb-10 rounded-3xl bg-card/30">
           <div className="space-y-4 max-w-4xl mx-auto px-4">
             <div className="flex items-center gap-2 justify-center">
@@ -172,7 +172,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Contact Info */}
         <div className="mb-8 md:mb-12 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center gap-3 p-4 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group">
             <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
@@ -199,7 +198,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-sm p-6 rounded-3xl bg-card/30 border border-border/50">
           <div className="flex items-center gap-1 text-foreground/60">
             <span>© {year} Everlyn Amethyst. Made with</span>
@@ -225,7 +223,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Scroll to top button */}
         {showScroll && (
           <button
             onClick={scrollToTop}
