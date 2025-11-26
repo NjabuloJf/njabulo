@@ -45,6 +45,7 @@ export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null)
   const techStackRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,26 +64,36 @@ export default function Skills() {
     return () => observer.disconnect()
   }, [])
 
-  // Animation untuk tech stack horizontal scroll
+  // Smooth horizontal scroll animation dengan easing
   useEffect(() => {
     const techStackElement = techStackRef.current
     if (!techStackElement) return
 
     let animationFrame: number
     let scrollPosition = 0
-    const scrollSpeed = 0.5
+    const scrollSpeed = 0.8
+    let direction = 1
 
     const animateScroll = () => {
-      scrollPosition += scrollSpeed
-      
-      // Reset scroll position ketika mencapai akhir
-      const maxScroll = techStackElement.scrollWidth - techStackElement.clientWidth
-      if (scrollPosition >= maxScroll) {
-        scrollPosition = 0
+      if (!isHovered) {
+        scrollPosition += scrollSpeed * direction
+        
+        const maxScroll = techStackElement.scrollWidth / 2 // Karena kita duplicate items
+        if (scrollPosition >= maxScroll) {
+          scrollPosition = 0
+        }
+        
+        // Smooth easing
+        const easedScroll = easeInOutQuad(scrollPosition / maxScroll) * maxScroll
+        techStackElement.scrollLeft = easedScroll
       }
       
-      techStackElement.scrollLeft = scrollPosition
       animationFrame = requestAnimationFrame(animateScroll)
+    }
+
+    // Easing function untuk smooth animation
+    const easeInOutQuad = (t: number) => {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
     }
 
     // Start animation
@@ -91,7 +102,7 @@ export default function Skills() {
     return () => {
       cancelAnimationFrame(animationFrame)
     }
-  }, [])
+  }, [isHovered])
 
   const skills = [
     {
@@ -158,10 +169,8 @@ export default function Skills() {
     { year: "2024", percentage: 95 },
   ]
 
-  // Custom Bar Chart Component
+  // Enhanced Custom Bar Chart dengan animasi yang lebih smooth
   const CustomBarChart = () => {
-    const maxPercentage = Math.max(...technologyData.map(tech => tech.percentage))
-    
     return (
       <div className="space-y-4">
         {technologyData.map((tech, index) => (
@@ -170,24 +179,31 @@ export default function Skills() {
               <img 
                 src={techLogos[tech.name]} 
                 alt={tech.name}
-                className="w-5 h-5 group-hover/tech:scale-110 transition-transform"
+                className="w-5 h-5 group-hover/tech:scale-110 transition-transform duration-300"
               />
             )}
             <div className="flex-1">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-medium text-foreground/70 group-hover/tech:text-foreground transition-colors">
+                <span className="text-sm font-medium text-foreground/70 group-hover/tech:text-foreground transition-colors duration-300">
                   {tech.name}
                 </span>
                 <span className="text-xs font-semibold text-primary">{tech.percentage}%</span>
               </div>
-              <div className="h-1.5 bg-border/50 rounded-full overflow-hidden">
+              <div className="h-2 bg-border/50 rounded-full overflow-hidden relative">
+                {/* Background glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Animated progress bar */}
                 <div
-                  className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out group-hover/tech:scale-105"
+                  className="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-1000 ease-out group-hover/tech:scale-105 relative overflow-hidden"
                   style={{ 
                     width: isVisible ? `${tech.percentage}%` : '0%',
                     transitionDelay: `${index * 100}ms`
                   }}
-                ></div>
+                >
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-shimmer"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -366,9 +382,9 @@ export default function Skills() {
                           </span>
                           <span className="text-xs font-semibold text-primary">{category.percentage}%</span>
                         </div>
-                        <div className="h-1.5 bg-border/50 rounded-full overflow-hidden">
+                        <div className="h-2 bg-border/50 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-accent transition-all duration-1000 ease-out group-hover/category:scale-105"
+                            className="h-full bg-gradient-to-r from-accent to-accent/80 transition-all duration-1000 ease-out group-hover/category:scale-105"
                             style={{ 
                               width: isVisible ? `${category.percentage}%` : '0%',
                               transitionDelay: `${index * 150}ms`
@@ -404,9 +420,9 @@ export default function Skills() {
                         <span className="text-xs text-foreground/60">Skill Level</span>
                         <span className="text-xs font-semibold text-primary">{exp.percentage}%</span>
                       </div>
-                      <div className="h-1.5 bg-border/50 rounded-full overflow-hidden">
+                      <div className="h-2 bg-border/50 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-primary transition-all duration-1000 ease-out group-hover/exp:scale-105"
+                          className="h-full bg-gradient-to-r from-primary to-primary/80 transition-all duration-1000 ease-out group-hover/exp:scale-105"
                           style={{ 
                             width: isVisible ? `${exp.percentage}%` : '0%',
                             transitionDelay: `${index * 200}ms`
@@ -421,7 +437,7 @@ export default function Skills() {
           </ScrollAnimator>
         </div>
 
-        {/* Technology Stack dengan Horizontal Scroll Animation */}
+        {/* Enhanced Technology Stack dengan Smooth Horizontal Scroll */}
         <ScrollAnimator delay={400}>
           <div className="p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300">
             <div className="flex items-center gap-3 mb-6">
@@ -431,39 +447,44 @@ export default function Skills() {
               <h3 className="text-2xl font-bold text-foreground">Technology Stack</h3>
             </div>
             
-            <div 
-              ref={techStackRef}
-              className="flex space-x-6 overflow-x-auto scrollbar-hide py-4"
-              style={{ scrollBehavior: 'smooth' }}
-            >
-              {/* Duplicate items untuk seamless looping */}
-              {[...Object.entries(techLogos), ...Object.entries(techLogos)].map(([tech, logo], index) => (
-                <div 
-                  key={`${tech}-${index}`}
-                  className="flex flex-col items-center gap-2 p-4 rounded-xl bg-secondary/30 border border-border/50 hover:border-primary/50 transition-all duration-300 group flex-shrink-0 min-w-[100px]"
-                >
-                  <img 
-                    src={logo as string} 
-                    alt={tech}
-                    className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <span className="text-xs font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors">
-                    {tech}
-                  </span>
-                </div>
-              ))}
+            <div className="relative">
+              {/* Gradient overlay untuk efek fade */}
+              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-card to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-card to-transparent z-10"></div>
+              
+              <div 
+                ref={techStackRef}
+                className="flex space-x-6 overflow-x-auto scrollbar-hide py-4 px-2"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                {/* Duplicate items untuk seamless looping */}
+                {[...Object.entries(techLogos), ...Object.entries(techLogos)].map(([tech, logo], index) => (
+                  <div 
+                    key={`${tech}-${index}`}
+                    className="flex flex-col items-center gap-3 p-4 rounded-xl bg-gradient-to-br from-secondary/30 to-secondary/20 border border-border/50 hover:border-primary/50 transition-all duration-500 group flex-shrink-0 min-w-[120px] hover:scale-105 hover:shadow-lg"
+                  >
+                    <div className="relative">
+                      <img 
+                        src={logo as string} 
+                        alt={tech}
+                        className="w-10 h-10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    <span className="text-sm font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors duration-300">
+                      {tech}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Scroll indicator */}
-            <div className="flex justify-center mt-4">
-              <div className="flex space-x-1">
-                {[1, 2, 3].map((dot) => (
-                  <div
-                    key={dot}
-                    className="w-2 h-2 rounded-full bg-primary/30 animate-pulse"
-                    style={{ animationDelay: `${dot * 0.3}s` }}
-                  />
-                ))}
+            {/* Enhanced scroll indicator */}
+            <div className="flex justify-center mt-6">
+              <div className="flex items-center space-x-2 bg-primary/10 rounded-full px-4 py-2">
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                <span className="text-xs text-foreground/60">Auto-scrolling • Hover to pause</span>
               </div>
             </div>
           </div>
@@ -477,6 +498,19 @@ export default function Skills() {
         }
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
+        }
+        
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%) skewX(-12deg);
+          }
+          100% {
+            transform: translateX(200%) skewX(-12deg);
+          }
+        }
+        
+        .animate-shimmer {
+          animation: shimmer 2s infinite;
         }
       `}</style>
     </section>
