@@ -104,7 +104,7 @@ export default function Projects() {
                   {/* Logo image dengan gradient overlay */}
                   <div className="relative w-full h-full">
                     <Image
-                      src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                      src="https://lannytourl.vestia.icu/api/file/6926fa14fdcdd67351cb6d0c.jpg"
                       alt="Projects Logo"
                       fill
                       className="object-cover scale-110"
