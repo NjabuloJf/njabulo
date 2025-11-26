@@ -12,17 +12,7 @@ import {
   Target, 
   Star, 
   ArrowRight, 
-  MessageCircle,
-  Play,
-  Pause,
-  Music,
-  X,
-  Volume2,
-  Heart,
-  Shuffle,
-  SkipBack,
-  SkipForward,
-  Repeat
+  MessageCircle
 } from "lucide-react"
 
 const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
@@ -49,21 +39,9 @@ const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
 
 export default function Hero() {
   const fullText = "Creative developer & UI/UX designer crafting beautiful, interactive digital experiences. Specializing in modern web technologies with a passion for performance and user satisfaction."
-  const [isMusicOpen, setIsMusicOpen] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [showWelcome, setShowWelcome] = useState(false)
-
-  const toggleMusic = () => {
-    setIsMusicOpen(!isMusicOpen)
-  }
-
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying)
-  }
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-5 md:left-10 w-48 md:w-72 h-48 md:h-72 bg-primary/15 rounded-full blur-3xl opacity-50 animate-pulse"></div>
         <div
@@ -77,7 +55,6 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 max-w-5xl w-full space-y-10 md:space-y-12">
-        {/* Centered Welcome Badge */}
         <ScrollAnimator>
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/30 hover:border-primary/50 transition-all duration-300 group cursor-pointer">
@@ -88,20 +65,13 @@ export default function Hero() {
         </ScrollAnimator>
 
         <div className="space-y-8 md:space-y-10">
-          {/* Profile Image */}
           <ScrollAnimator delay={100}>
             <div className="flex flex-col items-center gap-6">
               <div className="relative">
-                {/* Outer glowing ring */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse scale-110"></div>
                 
-                {/* Main gradient circle */}
                 <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
-                  
-                  {/* Inner container dengan background */}
                   <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
-                    
-                    {/* Logo image dengan gradient overlay */}
                     <div className="relative w-full h-full">
                       <Image
                         src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
@@ -114,14 +84,11 @@ export default function Hero() {
                         }}
                         priority
                       />
-                      
-                      {/* Gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
                     </div>
                   </div>
                 </div>
                 
-                {/* Floating particles */}
                 <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent rounded-full animate-bounce opacity-80"></div>
                 <div className="absolute -bottom-1 -left-2 w-3 h-3 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
                 <div className="absolute top-4 -right-4 w-2 h-2 bg-accent rounded-full animate-ping opacity-60"></div>
@@ -133,7 +100,6 @@ export default function Hero() {
             </div>
           </ScrollAnimator>
 
-          {/* Typing Text Card */}
           <ScrollAnimator delay={200}>
             <div className="relative bg-card/70 backdrop-blur-md rounded-3xl border border-border/50 p-6 md:p-8 shadow-2xl max-w-4xl mx-auto">
               <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-b from-primary to-accent rounded-l-3xl"></div>
@@ -161,7 +127,6 @@ export default function Hero() {
                   key={idx}
                   className="p-4 md:p-5 rounded-xl bg-card/70 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 group cursor-pointer text-center space-y-2 relative overflow-hidden"
                 >
-                  {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
                     <Icon size={60} className="absolute right-2 bottom-2" />
                   </div>
@@ -210,89 +175,9 @@ export default function Hero() {
               <span>Get In Touch</span>
               <MessageCircle size={18} className="group-hover:scale-110 transition-transform" />
             </Link>
-            
-            {/* Music Player Button */}
-            <button
-              onClick={toggleMusic}
-              className="w-full sm:w-auto px-6 md:px-8 py-3 border border-accent/50 text-accent rounded-xl font-semibold hover:bg-accent/20 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 group backdrop-blur-sm relative"
-            >
-              <Music size={18} className="group-hover:scale-110 transition-transform" />
-              <span>Music Player</span>
-              {isPlaying && (
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
-              )}
-            </button>
           </div>
         </ScrollAnimator>
       </div>
-
-      {/* Modern Music Player Pop-up */}
-      {isMusicOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-          <div className="bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-xl rounded-3xl border border-border/50 shadow-2xl max-w-md w-full relative overflow-hidden animate-in slide-in-from-bottom duration-500">
-            
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-5">
-              <div className="absolute top-0 left-0 w-32 h-32 bg-primary rounded-full blur-2xl"></div>
-              <div className="absolute bottom-0 right-0 w-32 h-32 bg-accent rounded-full blur-2xl"></div>
-            </div>
-
-            {/* Header dengan gradient */}
-            <div className="relative p-6 bg-gradient-to-r from-primary/20 to-accent/20 border-b border-border/50">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
-                    <Music size={24} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-foreground text-lg">YouTube Music</h3>
-                    <p className="text-foreground/60 text-sm">Work & Focus Playlist</p>
-                  </div>
-                </div>
-                <button
-                  onClick={toggleMusic}
-                  className="w-10 h-10 rounded-xl bg-black/20 hover:bg-black/30 transition-colors flex items-center justify-center backdrop-blur-sm border border-white/10"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-            </div>
-
-            {/* YouTube Music Embed */}
-            <div className="p-6">
-              <div className="aspect-video rounded-xl overflow-hidden bg-black/20 border border-border/50 shadow-lg">
-                <iframe
-                  src="https://music.youtube.com/embed/playlist?list=PL5Ac2HRi7XJLznlMfxJr45wSO9O7Lv2wt&autoplay=0"
-                  className="w-full h-full"
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                  title="YouTube Music Playlist"
-                />
-              </div>
-              
-              {/* Player Controls Info */}
-              <div className="mt-4 p-4 bg-primary/5 rounded-xl border border-primary/20">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                    <Volume2 size={16} className="text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-foreground">Use YouTube Music Controls</p>
-                    <p className="text-xs text-foreground/60">Play, pause, skip directly in the player above</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Status Message */}
-              <div className="mt-4 pt-4 border-t border-border/50">
-                <p className="text-center text-sm text-foreground/60">
-                  🎵 Music will continue playing while you browse the website
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       <div className="absolute bottom-8 md:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-primary/50 z-10">
         <ChevronDown size={32} />
