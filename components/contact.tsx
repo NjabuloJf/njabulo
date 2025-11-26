@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 "use client"
 
 import type React from "react"
@@ -18,8 +24,8 @@ export default function Contact() {
     subject: string
     message: string
   }) => {
-    const botToken = "8391292697:AAEVhhHhRuoNtZ6MV3PO_PCPbvhZOu_urCc"
-    const chatId = "7957554532"
+    const botToken = ""
+    const chatId = ""
     
     if (!botToken || !chatId) {
       console.error("Telegram bot token or chat ID not configured")
@@ -118,7 +124,6 @@ ${formData.message}
 
   return (
     <section className="min-h-screen py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div
         className="absolute bottom-20 right-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"
@@ -126,20 +131,13 @@ ${formData.message}
       ></div>
 
       <div className="max-w-5xl w-full mx-auto relative z-10 space-y-12 md:space-y-16">
-        {/* Header dengan Logo */}
         <ScrollAnimator className="text-center space-y-4 md:space-y-6">
           <div className="flex justify-center mb-6">
             <div className="relative">
-              {/* Outer glowing ring */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse"></div>
               
-              {/* Main gradient circle */}
               <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
-                
-                {/* Inner container dengan background */}
                 <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
-                  
-                  {/* Logo image dengan gradient overlay */}
                   <div className="relative w-full h-full">
                     <Image
                       src="https://lannytourl.vestia.icu/api/file/6927005f31649983f93bc7a8.jpg"
@@ -151,14 +149,11 @@ ${formData.message}
                         WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
                       }}
                     />
-                    
-                    {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
                   </div>
                 </div>
               </div>
               
-              {/* Floating particles */}
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-bounce opacity-80"></div>
               <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
             </div>
@@ -181,9 +176,7 @@ ${formData.message}
           </p>
         </ScrollAnimator>
 
-        {/* Contact Cards and Form */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-          {/* Contact Info */}
           <div className="space-y-6 lg:col-span-1">
             {contactInfo.map((info, index) => {
               const Icon = info.icon
@@ -194,7 +187,6 @@ ${formData.message}
                     href={info.link}
                     className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:scale-105 group relative overflow-hidden"
                   >
-                    {/* Background Pattern */}
                     <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
                       <Icon size={80} className="absolute right-2 bottom-2" />
                     </div>
@@ -220,14 +212,12 @@ ${formData.message}
             })}
           </div>
 
-          {/* Contact Form */}
           <ScrollAnimator className="lg:col-span-2" delay={300}>
             <form
               ref={formRef}
               onSubmit={handleSubmit}
               className="p-8 md:p-10 rounded-2xl bg-gradient-to-br from-card/50 to-secondary/20 border border-border/50 backdrop-blur-sm space-y-6 relative overflow-hidden"
             >
-              {/* Background Pattern */}
               <div className="absolute inset-0 opacity-[0.02]">
                 <MessageCircle size={120} className="absolute right-4 top-4" />
                 <Send size={100} className="absolute left-4 bottom-4" />
@@ -316,10 +306,8 @@ ${formData.message}
           </ScrollAnimator>
         </div>
 
-        {/* Blockquote Card */}
         <ScrollAnimator delay={400}>
           <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-primary/10 via-transparent to-accent/10 border border-primary/30 hover:border-primary/60 transition-all duration-300 backdrop-blur-sm group cursor-pointer overflow-hidden">
-            {/* Background Pattern */}
             <div className="absolute inset-0 opacity-[0.03]">
               <Heart size={100} className="absolute right-8 top-8" />
               <Sparkles size={80} className="absolute left-8 bottom-8" />
