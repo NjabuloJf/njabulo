@@ -3,60 +3,21 @@ import Link from "next/link"
 import { ScrollAnimator } from "./scroll-animator"
 import Image from "next/image"
 import { useEffect, useState } from "react"
-
-const SparklesIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-  </svg>
-)
-
-const ChevronDownIcon = () => (
-  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-  </svg>
-)
-
-const CodeIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-  </svg>
-)
-
-const DesignIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-  </svg>
-)
-
-const PerformanceIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-  </svg>
-)
-
-const TargetIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-  </svg>
-)
-
-const StarIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-  </svg>
-)
-
-const ArrowRightIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-  </svg>
-)
-
-const MessageIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-  </svg>
-)
+import { 
+  Sparkles, 
+  ChevronDown, 
+  Code2, 
+  Palette, 
+  Zap, 
+  Target, 
+  Star, 
+  ArrowRight, 
+  MessageCircle,
+  Play,
+  Pause,
+  Music,
+  X
+} from "lucide-react"
 
 const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
   const [displayedText, setDisplayedText] = useState("")
@@ -82,6 +43,19 @@ const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
 
 export default function Hero() {
   const fullText = "Creative developer & UI/UX designer crafting beautiful, interactive digital experiences. Specializing in modern web technologies with a passion for performance and user satisfaction."
+  const [isMusicOpen, setIsMusicOpen] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  const toggleMusic = () => {
+    setIsMusicOpen(!isMusicOpen)
+    if (!isMusicOpen) {
+      setIsPlaying(true)
+    }
+  }
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying)
+  }
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -103,25 +77,52 @@ export default function Hero() {
         <ScrollAnimator>
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/30 hover:border-primary/50 transition-all duration-300 group cursor-pointer">
-              <SparklesIcon />
+              <Sparkles size={16} className="text-primary" />
               <span className="text-sm font-medium text-primary">Welcome to my digital space</span>
             </div>
           </div>
         </ScrollAnimator>
 
         <div className="space-y-8 md:space-y-10">
-          {/* Profile Image - Full rectangular card */}
+          {/* Profile Image - Updated dengan style seperti halaman lainnya */}
           <ScrollAnimator delay={100}>
             <div className="flex flex-col items-center gap-6">
-              <div className="relative w-full max-w-2xl h-80 rounded-3xl overflow-hidden border-4 border-primary/20 shadow-2xl bg-card/50 backdrop-blur-sm">
-                <Image
-                  src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
-                  alt="Everlyn Amethyst"
-                  fill
-                  className="object-cover"
-                  priority
-                />
+              <div className="relative">
+                {/* Outer glowing ring */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse scale-110"></div>
+                
+                {/* Main gradient circle */}
+                <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
+                  
+                  {/* Inner container dengan background */}
+                  <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
+                    
+                    {/* Logo image dengan gradient overlay */}
+                    <div className="relative w-full h-full">
+                      <Image
+                        src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                        alt="Everlyn Amethyst"
+                        fill
+                        className="object-cover scale-110"
+                        style={{ 
+                          maskImage: 'radial-gradient(circle, black 60%, transparent 100%)',
+                          WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
+                        }}
+                        priority
+                      />
+                      
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Floating particles */}
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent rounded-full animate-bounce opacity-80"></div>
+                <div className="absolute -bottom-1 -left-2 w-3 h-3 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-4 -right-4 w-2 h-2 bg-accent rounded-full animate-ping opacity-60"></div>
               </div>
+
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary leading-tight text-center">
                 Everlyn Amethyst
               </h1>
@@ -144,24 +145,34 @@ export default function Hero() {
         <ScrollAnimator delay={300}>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 py-8">
             {[
-              { label: "Full Stack", desc: "Frontend & Backend", icon: <CodeIcon /> },
-              { label: "Design", desc: "Beautiful UX", icon: <DesignIcon /> },
-              { label: "Performance", desc: "Fast & Smooth", icon: <PerformanceIcon /> },
-              { label: "Results", desc: "Goal Driven", icon: <TargetIcon /> },
-            ].map((concept, idx) => (
-              <div
-                key={idx}
-                className="p-4 md:p-5 rounded-xl bg-card/70 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 group cursor-pointer text-center space-y-2"
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mx-auto group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300">
-                  <div className="text-primary group-hover:text-white transition-colors">
-                    {concept.icon}
+              { label: "Full Stack", desc: "Frontend & Backend", icon: Code2, decorator: Zap },
+              { label: "Design", desc: "Beautiful UX", icon: Palette, decorator: Sparkles },
+              { label: "Performance", desc: "Fast & Smooth", icon: Zap, decorator: Target },
+              { label: "Results", desc: "Goal Driven", icon: Target, decorator: Star },
+            ].map((concept, idx) => {
+              const Icon = concept.icon
+              const Decorator = concept.decorator
+              return (
+                <div
+                  key={idx}
+                  className="p-4 md:p-5 rounded-xl bg-card/70 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 group cursor-pointer text-center space-y-2 relative overflow-hidden"
+                >
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
+                    <Icon size={60} className="absolute right-2 bottom-2" />
+                  </div>
+
+                  <div className="relative z-10">
+                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mx-auto group-hover:bg-gradient-to-br group-hover:from-primary group-hover:to-accent transition-all duration-300 relative">
+                      <Icon size={20} className="text-primary group-hover:text-white transition-colors" />
+                      <Decorator size={10} className="absolute -top-1 -right-1 text-accent animate-pulse" />
+                    </div>
+                    <div className="font-semibold text-sm text-foreground mt-2">{concept.label}</div>
+                    <div className="text-xs text-foreground/60">{concept.desc}</div>
                   </div>
                 </div>
-                <div className="font-semibold text-sm text-foreground">{concept.label}</div>
-                <div className="text-xs text-foreground/60">{concept.desc}</div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </ScrollAnimator>
 
@@ -172,7 +183,7 @@ export default function Hero() {
                 key={idx}
                 className="px-3 md:px-4 py-2 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30 hover:border-primary/50 transition-all flex items-center gap-2 group cursor-pointer hover:scale-105"
               >
-                <StarIcon />
+                <Star size={14} className="text-primary" />
                 <span className="text-xs md:text-sm font-medium text-primary">{tag}</span>
               </div>
             ))}
@@ -186,21 +197,100 @@ export default function Hero() {
               className="w-full sm:w-auto px-6 md:px-8 py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group backdrop-blur-sm"
             >
               <span>View My Work</span>
-              <ArrowRightIcon />
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/contact"
               className="w-full sm:w-auto px-6 md:px-8 py-3 border border-primary/50 text-primary rounded-xl font-semibold hover:bg-primary/20 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 group backdrop-blur-sm"
             >
               <span>Get In Touch</span>
-              <MessageIcon />
+              <MessageCircle size={18} className="group-hover:scale-110 transition-transform" />
             </Link>
+            
+            {/* Music Player Button */}
+            <button
+              onClick={toggleMusic}
+              className="w-full sm:w-auto px-6 md:px-8 py-3 border border-accent/50 text-accent rounded-xl font-semibold hover:bg-accent/20 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 group backdrop-blur-sm"
+            >
+              <Music size={18} className="group-hover:scale-110 transition-transform" />
+              <span>Play Music</span>
+            </button>
           </div>
         </ScrollAnimator>
       </div>
 
+      {/* Music Player Pop-up */}
+      {isMusicOpen && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-card/95 backdrop-blur-md rounded-2xl border border-border/50 shadow-2xl max-w-md w-full relative overflow-hidden">
+            {/* Header */}
+            <div className="p-6 border-b border-border/50 bg-gradient-to-r from-primary/10 to-accent/10">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                    <Music size={20} className="text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-foreground">My Playlist</h3>
+                    <p className="text-sm text-foreground/60">YouTube Music</p>
+                  </div>
+                </div>
+                <button
+                  onClick={toggleMusic}
+                  className="w-8 h-8 rounded-full bg-border/50 hover:bg-border transition-colors flex items-center justify-center"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Music Player Content */}
+            <div className="p-6 space-y-4">
+              <div className="aspect-video rounded-xl overflow-hidden bg-secondary/50 border border-border/50">
+                <iframe
+                  src={`https://music.youtube.com/embed/playlist?list=PL5Ac2HRi7XJLznlMfxJr45wSO9O7Lv2wt&autoplay=${isPlaying ? 1 : 0}`}
+                  className="w-full h-full"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={togglePlayPause}
+                    className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center hover:scale-105 transition-transform"
+                  >
+                    {isPlaying ? (
+                      <Pause size={20} className="text-white" />
+                    ) : (
+                      <Play size={20} className="text-white ml-1" />
+                    )}
+                  </button>
+                  <div>
+                    <p className="font-semibold text-foreground">Work & Focus Playlist</p>
+                    <p className="text-sm text-foreground/60">YouTube Music</p>
+                  </div>
+                </div>
+                
+                <div className="text-right">
+                  <p className="text-sm font-medium text-foreground">Auto-play</p>
+                  <p className="text-xs text-foreground/60">Background</p>
+                </div>
+              </div>
+
+              <div className="pt-4">
+                <p className="text-sm text-foreground/70 text-center">
+                  Music will continue playing in the background while you browse
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="absolute bottom-8 md:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-primary/50 z-10">
-        <ChevronDownIcon />
+        <ChevronDown size={32} />
       </div>
     </section>
   )
