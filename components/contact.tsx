@@ -142,7 +142,7 @@ ${formData.message}
                   {/* Logo image dengan gradient overlay */}
                   <div className="relative w-full h-full">
                     <Image
-                      src="https://lannytourl.vestia.icu/api/file/6926fa14fdcdd67351cb6d0c.jpg"
+                      src="https://lannytourl.vestia.icu/api/file/6927005f31649983f93bc7a8.jpg"
                       alt="Contact Logo"
                       fill
                       className="object-cover scale-110"
