@@ -250,7 +250,7 @@ export default function Skills() {
                   {/* Logo image dengan gradient overlay */}
                   <div className="relative w-full h-full">
                     <Image
-                      src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                      src="https://lannytourl.vestia.icu/api/file/6926fa12fdcdd67351cb6d08.jpg"
                       alt="Skills Logo"
                       fill
                       className="object-cover scale-110"
