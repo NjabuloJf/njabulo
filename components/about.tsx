@@ -1,6 +1,7 @@
 "use client"
 import { Code2, Palette, Zap, Users, Award, Globe, Lightbulb, Target, Briefcase } from "lucide-react"
 import { ScrollAnimator } from "./scroll-animator"
+import Image from "next/image"
 
 export default function About() {
   const experiences = [
@@ -57,6 +58,19 @@ export default function About() {
       <div className="max-w-6xl w-full space-y-16 md:space-y-20 relative z-10">
         {/* Header */}
         <ScrollAnimator className="text-center space-y-4 md:space-y-6">
+          <div className="flex justify-center mb-4">
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary to-accent p-1">
+              <div className="w-full h-full rounded-full bg-background flex items-center justify-center p-2">
+                <Image
+                  src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                  alt="Logo"
+                  width={80}
+                  height={80}
+                  className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                />
+              </div>
+            </div>
+          </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
             About Me
           </h1>
