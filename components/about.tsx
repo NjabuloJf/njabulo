@@ -14,18 +14,18 @@ export default function About() {
   const experiences = [
     {
       icon: Briefcase,
-      title: "Senior Developer",
-      company: "Tech Innovations Co.",
-      period: "2022 - Present",
+      title: "Web Developer Developer",
+      company: "TCCI | VX.",
+      period: "2023 - Present",
       description:
-        "Leading full-stack projects with 5+ team members, implementing design systems and mentoring junior developers.",
+        "I started learning to make websites in 2023 and I made a website with a simple system, not complicated, responsive interactive UI/UX, etc. Maybe that's all.",
       color: "border-l-primary",
     },
     {
       icon: Code2,
       title: "Full Stack Developer",
-      company: "Creative Digital Agency",
-      period: "2020 - 2022",
+      company: "NOT COMPANY",
+      period: "2024 - 2025",
       description: "Developed 15+ client projects, optimized performance, and improved user experience metrics by 40%.",
       color: "border-l-accent",
     },
@@ -33,7 +33,7 @@ export default function About() {
       icon: Palette,
       title: "UI/UX Designer",
       company: "Design Studio",
-      period: "2018 - 2020",
+      period: "2023 - 2025",
       description:
         "Created design systems, prototypes, and visual guidelines for multiple brand identities and platforms.",
       color: "border-l-primary",
@@ -42,7 +42,7 @@ export default function About() {
 
   const achievements = [
     { icon: Trophy, label: "5+ Awards", value: "Won", decorator: Sparkles },
-    { icon: Rocket, label: "20+ Projects", value: "Delivered", decorator: Zap },
+    { icon: Rocket, label: "100+ Projects", value: "Delivered", decorator: Zap },
     { icon: Heart, label: "100%", value: "Satisfaction", decorator: Star },
     { icon: Cpu, label: "3+ Years", value: "Experience", decorator: GitBranch },
   ]
@@ -181,7 +181,7 @@ export default function About() {
                 <div className="text-base md:text-lg font-bold text-primary">Everlyn Amethyst</div>
                 <div className="text-sm text-foreground/60 flex items-center gap-2">
                   <Target size={14} />
-                  Creative Developer & Designer
+                  Web Developer & Designer
                 </div>
               </div>
             </blockquote>
