@@ -44,18 +44,8 @@ export default function Footer() {
     { icon: Dribbble, label: "Dribbble", href: "https://dribbble.com", color: "hover:text-rose-500" },
   ]
 
+  // HAPUS Navigation dari sini, hanya Resources dan Legal
   const footerLinks = [
-    {
-      title: "Navigation",
-      icon: ExternalLink,
-      links: [
-        { label: "Home", href: "/" },
-        { label: "About", href: "/about" },
-        { label: "Skills", href: "/skills" },
-        { label: "Projects", href: "/projects" },
-        { label: "Contact", href: "/contact" },
-      ],
-    },
     {
       title: "Resources",
       icon: Code,
@@ -78,6 +68,15 @@ export default function Footer() {
     },
   ]
 
+  // Navigation links untuk bagian bawah
+  const navigationLinks = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Skills", href: "/skills" },
+    { label: "Projects", href: "/projects" },
+    { label: "Contact", href: "/contact" },
+  ]
+
   return (
     <footer className="relative bg-gradient-to-b from-background to-secondary/10 border-t border-primary/60 shadow-2xl shadow-primary/20 pt-16 md:pt-20 pb-8">
       {/* Background decoration */}
@@ -88,8 +87,8 @@ export default function Footer() {
       ></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
+        {/* Main Footer Grid - TANPA Navigation */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
           {/* Brand Section */}
           <div className="col-span-2 md:col-span-1 space-y-4">
             <Link href="/" className="inline-flex items-center gap-2 group">
@@ -112,7 +111,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Footer Links - Hanya 3 kolom saja */}
+          {/* Hanya Resources dan Legal */}
           {footerLinks.map((section, idx) => {
             const SectionIcon = section.icon
             return (
@@ -142,6 +141,27 @@ export default function Footer() {
               </div>
             )
           })}
+        </div>
+
+        {/* Navigation Links - Hanya di bagian bawah */}
+        <div className="py-6 mb-8 border-y border-border/50 rounded-3xl bg-background/50 backdrop-blur-sm">
+          <div className="text-center">
+            <h4 className="font-semibold text-foreground mb-4 flex items-center justify-center gap-2">
+              <ExternalLink size={18} className="text-primary" />
+              Navigation
+            </h4>
+            <div className="flex flex-wrap justify-center gap-6">
+              {navigationLinks.map((link, i) => (
+                <Link
+                  key={i}
+                  href={link.href}
+                  className="text-foreground/60 hover:text-primary transition-colors duration-300 text-sm font-medium hover:scale-110"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Social Links Section */}
