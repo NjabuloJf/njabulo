@@ -112,7 +112,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Footer Links with Icons */}
+          {/* Footer Links - Hanya 3 kolom saja */}
           {footerLinks.map((section, idx) => {
             const SectionIcon = section.icon
             return (
@@ -144,7 +144,7 @@ export default function Footer() {
           })}
         </div>
 
-        {/* Social Links Section dengan border radius yang lebih membulat */}
+        {/* Social Links Section */}
         <div className="py-8 md:py-12 border-y border-border/50 mb-8 md:mb-10 rounded-3xl bg-background/50 backdrop-blur-sm">
           <div className="space-y-4 max-w-2xl mx-auto px-6">
             <div className="flex items-center justify-center gap-2">
@@ -172,7 +172,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Contact Info dengan border radius yang konsisten */}
+        {/* Contact Info */}
         <div className="mb-8 md:mb-12 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center gap-3 p-4 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group backdrop-blur-sm">
             <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
@@ -199,7 +199,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Footer dengan border radius */}
+        {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-sm p-6 rounded-3xl bg-background/50 border border-border/30 backdrop-blur-sm">
           <div className="flex items-center gap-1 text-foreground/60">
             <span>© {year} Everlyn Amethyst. Made with</span>
