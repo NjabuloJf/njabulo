@@ -3,8 +3,9 @@
 import type React from "react"
 
 import { useRef, useState } from "react"
-import { Mail, Phone, MapPin, Send, Sparkles, Heart, Code, Zap } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Sparkles, Heart, Code, Zap, MessageCircle, User, Target, FileText, Rocket } from "lucide-react"
 import { ScrollAnimator } from "./scroll-animator"
+import Image from "next/image"
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -95,6 +96,7 @@ ${formData.message}
       value: "everlyn@gmail.com",
       link: "mailto:everlyn@gmail.com",
       description: "Reach out via email for inquiries and collaborations",
+      decorator: Send
     },
     {
       icon: Phone,
@@ -102,6 +104,7 @@ ${formData.message}
       value: "+1 (742) 666-4866",
       link: "tel:+17426664866",
       description: "Call me for urgent matters and quick discussions",
+      decorator: MessageCircle
     },
     {
       icon: MapPin,
@@ -109,6 +112,7 @@ ${formData.message}
       value: "Java East",
       link: "#",
       description: "Available for remote and on-site projects",
+      decorator: Target
     },
   ]
 
@@ -122,15 +126,55 @@ ${formData.message}
       ></div>
 
       <div className="max-w-5xl w-full mx-auto relative z-10 space-y-12 md:space-y-16">
-        {/* Header */}
+        {/* Header dengan Logo */}
         <ScrollAnimator className="text-center space-y-4 md:space-y-6">
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              {/* Outer glowing ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse"></div>
+              
+              {/* Main gradient circle */}
+              <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
+                
+                {/* Inner container dengan background */}
+                <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
+                  
+                  {/* Logo image dengan gradient overlay */}
+                  <div className="relative w-full h-full">
+                    <Image
+                      src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                      alt="Contact Logo"
+                      fill
+                      className="object-cover scale-110"
+                      style={{ 
+                        maskImage: 'radial-gradient(circle, black 60%, transparent 100%)',
+                        WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
+                      }}
+                    />
+                    
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Floating particles */}
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-bounce opacity-80"></div>
+              <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
+            </div>
+          </div>
+
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/30">
-            <Sparkles size={16} className="text-primary" />
+            <MessageCircle size={16} className="text-primary" />
             <span className="text-sm font-medium text-primary">Get In Touch</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+          
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent flex items-center justify-center gap-4">
+            <Rocket size={40} className="text-primary hidden sm:block" />
             Let's Create Together
+            <Send size={40} className="text-accent hidden sm:block" />
           </h1>
+          
           <p className="text-base sm:text-lg text-foreground/70 max-w-2xl mx-auto leading-relaxed">
             Have a project in mind? I'd love to hear about it and collaborate to bring your vision to life. Whether it's
             a website, application, or digital solution, let's build something amazing together.
@@ -143,15 +187,24 @@ ${formData.message}
           <div className="space-y-6 lg:col-span-1">
             {contactInfo.map((info, index) => {
               const Icon = info.icon
+              const Decorator = info.decorator
               return (
                 <ScrollAnimator key={index} delay={index * 100}>
                   <a
                     href={info.link}
-                    className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:scale-105 group"
+                    className="p-6 md:p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:scale-105 group relative overflow-hidden"
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="p-3 bg-gradient-to-br from-primary to-accent rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
-                        <Icon size={24} />
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
+                      <Icon size={80} className="absolute right-2 bottom-2" />
+                    </div>
+                    
+                    <div className="flex items-start gap-4 relative z-10">
+                      <div className="relative">
+                        <div className="p-3 bg-gradient-to-br from-primary to-accent rounded-xl text-white group-hover:scale-110 transition-transform duration-300">
+                          <Icon size={24} />
+                        </div>
+                        <Decorator size={12} className="absolute -top-1 -right-1 text-white bg-accent rounded-full p-0.5 animate-pulse" />
                       </div>
                       <div className="space-y-1 flex-1">
                         <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
@@ -172,19 +225,25 @@ ${formData.message}
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="p-8 md:p-10 rounded-2xl bg-gradient-to-br from-card/50 to-secondary/20 border border-border/50 backdrop-blur-sm space-y-6"
+              className="p-8 md:p-10 rounded-2xl bg-gradient-to-br from-card/50 to-secondary/20 border border-border/50 backdrop-blur-sm space-y-6 relative overflow-hidden"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-[0.02]">
+                <MessageCircle size={120} className="absolute right-4 top-4" />
+                <Send size={100} className="absolute left-4 bottom-4" />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 relative z-10">
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-foreground flex items-center gap-2">
-                    <Code size={16} className="text-primary" />
+                    <User size={16} className="text-primary" />
                     Name
                   </label>
                   <input
                     type="text"
                     name="name"
                     required
-                    className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40"
+                    className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40 hover:border-primary/30"
                     placeholder="Your name"
                   />
                 </div>
@@ -197,33 +256,36 @@ ${formData.message}
                     type="email"
                     name="email"
                     required
-                    className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40"
+                    className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40 hover:border-primary/30"
                     placeholder="Your email"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 relative z-10">
                 <label className="block text-sm font-semibold text-foreground flex items-center gap-2">
-                  <Zap size={16} className="text-primary" />
+                  <Target size={16} className="text-primary" />
                   Subject
                 </label>
                 <input
                   type="text"
                   name="subject"
                   required
-                  className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40"
+                  className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40 hover:border-primary/30"
                   placeholder="What's this about?"
                 />
               </div>
 
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-foreground">Message</label>
+              <div className="space-y-2 relative z-10">
+                <label className="block text-sm font-semibold text-foreground flex items-center gap-2">
+                  <FileText size={16} className="text-primary" />
+                  Message
+                </label>
                 <textarea
                   name="message"
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40 resize-none"
+                  className="w-full px-4 py-3 bg-background/50 border border-border/50 rounded-xl focus:outline-none focus:border-primary/50 transition-all duration-300 text-foreground placeholder:text-foreground/40 hover:border-primary/30 resize-none"
                   placeholder="Tell me about your project and vision..."
                 ></textarea>
               </div>
@@ -231,7 +293,7 @@ ${formData.message}
               <button
                 type="submit"
                 disabled={isLoading || submitted}
-                className="w-full py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
+                className="w-full py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 relative z-10 group/button"
               >
                 {isLoading ? (
                   <>
@@ -239,10 +301,13 @@ ${formData.message}
                     Sending to Telegram...
                   </>
                 ) : submitted ? (
-                  "Message Sent! ✓"
+                  <>
+                    <Sparkles size={18} className="animate-pulse" />
+                    Message Sent! ✓
+                  </>
                 ) : (
                   <>
-                    <Send size={18} />
+                    <Send size={18} className="group-hover/button:scale-110 transition-transform" />
                     Send Message
                   </>
                 )}
@@ -253,12 +318,19 @@ ${formData.message}
 
         {/* Blockquote Card */}
         <ScrollAnimator delay={400}>
-          <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-primary/10 via-transparent to-accent/10 border border-primary/30 hover:border-primary/60 transition-all duration-300 backdrop-blur-sm group cursor-pointer">
-            <blockquote className="text-center space-y-4">
-              <Heart
-                size={40}
-                className="mx-auto text-primary/60 group-hover:text-primary group-hover:scale-110 transition-all"
-              />
+          <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-primary/10 via-transparent to-accent/10 border border-primary/30 hover:border-primary/60 transition-all duration-300 backdrop-blur-sm group cursor-pointer overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-[0.03]">
+              <Heart size={100} className="absolute right-8 top-8" />
+              <Sparkles size={80} className="absolute left-8 bottom-8" />
+            </div>
+            
+            <blockquote className="text-center space-y-4 relative z-10">
+              <div className="flex justify-center">
+                <div className="p-3 bg-gradient-to-br from-primary to-accent rounded-full text-white group-hover:scale-110 transition-transform duration-300">
+                  <Heart size={24} />
+                </div>
+              </div>
               <p className="text-lg md:text-2xl text-foreground font-light italic leading-relaxed">
                 Every project is an opportunity to create something extraordinary. Let's build something beautiful
                 together and make an impact.
