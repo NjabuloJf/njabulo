@@ -18,7 +18,11 @@ import {
   Users, 
   GitBranch,
   MessageCircle,
-  Server
+  Server,
+  Play,
+  Pause,
+  ChevronRight,
+  Star
 } from "lucide-react"
 import { ScrollAnimator } from "./scroll-animator"
 import Image from "next/image"
@@ -46,6 +50,7 @@ export default function Skills() {
   const techStackRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,36 +69,56 @@ export default function Skills() {
     return () => observer.disconnect()
   }, [])
 
-  // Smooth horizontal scroll animation dengan easing
+  // Enhanced smooth horizontal scroll animation dengan physics-based movement
   useEffect(() => {
     const techStackElement = techStackRef.current
     if (!techStackElement) return
 
     let animationFrame: number
     let scrollPosition = 0
-    const scrollSpeed = 0.8
-    let direction = 1
+    const baseSpeed = 0.6
+    let velocity = baseSpeed
+    let acceleration = 0
+    const friction = 0.96
 
     const animateScroll = () => {
-      if (!isHovered) {
-        scrollPosition += scrollSpeed * direction
+      if (!isHovered && isPlaying) {
+        // Apply acceleration and friction for smooth physics
+        velocity = velocity * friction + acceleration
+        scrollPosition += velocity
         
-        const maxScroll = techStackElement.scrollWidth / 2 // Karena kita duplicate items
-        if (scrollPosition >= maxScroll) {
-          scrollPosition = 0
+        const maxScroll = techStackElement.scrollWidth / 2
+        
+        // Bounce effect when reaching edges
+        if (scrollPosition >= maxScroll || scrollPosition <= 0) {
+          velocity = -velocity * 0.8 // Bounce with energy loss
+          acceleration = 0
         }
         
-        // Smooth easing
-        const easedScroll = easeInOutQuad(scrollPosition / maxScroll) * maxScroll
+        // Smooth easing with bounce
+        const progress = (scrollPosition % maxScroll) / maxScroll
+        const easedScroll = easeOutBounce(progress) * maxScroll
+        
         techStackElement.scrollLeft = easedScroll
       }
       
       animationFrame = requestAnimationFrame(animateScroll)
     }
 
-    // Easing function untuk smooth animation
-    const easeInOutQuad = (t: number) => {
-      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+    // Advanced easing functions
+    const easeOutBounce = (x: number) => {
+      const n1 = 7.5625;
+      const d1 = 2.75;
+
+      if (x < 1 / d1) {
+        return n1 * x * x;
+      } else if (x < 2 / d1) {
+        return n1 * (x -= 1.5 / d1) * x + 0.75;
+      } else if (x < 2.5 / d1) {
+        return n1 * (x -= 2.25 / d1) * x + 0.9375;
+      } else {
+        return n1 * (x -= 2.625 / d1) * x + 0.984375;
+      }
     }
 
     // Start animation
@@ -102,7 +127,11 @@ export default function Skills() {
     return () => {
       cancelAnimationFrame(animationFrame)
     }
-  }, [isHovered])
+  }, [isHovered, isPlaying])
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying)
+  }
 
   const skills = [
     {
@@ -437,54 +466,140 @@ export default function Skills() {
           </ScrollAnimator>
         </div>
 
-        {/* Enhanced Technology Stack dengan Smooth Horizontal Scroll */}
+        {/* Ultra Modern Technology Stack Carousel */}
         <ScrollAnimator delay={400}>
-          <div className="p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                <Cpu size={24} className="text-primary" />
+          <div className="p-8 rounded-2xl bg-gradient-to-br from-card/80 to-card/60 border border-border/50 hover:border-primary/50 transition-all duration-500 group/carousel relative overflow-hidden">
+            {/* Animated background */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-primary rounded-full blur-2xl animate-pulse"></div>
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-accent rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+            </div>
+
+            {/* Header dengan controls */}
+            <div className="flex items-center justify-between mb-8 relative z-10">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                  <Cpu size={28} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground">Technology Stack</h3>
+                  <p className="text-foreground/60 text-sm">Interactive tech carousel</p>
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-foreground">Technology Stack</h3>
+              
+              {/* Play/Pause Controls */}
+              <button
+                onClick={togglePlay}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 border border-primary/30 hover:border-primary/50 transition-all duration-300 group/control"
+              >
+                {isPlaying ? (
+                  <>
+                    <Pause size={16} className="text-primary" />
+                    <span className="text-sm font-medium text-primary">Pause</span>
+                  </>
+                ) : (
+                  <>
+                    <Play size={16} className="text-primary" />
+                    <span className="text-sm font-medium text-primary">Play</span>
+                  </>
+                )}
+              </button>
             </div>
             
+            {/* Enhanced Carousel Container */}
             <div className="relative">
-              {/* Gradient overlay untuk efek fade */}
-              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-card to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-card to-transparent z-10"></div>
+              {/* Gradient overlay dengan animasi */}
+              <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-card to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-card to-transparent z-10"></div>
+              
+              {/* Animated border */}
+              <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 bg-[length:200%_100%] animate-gradient-border opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-500"></div>
               
               <div 
                 ref={techStackRef}
-                className="flex space-x-6 overflow-x-auto scrollbar-hide py-4 px-2"
+                className="flex space-x-8 overflow-x-auto scrollbar-hide py-6 px-4 relative z-5"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                {/* Duplicate items untuk seamless looping */}
+                {/* Tech cards dengan enhanced design */}
                 {[...Object.entries(techLogos), ...Object.entries(techLogos)].map(([tech, logo], index) => (
                   <div 
                     key={`${tech}-${index}`}
-                    className="flex flex-col items-center gap-3 p-4 rounded-xl bg-gradient-to-br from-secondary/30 to-secondary/20 border border-border/50 hover:border-primary/50 transition-all duration-500 group flex-shrink-0 min-w-[120px] hover:scale-105 hover:shadow-lg"
+                    className="flex flex-col items-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-secondary/40 to-secondary/20 border-2 border-border/30 hover:border-primary/50 transition-all duration-700 group/tech flex-shrink-0 min-w-[140px] relative overflow-hidden"
                   >
-                    <div className="relative">
-                      <img 
-                        src={logo as string} 
-                        alt={tech}
-                        className="w-10 h-10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    {/* Background effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-500"></div>
+                    
+                    {/* Glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover/tech:opacity-30 transition-all duration-500 scale-95 group-hover/tech:scale-100"></div>
+                    
+                    {/* Icon container dengan floating effect */}
+                    <div className="relative z-10">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-white to-white/80 shadow-lg flex items-center justify-center group-hover/tech:scale-110 group-hover/tech:rotate-3 transition-all duration-500 p-3">
+                        <img 
+                          src={logo as string} 
+                          alt={tech}
+                          className="w-10 h-10 transition-transform duration-500"
+                        />
+                      </div>
+                      
+                      {/* Floating particles */}
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full opacity-0 group-hover/tech:opacity-100 group-hover/tech:animate-bounce transition-all duration-500"></div>
+                      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary rounded-full opacity-0 group-hover/tech:opacity-100 group-hover/tech:animate-bounce transition-all duration-500" style={{ animationDelay: '0.3s' }}></div>
                     </div>
-                    <span className="text-sm font-medium text-foreground/70 text-center group-hover:text-foreground transition-colors duration-300">
-                      {tech}
-                    </span>
+
+                    {/* Tech name dengan enhanced typography */}
+                    <div className="text-center relative z-10">
+                      <span className="text-sm font-semibold text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover/tech:from-primary group-hover/tech:to-accent transition-all duration-500">
+                        {tech}
+                      </span>
+                      
+                      {/* Proficiency indicator */}
+                      <div className="flex justify-center mt-2 space-x-1">
+                        {[1, 2, 3].map((star) => (
+                          <Star 
+                            key={star}
+                            size={10}
+                            className={`
+                              ${star <= Math.ceil((index % 8) + 1) ? 'fill-primary text-primary' : 'text-border'}
+                              transition-colors duration-300
+                            `}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Hover arrow indicator */}
+                    <ChevronRight 
+                      size={16} 
+                      className="absolute bottom-3 right-3 text-primary opacity-0 group-hover/tech:opacity-100 transform translate-x-2 group-hover/tech:translate-x-0 transition-all duration-300" 
+                    />
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Enhanced scroll indicator */}
-            <div className="flex justify-center mt-6">
-              <div className="flex items-center space-x-2 bg-primary/10 rounded-full px-4 py-2">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-                <span className="text-xs text-foreground/60">Auto-scrolling • Hover to pause</span>
+            {/* Enhanced controls footer */}
+            <div className="flex items-center justify-between mt-6 pt-6 border-t border-border/30 relative z-10">
+              <div className="flex items-center gap-3">
+                <div className="flex space-x-1">
+                  {[1, 2, 3].map((dot) => (
+                    <div
+                      key={dot}
+                      className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                        isPlaying ? 'bg-primary animate-pulse' : 'bg-border'
+                      }`}
+                      style={{ animationDelay: `${dot * 0.2}s` }}
+                    />
+                  ))}
+                </div>
+                <span className="text-xs text-foreground/60">
+                  {isPlaying ? 'Auto-scrolling' : 'Paused'} • Hover to interact
+                </span>
+              </div>
+              
+              <div className="flex items-center gap-2 text-xs text-foreground/60">
+                <span>{Object.keys(techLogos).length}+ Technologies</span>
               </div>
             </div>
           </div>
@@ -511,6 +626,19 @@ export default function Skills() {
         
         .animate-shimmer {
           animation: shimmer 2s infinite;
+        }
+        
+        @keyframes gradient-border {
+          0% {
+            background-position: -100% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+        
+        .animate-gradient-border {
+          animation: gradient-border 3s linear infinite;
         }
       `}</style>
     </section>
