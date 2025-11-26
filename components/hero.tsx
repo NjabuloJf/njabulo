@@ -85,22 +85,8 @@ export default function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Full Screen Background Image */}
-      <div className="absolute inset-0 z-0">
-        <div className="relative w-full h-full">
-          <Image
-            src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
-            alt="Everlyn Amethyst Background"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
-        </div>
-      </div>
-
       {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-1">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-5 md:left-10 w-48 md:w-72 h-48 md:h-72 bg-primary/15 rounded-full blur-3xl opacity-50 animate-pulse"></div>
         <div
           className="absolute bottom-20 right-5 md:right-10 w-48 md:w-72 h-48 md:h-72 bg-accent/15 rounded-full blur-3xl opacity-50 animate-pulse"
@@ -124,15 +110,15 @@ export default function Hero() {
         </ScrollAnimator>
 
         <div className="space-y-8 md:space-y-10">
-          {/* Profile Image Card */}
+          {/* Profile Image - Full rectangular card */}
           <ScrollAnimator delay={100}>
             <div className="flex flex-col items-center gap-6">
-              <div className="relative w-48 h-48 rounded-3xl overflow-hidden border-4 border-primary/20 shadow-2xl bg-card/50 backdrop-blur-sm">
+              <div className="relative w-full max-w-2xl h-80 rounded-3xl overflow-hidden border-4 border-primary/20 shadow-2xl bg-card/50 backdrop-blur-sm">
                 <Image
                   src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
                   alt="Everlyn Amethyst"
                   fill
-                  className="object-cover rounded-2xl"
+                  className="object-cover"
                   priority
                 />
               </div>
