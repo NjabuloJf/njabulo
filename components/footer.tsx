@@ -80,7 +80,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="relative bg-gradient-to-b from-background to-secondary/10 border-t border-primary/60 shadow-2xl shadow-primary/20 pt-16 md:pt-20 pb-8">
+    <footer className="relative bg-gradient-to-b from-background to-secondary/10 border-t border-primary/60 shadow-2xl shadow-primary/20 pt-12 md:pt-16 pb-8">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl opacity-20 animate-pulse"></div>
       <div
@@ -89,26 +89,7 @@ export default function Footer() {
       ></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header Section - More Rounded */}
-        <div className="mb-12 md:mb-16 p-8 md:p-10 rounded-[2.5rem] bg-gradient-to-r from-primary/15 via-accent/10 to-primary/15 border border-primary/50 hover:border-primary/70 transition-all duration-500 shadow-2xl shadow-primary/25 hover:shadow-primary/40 backdrop-blur-sm">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Let's Work Together</h3>
-              <p className="text-foreground/70 text-sm md:text-base max-w-md">
-                Got a project or idea? I'd love to hear from you and create something amazing together.
-              </p>
-            </div>
-            <Link
-              href="/contact"
-              className="px-8 md:px-10 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-2xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-primary/50 flex items-center gap-3 whitespace-nowrap group"
-            >
-              <Send size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
-              Get in Touch
-            </Link>
-          </div>
-        </div>
-
-        {/* Main Footer Grid */}
+        {/* Main Footer Grid - Langsung dimulai tanpa header section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
           {/* Brand Section */}
           <div className="col-span-2 md:col-span-1 space-y-4">
