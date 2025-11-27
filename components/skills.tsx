@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 "use client"
 
 import { useEffect, useRef, useState } from "react"
@@ -114,7 +120,6 @@ export default function Skills() {
       id="skills"
       className="min-h-screen py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
     >
-      {/* Background elements */}
       <div className="absolute top-20 left-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div
         className="absolute bottom-20 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"
@@ -122,20 +127,13 @@ export default function Skills() {
       ></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header dengan Logo */}
         <ScrollAnimator className="text-center space-y-4 md:space-y-6 mb-16 md:mb-24">
           <div className="flex justify-center mb-6">
             <div className="relative">
-              {/* Outer glowing ring */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse"></div>
               
-              {/* Main gradient circle */}
               <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
-                
-                {/* Inner container dengan background */}
                 <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
-                  
-                  {/* Logo image dengan gradient overlay */}
                   <div className="relative w-full h-full">
                     <Image
                       src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
@@ -147,14 +145,11 @@ export default function Skills() {
                         WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
                       }}
                     />
-                    
-                    {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
                   </div>
                 </div>
               </div>
               
-              {/* Floating particles */}
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-bounce opacity-80"></div>
               <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
             </div>
@@ -170,7 +165,6 @@ export default function Skills() {
           </p>
         </ScrollAnimator>
 
-        {/* Stats Cards */}
         <ScrollAnimator delay={100}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 md:mb-24">
             {[
@@ -185,7 +179,6 @@ export default function Skills() {
                   key={idx} 
                   className="text-center p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group relative overflow-hidden"
                 >
-                  {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
                     <StatIcon size={60} className="absolute right-2 bottom-2" />
                   </div>
@@ -207,7 +200,6 @@ export default function Skills() {
           </div>
         </ScrollAnimator>
 
-        {/* Skills Grid */}
         <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 md:mb-24">
           {skills.map((skill, index) => {
             const Icon = skill.icon
@@ -215,7 +207,6 @@ export default function Skills() {
             return (
               <ScrollAnimator key={index} delay={index * 100}>
                 <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300 cursor-pointer group relative overflow-hidden">
-                  {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
                     <Icon size={80} className="absolute right-4 bottom-4" />
                   </div>
@@ -238,7 +229,6 @@ export default function Skills() {
           })}
         </div>
 
-        {/* Charts Grid */}
         <div className="mb-16 md:mb-24 grid grid-cols-1 lg:grid-cols-3 gap-8">
           <ScrollAnimator delay={100}>
             <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group">
@@ -363,7 +353,6 @@ export default function Skills() {
           </ScrollAnimator>
         </div>
 
-        {/* Technology Stack */}
         <ScrollAnimator delay={400}>
           <div className="p-8 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300">
             <div className="flex items-center gap-3 mb-6">
@@ -378,7 +367,6 @@ export default function Skills() {
                   key={tech} 
                   className="flex flex-col items-center gap-2 p-4 rounded-xl bg-secondary/30 border border-border/50 hover:border-primary/50 transition-all duration-300 group relative overflow-hidden"
                 >
-                  {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
                     <Cpu size={40} className="absolute right-1 bottom-1" />
                   </div>
@@ -401,7 +389,6 @@ export default function Skills() {
   )
 }
 
-// Tambahkan icon Server yang missing
 const Server = ({ size, className }: { size: number; className?: string }) => (
   <svg 
     width={size} 
