@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
