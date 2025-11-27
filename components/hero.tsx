@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 "use client"
 import Link from "next/link"
 import { ScrollAnimator } from "./scroll-animator"
@@ -70,7 +76,6 @@ export default function Hero() {
               <div className="relative">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse scale-110"></div>
                 
-                {/* Logo yang diperkecil */}
                 <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
                   <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
                     <div className="relative w-full h-full">
@@ -90,7 +95,6 @@ export default function Hero() {
                   </div>
                 </div>
                 
-                {/* Efek dekorasi yang juga diperkecil */}
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-bounce opacity-80"></div>
                 <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
                 <div className="absolute top-2 -right-2 w-1.5 h-1.5 bg-accent rounded-full animate-ping opacity-60"></div>
