@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET(request: NextRequest) {
@@ -9,7 +15,6 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Decode the URL first
     const decodedUrl = decodeURIComponent(url)
     const validatedUrl = new URL(decodedUrl)
     
@@ -17,38 +22,31 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Only HTTP/HTTPS URLs are allowed" }, { status: 400 })
     }
 
-    const apiKey = process.env.SCREENSHOT_API_KEY || "971ecf"
-    
-    // Parameter untuk ScreenshotMachine
+    const apiKey = process.env.SCREENSHOT_API_KEY || ""
     const screenshotParams = new URLSearchParams({
       key: apiKey,
       url: decodedUrl,
       dimension: "1024x768",
       format: "JPG",
       cacheLimit: "0",
-      delay: "3000" // delay dalam milidetik (3 detik)
+      delay: "3000"
     })
 
     const screenshotUrl = `https://api.screenshotmachine.com?${screenshotParams.toString()}`
 
     console.log('Testing screenshot URL:', screenshotUrl)
-
-    // Test dengan fetch yang lebih detail
     const testResponse = await fetch(screenshotUrl)
     
     if (!testResponse.ok) {
-      // Coba dapatkan error message dari response
       let errorMessage = `Screenshot service returned ${testResponse.status}`
       try {
         const errorText = await testResponse.text()
         errorMessage = errorText || errorMessage
       } catch (e) {
-        // Ignore parse error
       }
       throw new Error(errorMessage)
     }
-
-    // Check content type to verify it's an image
+    
     const contentType = testResponse.headers.get('content-type')
     if (!contentType || !contentType.startsWith('image/')) {
       throw new Error('Screenshot service did not return an image')
