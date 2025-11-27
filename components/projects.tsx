@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 "use client"
 import { useRef, useState, useEffect } from "react"
 import { Github, LinkIcon, Code2, Sparkles, BarChart3, RefreshCw, Cpu, Database, Globe, Bug, Rocket, Zap, Server, Terminal, Workflow } from "lucide-react"
@@ -56,10 +62,8 @@ export default function Projects() {
     },
   ])
 
-  // Function untuk auto detect technologies (akan diimplementasikan nanti)
   const detectTechnologies = async (projectId: string, url: string, title: string) => {
     setLoadingId(projectId)
-    // Implementasi auto detect akan ditambahkan di sini
     setTimeout(() => {
       setLoadingId(null)
     }, 1000)
@@ -88,20 +92,13 @@ export default function Projects() {
       <div className="absolute bottom-20 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-20 animate-pulse" style={{ animationDelay: "2s" }}></div>
 
       <div className="max-w-7xl w-full mx-auto relative z-10">
-        {/* Header dengan Logo */}
         <ScrollAnimator className="text-center space-y-4 md:space-y-6 mb-16 md:mb-20">
           <div className="flex justify-center mb-6">
             <div className="relative">
-              {/* Outer glowing ring */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse"></div>
               
-              {/* Main gradient circle */}
               <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
-                
-                {/* Inner container dengan background */}
                 <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
-                  
-                  {/* Logo image dengan gradient overlay */}
                   <div className="relative w-full h-full">
                     <Image
                       src="https://lannytourl.vestia.icu/api/file/6926fa14fdcdd67351cb6d0c.jpg"
@@ -113,14 +110,11 @@ export default function Projects() {
                         WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
                       }}
                     />
-                    
-                    {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
                   </div>
                 </div>
               </div>
               
-              {/* Floating particles */}
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-bounce opacity-80"></div>
               <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
             </div>
@@ -136,7 +130,6 @@ export default function Projects() {
           </p>
         </ScrollAnimator>
 
-        {/* Projects Grid */}
         <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-24">
           {projects.map((project, index) => {
             const ProjectIcon = project.icon
@@ -145,8 +138,6 @@ export default function Projects() {
             return (
               <ScrollAnimator key={project.id} delay={index * 100}>
                 <div className="group rounded-2xl overflow-hidden bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 flex flex-col h-full relative">
-                  
-                  {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
                     <ProjectIcon size={120} className="absolute right-4 top-4" />
                   </div>
@@ -156,7 +147,6 @@ export default function Projects() {
                   </div>
 
                   <div className="flex flex-col flex-1 p-6 md:p-8 space-y-4 relative z-10">
-                    {/* Project Header dengan Icon */}
                     <div className="space-y-2">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors duration-300 relative">
@@ -172,7 +162,6 @@ export default function Projects() {
                       </p>
                     </div>
 
-                    {/* Tags dengan Icon */}
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag, i) => (
                         <span
@@ -185,7 +174,6 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    {/* Language Stats */}
                     <div className="p-4 rounded-xl bg-secondary/30 border border-border/50 space-y-3 group/language">
                       <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
                         <BarChart3 size={16} className="text-primary group-hover/language:scale-110 transition-transform" />
@@ -207,7 +195,6 @@ export default function Projects() {
                       </div>
                     </div>
 
-                    {/* Action Buttons */}
                     <div className="flex gap-3 pt-2 mt-auto">
                       <a
                         href={project.link}
@@ -233,7 +220,6 @@ export default function Projects() {
           })}
         </div>
 
-        {/* Tech Stack Overview */}
         <ScrollAnimator>
           <div className="bg-card/50 border border-border/50 rounded-2xl p-6 md:p-8 hover:border-primary/50 transition-all duration-300">
             <div className="text-center mb-8">
@@ -246,7 +232,6 @@ export default function Projects() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Bar Chart */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
                   <BarChart3 size={20} className="text-primary" />
@@ -275,7 +260,6 @@ export default function Projects() {
                 </div>
               </div>
 
-              {/* Pie Chart */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
                   <Sparkles size={20} className="text-primary" />
