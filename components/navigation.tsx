@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 "use client"
 
 import { Home, BookOpen, Terminal, BarChart3, Mail } from "lucide-react"
