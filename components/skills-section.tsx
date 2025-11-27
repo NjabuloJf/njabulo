@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 "use client"
 
 import { useEffect, useRef, useState } from "react"
@@ -70,38 +76,33 @@ export default function Skills() {
     return () => observer.disconnect()
   }, [])
 
-  // ⚡ FAST scroll animation - dipercepat
   useEffect(() => {
     const techStackElement = techStackRef.current
     if (!techStackElement) return
 
     let animationFrame: number
     let scrollPosition = 0
-    const baseSpeed = 2.5 // ⚡ DIPERCEPAT dari 0.8
+    const baseSpeed = 2.5
     let time = 0
 
     const animateScroll = () => {
       if (!isHovered && isPlaying) {
         time += 0.03
-        // Minimal wave effect untuk kecepatan optimal
         const wave = Math.sin(time) * 0.1 + 0.95
         scrollPosition += baseSpeed * wave
         
         const maxScroll = techStackElement.scrollWidth / 2
         
-        // Seamless looping
         if (scrollPosition >= maxScroll) {
           scrollPosition = 0
         }
         
-        // Direct scroll untuk performa maksimal
         techStackElement.scrollLeft = scrollPosition
       }
       
       animationFrame = requestAnimationFrame(animateScroll)
     }
 
-    // Start animation
     animationFrame = requestAnimationFrame(animateScroll)
 
     return () => {
@@ -178,7 +179,6 @@ export default function Skills() {
     { year: "2024", percentage: 95 },
   ]
 
-  // Enhanced Custom Bar Chart dengan animasi yang lebih smooth
   const CustomBarChart = () => {
     return (
       <div className="space-y-4">
@@ -199,10 +199,8 @@ export default function Skills() {
                 <span className="text-xs font-semibold text-primary">{tech.percentage}%</span>
               </div>
               <div className="h-2 bg-border/50 rounded-full overflow-hidden relative">
-                {/* Background glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-500"></div>
                 
-                {/* Animated progress bar */}
                 <div
                   className="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-1000 ease-out group-hover/tech:scale-105 relative overflow-hidden"
                   style={{ 
@@ -210,7 +208,6 @@ export default function Skills() {
                     transitionDelay: `${index * 100}ms`
                   }}
                 >
-                  {/* Shimmer effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-shimmer"></div>
                 </div>
               </div>
@@ -226,7 +223,6 @@ export default function Skills() {
       id="skills"
       className="min-h-screen py-20 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
     >
-      {/* Background elements */}
       <div className="absolute top-20 left-0 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse"></div>
       <div
         className="absolute bottom-20 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-20 animate-pulse"
@@ -234,20 +230,13 @@ export default function Skills() {
       ></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header dengan Logo */}
         <ScrollAnimator className="text-center space-y-4 md:space-y-6 mb-16 md:mb-24">
           <div className="flex justify-center mb-6">
             <div className="relative">
-              {/* Outer glowing ring */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent blur-md opacity-75 animate-pulse"></div>
               
-              {/* Main gradient circle */}
               <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
-                
-                {/* Inner container dengan background */}
                 <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
-                  
-                  {/* Logo image dengan gradient overlay */}
                   <div className="relative w-full h-full">
                     <Image
                       src="https://lannytourl.vestia.icu/api/file/6926fa12fdcdd67351cb6d08.jpg"
@@ -259,14 +248,11 @@ export default function Skills() {
                         WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
                       }}
                     />
-                    
-                    {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 mix-blend-overlay"></div>
                   </div>
                 </div>
               </div>
               
-              {/* Floating particles */}
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-bounce opacity-80"></div>
               <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
             </div>
@@ -282,7 +268,6 @@ export default function Skills() {
           </p>
         </ScrollAnimator>
 
-        {/* Stats Cards */}
         <ScrollAnimator delay={100}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 md:mb-24">
             {[
@@ -297,7 +282,6 @@ export default function Skills() {
                   key={idx} 
                   className="text-center p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group relative overflow-hidden"
                 >
-                  {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
                     <StatIcon size={60} className="absolute right-2 bottom-2" />
                   </div>
@@ -319,7 +303,6 @@ export default function Skills() {
           </div>
         </ScrollAnimator>
 
-        {/* Skills Grid */}
         <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 md:mb-24">
           {skills.map((skill, index) => {
             const Icon = skill.icon
@@ -327,7 +310,6 @@ export default function Skills() {
             return (
               <ScrollAnimator key={index} delay={index * 100}>
                 <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300 cursor-pointer group relative overflow-hidden">
-                  {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.03] transition-opacity duration-300">
                     <Icon size={80} className="absolute right-4 bottom-4" />
                   </div>
@@ -350,7 +332,6 @@ export default function Skills() {
           })}
         </div>
 
-        {/* Charts Grid */}
         <div className="mb-16 md:mb-24 grid grid-cols-1 lg:grid-cols-3 gap-8">
           <ScrollAnimator delay={100}>
             <div className="p-6 rounded-2xl bg-card/50 border border-border/50 hover:border-primary/50 transition-all duration-300 group">
@@ -446,16 +427,13 @@ export default function Skills() {
           </ScrollAnimator>
         </div>
 
-        {/* Ultra Modern Fluid Tech Carousel - DIPERCEPAT */}
         <ScrollAnimator delay={400}>
           <div className="p-8 rounded-3xl bg-gradient-to-br from-card/80 via-card/60 to-card/80 border border-border/30 hover:border-primary/40 transition-all duration-700 group/carousel relative overflow-hidden">
-            {/* Animated background waves */}
             <div className="absolute inset-0 opacity-[0.03]">
               <div className="absolute top-1/4 left-0 w-64 h-64 bg-primary rounded-full blur-3xl animate-float"></div>
               <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-accent rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
             </div>
 
-            {/* Floating particles */}
             <div className="absolute inset-0 overflow-hidden">
               {[...Array(8)].map((_, i) => (
                 <div
@@ -471,7 +449,6 @@ export default function Skills() {
               ))}
             </div>
 
-            {/* Header dengan elegant controls */}
             <div className="flex items-center justify-between mb-8 relative z-10">
               <div className="flex items-center gap-4">
                 <div className="relative">
@@ -488,7 +465,6 @@ export default function Skills() {
                 </div>
               </div>
               
-              {/* Minimal Play/Pause Controls */}
               <button
                 onClick={togglePlay}
                 className="group/control relative overflow-hidden rounded-2xl p-3 bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 hover:border-primary/40 transition-all duration-500"
@@ -504,13 +480,10 @@ export default function Skills() {
               </button>
             </div>
             
-            {/* Fluid Carousel Container - DIPERCEPAT */}
             <div className="relative">
-              {/* Dynamic gradient overlays */}
               <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-card via-card/80 to-transparent z-10"></div>
               <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-card via-card/80 to-transparent z-10"></div>
               
-              {/* Animated border effect */}
               <div className="absolute inset-0 rounded-2xl border-2 border-transparent bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 bg-[length:300%_100%] animate-gradient-x opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-700"></div>
               
               <div 
@@ -519,7 +492,6 @@ export default function Skills() {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                {/* Tech cards dengan fluid design */}
                 {[...Object.entries(techLogos), ...Object.entries(techLogos)].map(([tech, logo], index) => (
                   <div 
                     key={`${tech}-${index}`}
@@ -529,13 +501,10 @@ export default function Skills() {
                     }}
                   >
                     <div className="flex flex-col items-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/3 border border-white/10 hover:border-primary/30 backdrop-blur-sm transition-all duration-500 group-hover/tech:shadow-2xl group-hover/tech:bg-gradient-to-br group-hover/tech:from-white/10 group-hover/tech:to-white/5 relative overflow-hidden">
-                      {/* Animated background */}
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-500"></div>
                       
-                      {/* Floating effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover/tech:opacity-20 transition-all duration-500 scale-95 group-hover/tech:scale-100"></div>
 
-                      {/* Icon dengan fluid animation */}
                       <div className="relative z-10 transform transition-all duration-700 group-hover/tech:scale-110 group-hover/tech:rotate-6">
                         <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-white to-white/90 shadow-lg flex items-center justify-center p-3 backdrop-blur-sm">
                           <img 
@@ -545,19 +514,16 @@ export default function Skills() {
                           />
                         </div>
                         
-                        {/* Orbiting particles */}
                         <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent rounded-full opacity-0 group-hover/tech:opacity-100 transition-all duration-500 animate-orbit"></div>
                         <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-primary rounded-full opacity-0 group-hover/tech:opacity-100 transition-all duration-500 animate-orbit" style={{ animationDelay: '0.5s' }}></div>
                       </div>
 
-                      {/* Tech name dengan elegant typography */}
                       <div className="text-center relative z-10">
                         <span className="text-sm font-semibold text-foreground/90 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover/tech:from-primary group-hover/tech:to-accent transition-all duration-500">
                           {tech}
                         </span>
                       </div>
 
-                      {/* Subtle hover indicator */}
                       <ChevronRight 
                         size={16} 
                         className="absolute bottom-4 right-4 text-primary/60 opacity-0 group-hover/tech:opacity-100 transform translate-x-2 group-hover/tech:translate-x-0 transition-all duration-300" 
@@ -568,7 +534,6 @@ export default function Skills() {
               </div>
             </div>
 
-            {/* Minimal footer dengan elegant indicator */}
             <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10 relative z-10">
               <div className="flex items-center gap-3">
                 <div className="flex space-x-1.5">
