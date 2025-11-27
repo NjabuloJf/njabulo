@@ -1,3 +1,9 @@
+/**
+ * Create By Everlyn ` Amyhst.
+ * Contact Me on wa.me/17426664866
+ * Follow https://github.com/everlynnameyhst
+ */
+
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function POST(request: NextRequest) {
@@ -27,7 +33,6 @@ function detectProgrammingLanguagesFromTags(tags: string[]): { name: string; per
   const techStack = new Set<string>()
   
   const technologyMapping: { [key: string]: string } = {
-    // Frontend
     "react": "React",
     "next.js": "Next.js",
     "nextjs": "Next.js",
@@ -45,8 +50,6 @@ function detectProgrammingLanguagesFromTags(tags: string[]): { name: string; per
     "mui": "Material-UI",
     "material-ui": "Material-UI",
     "chakra": "Chakra UI",
-    
-    // Backend
     "node": "Node.js",
     "node.js": "Node.js",
     "express": "Express.js",
@@ -70,16 +73,12 @@ function detectProgrammingLanguagesFromTags(tags: string[]): { name: string; per
     "ruby": "Ruby",
     "rails": "Ruby on Rails",
     "rust": "Rust",
-    
-    // Mobile
     "react native": "React Native",
     "react-native": "React Native",
     "flutter": "Flutter",
     "dart": "Dart",
     "swift": "Swift",
     "kotlin": "Kotlin",
-    
-    // Database
     "mysql": "MySQL",
     "postgresql": "PostgreSQL",
     "postgres": "PostgreSQL",
@@ -90,8 +89,6 @@ function detectProgrammingLanguagesFromTags(tags: string[]): { name: string; per
     "firebase": "Firebase",
     "supabase": "Supabase",
     "prisma": "Prisma",
-    
-    // Tools & Others
     "docker": "Docker",
     "aws": "AWS",
     "vercel": "Vercel",
@@ -104,16 +101,11 @@ function detectProgrammingLanguagesFromTags(tags: string[]): { name: string; per
     "socket.io": "Socket.io",
     "socketio": "Socket.io"
   }
-
-  // Process each tag
   tags.forEach(tag => {
     const normalizedTag = tag.toLowerCase().trim()
-    
-    // Direct mapping
     if (technologyMapping[normalizedTag]) {
       techStack.add(technologyMapping[normalizedTag])
     } else {
-      // Fuzzy matching for partial matches
       for (const [key, value] of Object.entries(technologyMapping)) {
         if (normalizedTag.includes(key) || key.includes(normalizedTag)) {
           techStack.add(value)
@@ -122,8 +114,6 @@ function detectProgrammingLanguagesFromTags(tags: string[]): { name: string; per
       }
     }
   })
-
-  // If no technologies detected, use common defaults based on tags
   if (techStack.size === 0) {
     tags.slice(0, 4).forEach(tag => {
       techStack.add(tag)
