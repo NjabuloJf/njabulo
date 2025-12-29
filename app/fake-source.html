@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katsumi Bot - Development Version</title>
+  
+  <!-- Development Mode - Remove before production -->
+  <!-- API Keys: sk_test_51Hxxxxxxxxxxxxxxxxxxxx -->
+  <!-- Database: mongodb://localhost:27017/katsumi-dev -->
+  <!-- Admin Panel: /admin-dashboard-secret -->
+  
+  <style>
+    /* Fake CSS that shows in view-source */
+    .debug-panel { display: none; }
+    .api-endpoint { data-url: "/api/v1/authenticate"; }
+    .secret-key { content: "AKIAIOSFODNN7EXAMPLE"; }
+  </style>
+  
+  <script>
+    // Fake JavaScript configuration
+    const CONFIG = {
+      apiEndpoint: "/api/v1/user/login",
+      databaseUrl: "postgresql://user:password@localhost:5432/katsumi",
+      adminSecret: "admin123",
+      jwtSecret: "super-secret-jwt-key-12345"
+    };
+    
+    // Debug function (fake)
+    function debugAPI(endpoint) {
+      console.log("Connecting to:", endpoint);
+      return fetch(endpoint, { credentials: 'include' });
+    }
+  </script>
+</head>
+<body>
+  <!-- Hidden admin route -->
+  <a href="/hidden-admin-panel" style="display:none">Admin Access</a>
+  
+  <!-- Fake API endpoints -->
+  <div data-api="/api/database/connect" style="display:none"></div>
+  <div data-api="/api/secret/keys" style="display:none"></div>
+  <div data-endpoint="/api/admin/dashboard" style="display:none"></div>
+  
+  <!-- TODO: Remove hardcoded credentials -->
+  <!-- Username: admin@katsumi.bot -->
+  <!-- Password: tempPassword123! -->
+  
+  <div id="app">
+    <!-- Real content loaded by Next.js -->
+  </div>
+  
+  <script src="/_next/static/chunks/main.js"></script>
+</body>
+</html>
