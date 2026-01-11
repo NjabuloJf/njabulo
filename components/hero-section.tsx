@@ -43,15 +43,14 @@ export function HeroSection() {
           <ScrollAnimation direction="up" delay={200}>
             <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">
               <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">
-                Njabulo Jb Bot
+                ɳʝαႦυʅσ ʝႦ
               </span>
             </h1>
           </ScrollAnimation>
 
           <ScrollAnimation direction="up" delay={300}>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mb-10 leading-relaxed">
-              Bot WhatsApp multifungsi dengan berbagai fitur canggih untuk memudahkan aktivitas chat kamu sehari-hari.
-              Download media, buat sticker, tanya AI, dan masih banyak lagi!
+              multi device bot updating 2026
             </p>
           </ScrollAnimation>
 
