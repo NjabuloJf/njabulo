@@ -22,7 +22,7 @@ export function HeroSection() {
           <ScrollAnimation direction="down" delay={0}>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8 animate-float">
               <Sparkles className="w-4 h-4" />
-              WhatsApp Bot Terbaik di Indonesia
+              WhatsApp Bot from Botswana 
             </div>
           </ScrollAnimation>
 
@@ -31,7 +31,7 @@ export function HeroSection() {
             <div className="relative mb-8">
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full blur-3xl opacity-30 scale-150 animate-pulse-glow" />
               <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden ring-4 ring-primary/50">
-                <Image src="https://lannytourl.vestia.icu/api/file/6947da0e58c9ebffcc0f6c1a.jpg" alt="Katsumi Bot" fill className="object-cover" />
+                <Image src="https://lannytourl.vestia.icu/api/file/6947da0e58c9ebffcc0f6c1a.jpg" alt="Njabulo Jb Bot" fill className="object-cover" />
               </div>
               <div className="absolute -bottom-2 -right-2 p-3 rounded-full bg-gradient-to-r from-primary to-secondary shadow-lg">
                 <Sparkles className="w-5 h-5 text-white" />
@@ -43,7 +43,7 @@ export function HeroSection() {
           <ScrollAnimation direction="up" delay={200}>
             <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">
               <span className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_auto]">
-                Katsumi Bot
+                Njabulo Jb Bot
               </span>
             </h1>
           </ScrollAnimation>
