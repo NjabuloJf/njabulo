@@ -60,7 +60,7 @@ export function Footer() {
                 </div>
                 <div>
                   <h3 className="font-bold text-xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    Katsumi Bot
+                    Njabulo Jb Bot
                   </h3>
                   <p className="text-xs text-muted-foreground flex items-center gap-1">
                     <Sparkles className="w-3 h-3 text-secondary" />
@@ -145,7 +145,7 @@ export function Footer() {
                 </a>
                 <span className="text-sm text-muted-foreground flex items-center gap-2">
                   <MapPin className="w-4 h-4" />
-                  Indonesia
+                  Botswana 
                 </span>
                 <a
                   href="#"
@@ -181,11 +181,11 @@ export function Footer() {
                 target="_blank"
                 className="font-semibold text-foreground hover:text-primary transition-colors"
               >
-                Echo Connect
+                njabulo Connect
               </Link>
               {" for "}
               <Link href="/" className="font-semibold text-foreground hover:text-primary transition-colors">
-                Katsumi Bot
+                Njabulo Jb Bot
               </Link>
             </p>
 
@@ -193,11 +193,11 @@ export function Footer() {
               <Sparkles className="w-4 h-4 text-secondary" />
               Powered by
               <span className="font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Katsumi AI
+                Njabulo AI
               </span>
             </p>
 
-            <p>© 2025 Katsumi Bot - Created by Echo Connect</p>
+            <p>© 2026 Njabulo Jb - Created by njabulo Connect</p>
           </div>
         </div>
       </div>
