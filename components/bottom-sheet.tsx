@@ -86,7 +86,7 @@ export function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
               </div>
               <div>
                 <h2 className="font-bold text-xl text-foreground flex items-center gap-2">
-                  Katsumi Bot
+                  njabulo Bot
                   <Sparkles className="w-4 h-4 text-secondary" />
                 </h2>
                 <p className="text-sm text-muted-foreground flex items-center gap-1">
@@ -154,7 +154,7 @@ export function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/30 border border-border/50">
               <p className="text-sm text-muted-foreground flex items-center gap-1.5">
                 Made with <Heart className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" /> by
-                <span className="font-semibold text-foreground">Katsumi</span>
+                <span className="font-semibold text-foreground">Njabulo Jb</span>
               </p>
             </div>
           </div>
