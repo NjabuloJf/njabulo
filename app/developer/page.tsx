@@ -26,7 +26,7 @@ const skills = ["JavaScript", "TypeScript", "Node.js", "React", "Next.js", "Pyth
 
 const projects = [
   {
-    title: "Katsumi Bot",
+    title: "njabulo Bot",
     desc: "Bot WhatsApp multifungsi dengan 50+ fitur",
     icon: MessageCircle,
     color: "primary",
