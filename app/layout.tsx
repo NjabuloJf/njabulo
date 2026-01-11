@@ -5,11 +5,11 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   metadataBase: new URL("https://katsumibotv6.vestia.icu"),
   title: {
-    default: "Katsumi Bot - WhatsApp Telegram Bot Gratis Indonesia 2025 | Download Media | Katsumi MD",
-    template: "%s | Katsumi Bot",
+    default: "Njabulo Jb Bot - WhatsApp Telegram Bot Gratis Botswana 2026 | Download Media | Njabulo Jb ",
+    template: "%s | Njabulo Jb Bot",
   },
   description:
-    "Katsumi Bot adalah bot WhatsApp dan Telegram multifungsi gratis terbaik Indonesia 2025. Fitur AI chat, downloader TikTok/YouTube/Instagram, sticker maker, auto reply, reminder, games, translator, dan 500+ command. Katsumi MD Bot terbaik untuk automation messaging. Mudah digunakan tanpa coding, aman terenkripsi, dan didukung 200+ negara!",
+    "Katsumi Bot adalah bot WhatsApp dan Telegram multifungsi gratis terbaik  Botswana 2026. Fitur AI chat, downloader TikTok/YouTube/Instagram, sticker maker, auto reply, reminder, games, translator, dan 500+ command. Njabulo Jb Bot terbaik untuk automation messaging. Mudah digunakan tanpa coding, aman terenkripsi, dan didukung 200+ negara!",
   keywords: [
     "katsumi bot",
     "katsumi",
@@ -170,8 +170,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "id_ID",
     url: "https://katsumibotv6.vestia.icu",
-    siteName: "Katsumi Bot - Katsumi MD WhatsApp Telegram Bot",
-    title: "Katsumi Bot - Bot WhatsApp Telegram Gratis Indonesia 2025",
+    siteName: "Njabulo Jb Bot -  WhatsApp Telegram Bot",
+    title: "Njabulo Jb - Bot WhatsApp Telegram Gratis Botswana",
     description:
       "Katsumi Bot - Bot WhatsApp & Telegram multifungsi gratis dengan 500+ fitur. Katsumi MD terbaik untuk automation. Download TikTok, YouTube, Instagram. Sticker maker, AI chat, auto reply, dan banyak lagi!",
     images: [
@@ -179,16 +179,16 @@ export const metadata: Metadata = {
         url: "https://files.catbox.moe/atbxcg.png",
         width: 512,
         height: 512,
-        alt: "Katsumi Bot Logo",
+        alt: "Njabulo Jb Bot Logo",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Katsumi Bot - Bot WhatsApp Telegram Gratis Indonesia",
+    title: "Njabulo Jb - Bot WhatsApp Telegram Gratis Botswana",
     description:
-      "Katsumi Bot adalah bot WhatsApp & Telegram terbaik dengan 500+ fitur gratis. Katsumi MD automation bot terdepan.",
+      "Njabulo Jb Bot adalah bot WhatsApp & Telegram terbaik dengan 500+ fitur gratis. Katsumi MD automation bot terdepan.",
     images: ["https://files.catbox.moe/atbxcg.png"],
     creator: "@katsumibot",
   },
