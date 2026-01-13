@@ -1,4 +1,5 @@
 
+
 import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
@@ -32,7 +33,22 @@ export default function RootLayout({
         <video autoPlay muted loop id="bgVideo">
           <source src="https://files.catbox.moe/6czowc.mp4" type="video/mp4" />
         </video>
+        <audio id="bgMusic" loop>
+          <source src="https://files.catbox.moe/2b34gi.mp3" type="audio/mpeg" />
+        </audio>
         {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.addEventListener('click', function() {
+                const bgMusic = document.getElementById('bgMusic');
+                if (bgMusic.paused) {
+                  bgMusic.play();
+                }
+              }, { once: true });
+            `,
+          }}
+        />
       </body>
     </html>
   )
