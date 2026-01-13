@@ -65,7 +65,7 @@ export default function Hero() {
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/30 hover:border-primary/50 transition-all duration-300 group cursor-pointer">
               <Sparkles size={16} className="text-primary" />
-              <span className="text-sm font-medium text-primary">欢迎来到我的投资组合</span>
+              <span className="text-sm font-medium text-primary">ɳʝαႦυʅσ ʝႦ</span>
             </div>
           </div>
         </ScrollAnimator>
@@ -171,7 +171,7 @@ export default function Hero() {
               href="/projects"
               className="w-full sm:w-auto px-6 md:px-8 py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group backdrop-blur-sm"
             >
-              <span>View My Work</span>
+              <span> Get start bot</span>
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
