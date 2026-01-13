@@ -1,8 +1,4 @@
-/**
- * Create By Everlyn ` Amyhst.
- * Contact Me on wa.me/17426664866
- * Follow https://github.com/everlynnameyhst
- */
+
 
 "use client"
 import { useRef, useState, useEffect } from "react"
@@ -32,7 +28,7 @@ export default function Projects() {
   >([
     {
       id: "1",
-      title: "Aletta Rest API",
+      title: "Njabulo Jb",
       description: "Modern REST API service with comprehensive endpoints and robust authentication system.",
       tags: ["Node.js", "Express", "MongoDB", "JWT"],
       link: "https://alettarestapi.vestia.icu",
@@ -42,23 +38,13 @@ export default function Projects() {
     },
     {
       id: "2",
-      title: "Lanny to URL", 
+      title: "GTR-XMD", 
       description: "URL shortening service with analytics and custom alias features.",
       tags: ["Next.js", "TypeScript", "PostgreSQL", "Redis"],
       link: "https://lannytourl.vestia.icu/",
       github: "https://github.com",
       icon: Globe,
       decorator: Zap
-    },
-    {
-      id: "3",
-      title: "Advance Bug",
-      description: "Bug tracking and project management tool with real-time collaboration.",
-      tags: ["React", "Firebase", "Material-UI", "WebSocket"],
-      link: "https://advancebug.vestia.icu/",
-      github: "https://github.com",
-      icon: Bug,
-      decorator: Workflow
     },
   ])
 
@@ -203,14 +189,14 @@ export default function Projects() {
                         className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl hover:scale-105 transition-all duration-300 font-semibold text-sm group/visit"
                       >
                         <LinkIcon size={16} className="group-hover/visit:scale-110 transition-transform" />
-                        Visit Live
+                        Visit Pair
                       </a>
                       <a
                         href={project.github}
                         className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-primary/50 text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 font-semibold text-sm hover:scale-105 group/code"
                       >
                         <Github size={16} className="group-hover/code:scale-110 transition-transform" />
-                        Source Code
+                        Social deploy 
                       </a>
                     </div>
                   </div>
