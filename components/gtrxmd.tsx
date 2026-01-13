@@ -1,7 +1,7 @@
 "use client"
 import { useRef, useState, useEffect } from "react"
 import { Github, LinkIcon, Code2, Sparkles, BarChart3, RefreshCw, Cpu, Database, Globe, Bug, Rocket, Zap, Server, Terminal, Workflow } from "lucide-react"
-import { ProjectScreenshotLoader } from "./project-screenshot-loader"
+import { ProjectScreenshotLoader } from "./gtrxmd-screenshot-loader"
 import { ScrollAnimator } from "./scroll-animator"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
 import Image from "next/image"
