@@ -9,9 +9,9 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "WA => BOT",
-  description: "Everlyn Amethyst - クリエイティブ開発者兼デザイナー。滑らかなアニメーションで素晴らしいプロジェクトとスキルを披露します。",
-  generator: "探索之境Amethyst",
+  title: "About Njabulo! That's a beautiful name. What's the bot's purpose? Customer support, entertainment, or something else? To get started, you'll need: 1. WhatsApp Business API 2. A programming language e.g., Python, Node.js 3. AI library e.g., Dialogflow, Rasa Some popular options for building WhatsApp bots include: 1. Twilio 2. Nexmo 3. ManyChat",
+  description: "King Tech JavaScript 2026 buttonParamsJson bot。",
+  generator: "software njabulo gtr",
   icons: {
     icon: [
       { url: "/anjay.jpg", media: "(prefers-color-scheme: light)" },
