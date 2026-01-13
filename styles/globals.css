@@ -1,8 +1,4 @@
-/**
- * Create By Everlyn ` Amyhst.
- * Contact Me on wa.me/17426664866
- * Follow https://github.com/everlynnameyhst
- */
+
 
 @import 'tailwindcss';
 @import 'tw-animate-css';
@@ -10,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
+  --background: #FFFFFF; /* changed to white */
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -129,3 +125,5 @@
     @apply bg-background text-foreground;
   }
 }
+
+
