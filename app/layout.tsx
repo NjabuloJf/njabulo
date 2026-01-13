@@ -9,7 +9,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Everlyn Amethyst | Portfolio",
+  title: "WA => BOT",
   description: "Everlyn Amethyst - クリエイティブ開発者兼デザイナー。滑らかなアニメーションで素晴らしいプロジェクトとスキルを披露します。",
   generator: "探索之境Amethyst",
   icons: {
@@ -31,10 +31,10 @@ export default function RootLayout({
     <html lang="en" className="dark scroll-smooth-custom">
       <body className={`font-sans antialiased bg-background text-foreground`}>
         <video autoPlay muted loop id="bgVideo">
-          <source src="https://files.catbox.moe/6czowc.mp4" type="video/mp4" />
+          <source src="https://files.catbox.moe/375ppf.mp4" type="video/mp4" />
         </video>
         <audio id="bgMusic" loop>
-          <source src="https://files.catbox.moe/2b34gi.mp3" type="audio/mpeg" />
+          <source src="https://o.uguu.se/gRixKXyu.mp3" type="audio/mpeg" />
         </audio>
         {children}
         <script
