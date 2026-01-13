@@ -1,8 +1,3 @@
-/**
- * Create By Everlyn ` Amyhst.
- * Contact Me on wa.me/17426664866
- * Follow https://github.com/everlynnameyhst
- */
 
 "use client"
 import Link from "next/link"
@@ -81,7 +76,7 @@ export default function Hero() {
                     <div className="relative w-full h-full">
                       <Image
                         src="https://lannytourl.vestia.icu/api/file/6926fa67fdcdd67351cb6d10.png"
-                        alt="Everlyn Amethyst"
+                        alt="happy days👻"
                         fill
                         className="object-cover scale-110"
                         style={{ 
