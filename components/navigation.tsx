@@ -1,8 +1,3 @@
-/**
- * Create By Everlyn ` Amyhst.
- * Contact Me on wa.me/17426664866
- * Follow https://github.com/everlynnameyhst
- */
 
 "use client"
 
@@ -25,7 +20,7 @@ export default function Navigation() {
     <nav 
       className="fixed bottom-0 left-0 right-0 md:hidden backdrop-blur-xl border-t border-primary/40 z-50 rounded-t-3xl shadow-2xl shadow-primary/20"
       style={{
-        backgroundImage: `url('https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png')`,
+        backgroundImage: `url('https://h.uguu.se/xSrvxMvD.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
