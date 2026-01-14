@@ -185,7 +185,7 @@ export default function Projects() {
                         className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-primary/50 text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 font-semibold text-sm hover:scale-105 group/code"
                       >
                         <Github size={16} className="group-hover/code:scale-110 transition-transform" />
-                        =>Hosting HEROKU
+                        =>Visit heroku
                       </a>
                     </div>
                   </div>
