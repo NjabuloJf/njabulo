@@ -131,9 +131,8 @@ export default function Skills() {
               <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
                 <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
                   <div className="relative w-full h-full">
-                    <Image
-                      src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
-                      alt="Skills Logo"
+                    <Image src="njabulo.jpg"
+                    alt="Skills Logo"
                       fill
                       className="object-cover scale-110"
                       style={{ 
@@ -233,7 +232,7 @@ export default function Skills() {
                   <BarChart3 size={20} className="text-primary group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                  Technology Proficiency
+                  Technology
                 </h3>
               </div>
               <div className="space-y-4">
