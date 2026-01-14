@@ -74,8 +74,7 @@ export default function Hero() {
                 <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
                   <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
                     <div className="relative w-full h-full">
-                      <Image
-                        src="https://lannytourl.vestia.icu/api/file/6926fa67fdcdd67351cb6d10.png"
+                        <Image src="njabulo.jpg"
                         alt="happy days👻"
                         fill
                         className="object-cover scale-110"
