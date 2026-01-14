@@ -166,7 +166,7 @@ export default function About() {
                 crafted digital experiences.
               </p>
               <div className="space-y-1">
-                <div className="text-base md:text-lg font-bold text-primary">Everlyn Amethyst</div>
+                <div className="text-base md:text-lg font-bold text-primary">Njabulo Jb</div>
                 <div className="text-sm text-foreground/60 flex items-center gap-2">
                   <Target size={14} />
                   Web Developer & Designer
