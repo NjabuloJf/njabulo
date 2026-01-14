@@ -99,16 +99,16 @@ ${formData.message}
     {
       icon: Mail,
       title: "Email",
-      value: "everlyn@gmail.com",
-      link: "mailto:everlyn@gmail.com",
+      value: "fanajb65@gmail.com",
+      link: "https://github.com/NjabuloJf",
       description: "Reach out via email for inquiries and collaborations",
       decorator: Send
     },
     {
       icon: Phone,
       title: "Phone",
-      value: "+1 (742) 666-4866",
-      link: "tel:+17426664866",
+      value: "77821911",
+      link: "tel:+26772592531",
       description: "Call me for urgent matters and quick discussions",
       decorator: MessageCircle
     },
@@ -320,7 +320,7 @@ ${formData.message}
                 </div>
               </div>
               <p className="text-lg md:text-2xl text-foreground font-light italic leading-relaxed">
-                每个项目都是创造非凡之作的机会。让我们携手共建美好事物，共创辉煌。
+                Njabulo Jb and gtr-xmd bot。
               </p>
               <div className="pt-4 space-y-1">
                 <p className="text-base md:text-lg font-semibold text-primary">Everlyn Amethyst</p>
