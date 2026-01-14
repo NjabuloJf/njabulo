@@ -317,7 +317,7 @@ ${formData.message}
                 Njabulo Jb and gtr-xmd bot。
               </p>
               <div className="pt-4 space-y-1">
-                <p className="text-base md:text-lg font-semibold text-primary">Pσɯҽɾԃ Ⴆყ ɳʝαႦυʅσ ʝႦ</p>
+                <p className="text-base md:text-lg font-semibold text-primary">Njabulo Jb</p>
                 <p className="text-sm text-foreground/60">Web Developer & Designer</p>
               </div>
             </blockquote>
