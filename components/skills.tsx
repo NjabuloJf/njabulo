@@ -1,8 +1,4 @@
-/**
- * Create By Everlyn ` Amyhst.
- * Contact Me on wa.me/17426664866
- * Follow https://github.com/everlynnameyhst
- */
+
 
 "use client"
 
@@ -157,7 +153,7 @@ export default function Skills() {
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent flex items-center justify-center gap-4">
             <Cpu size={40} className="text-primary hidden sm:block" />
-            Technical Skills
+            ɳʝαႦυʅσ ʝႦ
             <Terminal size={40} className="text-accent hidden sm:block" />
           </h1>
           <p className="text-base sm:text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed">
