@@ -20,7 +20,7 @@ export default function Navigation() {
     <nav 
       className="fixed bottom-0 left-0 right-0 md:hidden backdrop-blur-xl border-t border-primary/40 z-50 rounded-t-3xl shadow-2xl shadow-primary/20"
       style={{
-        backgroundImage: `url('https://h.uguu.se/xSrvxMvD.jpg')`,
+        backgroundImage: `url('https://files.catbox.moe/i95jc9.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
