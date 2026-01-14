@@ -39,7 +39,7 @@ const TypingText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
 }
 
 export default function Hero() {
-  const fullText = "Web developer & UI/UX designer crafting beautiful, interactive digital experiences. Specializing in modern web technologies with a passion for performance and user satisfaction."
+  const fullText = "well come to Njabulo Jb & gtr-xmd multi device bot 2016⤵️👻💌."
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -96,7 +96,7 @@ export default function Hero() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary leading-tight text-center">
-                Everlyn Amethyst
+                Happy day 👻 
               </h1>
             </div>
           </ScrollAnimator>
@@ -173,7 +173,7 @@ export default function Hero() {
               href="/contact"
               className="w-full sm:w-auto px-6 md:px-8 py-3 border border-primary/50 text-primary rounded-xl font-semibold hover:bg-primary/20 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 group backdrop-blur-sm"
             >
-              <span>Get In Touch</span>
+              <span>Get free bot</span>
               <MessageCircle size={18} className="group-hover:scale-110 transition-transform" />
             </Link>
           </div>
