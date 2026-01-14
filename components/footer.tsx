@@ -1,8 +1,4 @@
-/**
- * Create By Everlyn ` Amyhst.
- * Contact Me on wa.me/17426664866
- * Follow https://github.com/everlynnameyhst
- */
+
 
 "use client"
 
@@ -43,8 +39,8 @@ export default function Footer() {
   }
 
   const socialLinks = [
-    { icon: Github, label: "GitHub", href: "https://github.com", color: "hover:text-gray-400" },
-    { icon: Mail, label: "Email", href: "mailto:everlyn@gmail.com", color: "hover:text-rose-400" }
+    { icon: Github, label: "GitHub", href: "https://github.com/NjabuloJf/Njabulo-Jb ", color: "hover:text-gray-400" },
+    { icon: Mail, label: "Email", href: "fanajb65@gmail.com", color: "hover:text-rose-400" }
   ]
 
   const footerLinks = [
@@ -105,7 +101,7 @@ export default function Footer() {
                 />
               </div>
               <span className="font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300">
-                Everlyn
+                Njabulo Jb
               </span>
             </Link>
             <p className="text-foreground/60 text-sm leading-relaxed max-w-xs flex items-start gap-2">
@@ -183,7 +179,7 @@ export default function Footer() {
                 href="mailto:everlyn@example.com"
                 className="text-sm font-semibold text-foreground hover:text-primary transition-colors"
               >
-                everlyn@gmail.com
+                fanajb65@gmail.com 
               </a>
             </div>
           </div>
@@ -193,16 +189,16 @@ export default function Footer() {
             </div>
             <div>
               <p className="text-xs text-foreground/60">Location</p>
-              <p className="text-sm font-semibold text-foreground">Indonesian, Java East</p>
+              <p className="text-sm font-semibold text-foreground">ZW/BW, Java Centre</p>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-sm p-6 rounded-3xl bg-card/30 border border-border/50">
           <div className="flex items-center gap-1 text-foreground/60">
-            <span>© {year} Everlyn Amethyst. Made with</span>
+            <span>© {year} Njabulo Jb . Made with</span>
             <Heart size={16} className="text-primary fill-primary animate-pulse" />
-            <span>by Everlyn</span>
+            <span>by Njabulo Jb</span>
           </div>
           <div className="flex items-center gap-4 text-foreground/60">
             <a
