@@ -117,9 +117,8 @@ export default function About() {
                 
                 <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
                   
-                  <div className="relative w-full h-full">
-                    <Image
-                      src="https://lannytourl.vestia.icu/api/file/69264e03ef0f1355a89d2013.png"
+                  <div className="relative w-full h-full">              
+                     <Image src="njabulo.jpg"
                       alt="Logo"
                       fill
                       className="object-cover scale-110"
