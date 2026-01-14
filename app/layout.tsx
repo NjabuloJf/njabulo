@@ -31,10 +31,10 @@ export default function RootLayout({
     <html lang="en" className="dark scroll-smooth-custom">
       <body className={`font-sans antialiased bg-background text-foreground`}>
         <video autoPlay muted loop id="bgVideo">
-          <source src="https://files.catbox.moe/375ppf.mp4" type="video/mp4" />
+          <source src="https://d.uguu.se/OVfmKHQY.mp4" type="video/mp4" />
         </video>
         <audio id="bgMusic" loop>
-          <source src="https://o.uguu.se/gRixKXyu.mp3" type="audio/mpeg" />
+          <source src="https://d.uguu.se/OVfmKHQY.mp4" type="audio/mpeg" />
         </audio>
         {children}
         <script
