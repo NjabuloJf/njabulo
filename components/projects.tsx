@@ -36,16 +36,6 @@ export default function Projects() {
       icon: Server,
       decorator: Database
     },
-    {
-      id: "2",
-      title: "GTR-XMD", 
-      description: "URL shortening service with analytics and custom alias features.",
-      tags: ["Next.js", "TypeScript", "PostgreSQL", "Redis"],
-      link: "https://lannytourl.vestia.icu/",
-      github: "https://github.com",
-      icon: Globe,
-      decorator: Zap
-    },
   ])
 
   const detectTechnologies = async (projectId: string, url: string, title: string) => {
@@ -189,14 +179,14 @@ export default function Projects() {
                         className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl hover:scale-105 transition-all duration-300 font-semibold text-sm group/visit"
                       >
                         <LinkIcon size={16} className="group-hover/visit:scale-110 transition-transform" />
-                        Visit Pair
+                        =>Visit Pair
                       </a>
                       <a
                         href={project.github}
                         className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-primary/50 text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 font-semibold text-sm hover:scale-105 group/code"
                       >
                         <Github size={16} className="group-hover/code:scale-110 transition-transform" />
-                        Social deploy 
+                        =>Hosting HEROKU
                       </a>
                     </div>
                   </div>
