@@ -9,7 +9,7 @@ export default function About() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showCursor, setShowCursor] = useState(true)
 
-  const fullText = "A passionate web developer with 3+ years of experience transforming ideas into stunning, high-performance digital experiences. Combining technical expertise with design thinking to create meaningful solutions."
+  const fullText = "Njabulo! & gtr-xmd That's a beautiful name. What's the bot's purpose? Customer support, entertainment, or something else? To get started, you'll need: 1. WhatsApp Business API 2. A programming language (e.g., Python, Node.js) 3. AI library (e.g., Dialogflow, Rasa) Some popular options for building WhatsApp bots include: 1. Twilio 2. Nexmo 3. ManyChat Topics nodejs javascript bot programming-language airflow google ai engine panel gpt herokuapp whatsapp-bot non-production metaai 2025 render-deployment."
 
   const experiences = [
     {
@@ -25,7 +25,7 @@ export default function About() {
       icon: Code2,
       title: "Full Stack Developer",
       company: "NOT COMPANY",
-      period: "2024 - 2025",
+      period: "2025 - 2026",
       description: "Developed 15+ client projects, optimized performance, and improved user experience metrics by 40%.",
       color: "border-l-accent",
     },
@@ -33,7 +33,7 @@ export default function About() {
       icon: Palette,
       title: "UI/UX Designer",
       company: "Design Studio",
-      period: "2023 - 2025",
+      period: "2024 - 2025",
       description:
         "Created design systems, prototypes, and visual guidelines for multiple brand identities and platforms.",
       color: "border-l-primary",
