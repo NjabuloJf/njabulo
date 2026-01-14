@@ -76,9 +76,8 @@ export default function Projects() {
               <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-primary via-primary/90 to-accent p-0.5 shadow-2xl">
                 <div className="w-full h-full rounded-full bg-background/95 backdrop-blur-sm flex items-center justify-center overflow-hidden border border-white/10">
                   <div className="relative w-full h-full">
-                    <Image
-                      src="https://lannytourl.vestia.icu/api/file/6926fa14fdcdd67351cb6d0c.jpg"
-                      alt="Projects Logo"
+                <Image src="njabulo.jpg"
+                    alt="Projects Logo"
                       fill
                       className="object-cover scale-110"
                       style={{ 
