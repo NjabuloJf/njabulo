@@ -92,8 +92,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1 space-y-4">
             <Link href="/" className="inline-flex items-center gap-2 group">
               <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center text-primary-foreground font-bold text-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 overflow-hidden">
-                <Image 
-                  src="https://files.catbox.moe/i95jc9.jpg" 
+               <Image src="njabulo.jpg"
                   alt="Logo" 
                   width={48} 
                   height={48}
